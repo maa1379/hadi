@@ -145,7 +145,7 @@ class InternalProductCreateView(View):
                 data[13],
                 data[14],
                 data[15],
-                data[16]
+     
             )
             value.save()
         return render(request, "product/add_internal.html")
@@ -226,7 +226,7 @@ class ExportalProductCreateView(View):
                 data[13],
                 data[14],
                 data[15],
-                data[16]
+             
             )
             value.save()
         return render(request, "product/add_exportal.html")
