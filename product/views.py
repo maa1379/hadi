@@ -123,6 +123,11 @@ class InternalProductCreateView(View):
         imported_data = dataset.load(new_internal.read(), format='xlsx')
         for data in imported_data:
             print(data[1])
+            print(data[2])
+            print(data[3])
+            print(data[4])
+            print(data[5])
+            print(data[6])
             value = InternalProduct(
                 data[0],
                 data[1],
