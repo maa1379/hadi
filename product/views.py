@@ -129,6 +129,7 @@ class InternalProductCreateView(View):
             print(data[5])
             print(data[6])
             value = InternalProduct(
+                data[0],
                 data[1],
                 data[2],
                 data[3],
@@ -144,6 +145,7 @@ class InternalProductCreateView(View):
                 data[13],
                 data[14],
                 data[15],
+                data[16]
             )
             value.save()
         return render(request, "product/add_internal.html")
