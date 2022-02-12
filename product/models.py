@@ -111,7 +111,7 @@ class InternalLogo(models.Model):
     photo = models.ImageField(upload_to="images")
     product=models.ForeignKey('InternalProduct', on_delete=models.CASCADE,related_name="image_internal_logo")
 
-class InternalLogo(models.Model):
+class ExportalLogo(models.Model):
     photo = models.ImageField(upload_to="images")
     product=models.ForeignKey('ExportalProduct', on_delete=models.CASCADE,related_name="image_exportal_logo")
 
