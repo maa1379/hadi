@@ -144,7 +144,7 @@ class InternalProductCreateView(View):
                 data[12],
                 data[13],
                 data[14],
-                data[15],
+                data[15]
      
             )
             value.save()
@@ -224,8 +224,10 @@ class ExportalProductCreateView(View):
             print(data[13])
             print(data[14])
             print(data[15])
+            print(data[16])
             print("*"*100)
             value = ExportalProduct(
+                data[0],
                 data[1],
                 data[2],
                 data[3],
@@ -241,6 +243,7 @@ class ExportalProductCreateView(View):
                 data[13],
                 data[14],
                 data[15],
+                data[16],
              
             )
             value.save()
