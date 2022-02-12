@@ -3,7 +3,7 @@ from .models import ExportalProduct, InternalProduct, ProductBase, Internal_Imag
 
 # Register your models here.
 
-admin.site.register(ExportalProduct,BookAdmin),
+admin.site.register(ExportalProduct),
 admin.site.register(InternalProduct),
 admin.site.register(ProductBase),
 admin.site.register(Internal_Image),
