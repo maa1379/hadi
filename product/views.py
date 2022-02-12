@@ -244,6 +244,7 @@ class ExportalProductCreateView(View):
                 data[14],
                 data[15],
                 data[16],
+                data[17]
              
             )
             value.save()
