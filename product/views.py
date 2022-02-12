@@ -226,7 +226,7 @@ class ExportalProductCreateView(View):
             print(data[15])
             print(data[16])
             print("*"*100)
-           ExportalProduct.objects.create(
+            ExportalProduct.objects.create(
            mine=data[1],stone_name=data[2],created=data[3],working_breast_code=data[4],serial_number_of_the_peak_in_the_mine=data[5],approximate_tonnage=data[6],unique_id=data[7],length=data[8],width=data[9],height=data[10],stair_code=data[11],buyer=data[12],grading_code=data[13],grading_code=data[14],code_Slate=data[15]  
             
    
