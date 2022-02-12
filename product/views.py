@@ -227,7 +227,7 @@ class ExportalProductCreateView(View):
             print(data[16])
             print("*"*100)
             value = ExportalProduct(
-                data[0],
+             
                 data[1],
                 data[2],
                 data[3],
