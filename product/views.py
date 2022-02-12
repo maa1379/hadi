@@ -129,7 +129,7 @@ class InternalProductCreateView(View):
             print(data[5])
             print(data[6])
             value = InternalProduct(
-              
+                data[0],
                 data[1],
                 data[2],
                 data[3],
@@ -223,8 +223,9 @@ class ExportalProductCreateView(View):
             print(data[13])
             print(data[14])
             print(data[15])
+            print("*"*100)
             value = ExportalProduct(
-          
+                data[0],
                 data[1],
                 data[2],
                 data[3],
