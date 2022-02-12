@@ -208,7 +208,7 @@ class ExportalProductCreateView(View):
         new_exportal = request.FILES['file']
         imported_data = dataset.load(new_exportal.read(), format='xlsx')
         for data in imported_data:
-            print(data[0])
+       
             print(data[1])
             print(data[2])
             print(data[3])
@@ -226,7 +226,6 @@ class ExportalProductCreateView(View):
             print(data[15])
             print("*"*100)
             value = ExportalProduct(
-                data[0],
                 data[1],
                 data[2],
                 data[3],
