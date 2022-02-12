@@ -129,7 +129,6 @@ class InternalProductCreateView(View):
             print(data[5])
             print(data[6])
             value = InternalProduct(
-                data[0],
                 data[1],
                 data[2],
                 data[3],
