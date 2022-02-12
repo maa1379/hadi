@@ -209,6 +209,20 @@ class ExportalProductCreateView(View):
         imported_data = dataset.load(new_exportal.read(), format='xlsx')
         for data in imported_data:
             print(data[1])
+            print(data[2])
+            print(data[3])
+            print(data[4])
+            print(data[5])
+            print(data[6])
+            print(data[7])
+            print(data[8])
+            print(data[9])
+            print(data[10])
+            print(data[11])
+            print(data[12])
+            print(data[13])
+            print(data[14])
+            print(data[15])
             value = ExportalProduct(
                 data[0],
                 data[1],
