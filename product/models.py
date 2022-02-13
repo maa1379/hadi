@@ -468,7 +468,7 @@ class InternalProduct(ProductBase):
         mine = self.mine
         uniqu_id = models.CharField(max_length=255, blank=True, null=True)
         self.unique_id = kode_sine_kar + kode_darage_bandi + '-' + shomareh_ghole + year + month + day + '-' +str(mine)
-        super(Internal, self).save(*args, **kwargs)
+        super(InternalProduct, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.stone_name
@@ -496,7 +496,7 @@ class ExportalProduct(ProductBase):
         darz = self.grading_code
         ghavareh = self.code_Slate
         self.unique_id = color + '-' + year[3] + month[5] + month[6] + goleh + '-' + darz + ghavareh
-        super(Exportal, self).save(*args, **kwargs)
+        super(ExportalProduct, self).save(*args, **kwargs)
 
 
     # Weight_of_scales = models.PositiveIntegerField(null=True,blank=True)
