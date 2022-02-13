@@ -20,6 +20,9 @@ class MineForm(forms.ModelForm):
             'image',
             'description',
             'address',
+            'summary',
+            'bold',
+            'sub_bold'
         )
         labels = {
             'name': "نام معدن",
@@ -35,5 +38,8 @@ class MineForm(forms.ModelForm):
             'village': "روستا",
             'image': "تصویر",
             'description': "توضیحات",
-            'address': "آدرس دقیق"
+            'address': "آدرس دقیق",
+            'summary':"خلاصه",
+            'bold':'متن بولد',
+            'sub_bold':'متن پایین'
         }
