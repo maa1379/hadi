@@ -191,33 +191,11 @@ class InternalProductCreateView(View):
         dataset = Dataset()
         new_internal = request.FILES['file']
         imported_data = dataset.load(new_internal.read(), format='xlsx')
-        for data in imported_data:
-            print(data[1])
-            print(data[2])
-            print(data[3])
-            print(data[4])
-            print(data[5])
-            print(data[6])
-            value = InternalProduct(
-                data[0],
-                data[1],
-                data[2],
-                data[3],
-                data[4],
-                data[5],
-                data[6],
-                data[7],
-                data[8],
-                data[9],
-                data[10],
-                data[11],
-                data[12],
-                data[13],
-                data[14],
-                data[15]
-     
-            )
-            value.save()
+           
+        result = internal_resource.import_data(dataset, dry_run=True)
+        if not result.has_errors():
+            internal_resource.import_data(dataset, dry_run=False)
+      
         return render(request, "product/add_internal.html")
 
 
