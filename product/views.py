@@ -328,7 +328,7 @@ class RejectedProductCreateView(View):
                 data[4],
                 data[5],
                 data[6],
-                data[7],
+               
             )
             value.save()
         return redirect("config:panel_home")
@@ -365,7 +365,7 @@ class LoadedProductCreateView(View):
                 data[4],
                 data[5],
                 data[6],
-                data[7],
+              
             )
             value.save()
         return redirect("config:panel_home")
