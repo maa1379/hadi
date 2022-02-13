@@ -9,7 +9,7 @@ from .views import  AllProductList,SearchView, InternalProductPanelList, \
 
 app_name = "product"
 urlpatterns = [
-    path("PartialPictureExportalCreateView/",PartialPictureExportalCreateView,name="partial_pic_create")
+    path("PartialPictureExportalCreateView/",PartialPictureExportalCreateView,name="partial_pic_create"),
     path("search/",SearchView.as_view(), name="search"),
     path("exportal_product_complete/",ExportalProductListCompleteView.as_view(), name="exportal_product_Complete"),
     path("special_product_complete/",SpecialOfferListComplete.as_view(), name="special_product_Complete"),
