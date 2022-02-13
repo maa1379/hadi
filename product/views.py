@@ -319,7 +319,15 @@ class RejectedProductCreateView(View):
         new_lined = request.FILES['file']
         imported_data = dataset.load(new_lined.read(), format='xlsx')
         for data in imported_data:
+            print(data[6])
             print(data[1])
+            print(data[2])
+            print(data[3])
+            print(data[4])
+            print(data[5])
+            print(data[6])
+
+            
             value = Rejected(
                 data[0],
                 data[1],
