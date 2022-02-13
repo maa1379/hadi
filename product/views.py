@@ -11,8 +11,6 @@ from django.db.models import Sum
 import random
 from django.db.models import Q
 from django.shortcuts import render, redirect
-from .forms import Y
-from .models import ImageModel,FileModel
 from django.http import HttpResponse
 from zipfile import ZipFile
 import os
