@@ -10,7 +10,15 @@ from .resources import Internal_Product_Resource, Exportal_Product_Resource, Int
 from django.db.models import Sum
 import random
 from django.db.models import Q
-
+from django.shortcuts import render, redirect
+from .forms import Y
+from .models import ImageModel,FileModel
+from django.http import HttpResponse
+from zipfile import ZipFile
+import os
+from pathlib import Path
+from django.core.files.base import ContentFile
+from django.core.files.images import ImageFile
 # Create your views here.
 
 class SpecialOfferList(View):
@@ -38,6 +46,69 @@ class SpecialOfferListComplete(View):
 #             "special_offer": ProductBase.objects.filter(is_special=True)[:3]
 #         }
 #         return render(request, "product/", context)
+
+
+def MainPictureInternalCreateView(request):
+    BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+    print(os.path.join(BASE_DIR, 'ali/file_dir'))
+    if request.method == "POST":
+        form = Y(request.POST, request.FILES)
+        if form.is_valid():
+            file = FileModel(file=form.cleaned_data["file"])
+            file.save()
+
+            return redirect("ali:test1")
+    else:
+        form = Y()
+    return render(request, "test.html", {"form": form})
+
+
+def MainPictureExportalCreateView(request):
+    BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+    print(os.path.join(BASE_DIR, 'ali/file_dir'))
+    if request.method == "POST":
+        form = Y(request.POST, request.FILES)
+        if form.is_valid():
+            file = FileModel(file=form.cleaned_data["file"])
+            file.save()
+
+            return redirect("ali:test1")
+    else:
+        form = Y()
+    return render(request, "test.html", {"form": form})
+
+
+
+def PartialPictureInternalCreateView(request):
+    BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+    print(os.path.join(BASE_DIR, 'ali/file_dir'))
+    if request.method == "POST":
+        form = Y(request.POST, request.FILES)
+        if form.is_valid():
+            file = FileModel(file=form.cleaned_data["file"])
+            file.save()
+
+            return redirect("ali:test1")
+    else:
+        form = Y()
+    return render(request, "test.html", {"form": form})
+
+
+def PartialPictureExportalCreateView(request):
+    BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+    print(os.path.join(BASE_DIR, 'ali/file_dir'))
+    if request.method == "POST":
+        form = Y(request.POST, request.FILES)
+        if form.is_valid():
+            file = FileModel(file=form.cleaned_data["file"])
+            file.save()
+
+            return redirect("ali:test1")
+    else:
+        form = Y()
+    return render(request, "test.html", {"form": form})
+
+
 
 
 class AllProductList(LoginRequiredMixin, View):
