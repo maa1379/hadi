@@ -522,6 +522,7 @@ class Loaded(models.Model):
 
 class LinedProduct(models.Model):
     line_number = models.CharField(max_length=125)
+    serial_number_of_the_peak_in_the_mine=models.CharField(max_length=125)
 
     def get_line_total(self):
         return InternalProduct.objects.filter(line_number=self.line_number).aggregate(Sum("approximate_tonnage"))
