@@ -91,7 +91,7 @@ class linedFile(models.Model):
                     )
                     saved_path = default_storage.save(path, ContentFile(data))
                 images = ImageLinedModel(photo=saved_path)
-                pic_name = str(self.images)
+                pic_name = str(images)
                 ali = pic_name.split('/')[1]
                 images.name=ali[:4]
                 images.save()
@@ -173,10 +173,7 @@ class InternalFileLogo(models.Model):
                         GALLERIES_UPLOAD_DIR, slug, str(name, errors="ignore")
                     )
                     saved_path = default_storage.save(path, ContentFile(data))
-                images = InternalLogo(photo=saved_path)
-                pic_name = str(self.images)
-                ali = pic_name.split('/')[1]
-                images.name=ali[:4]
+                images = InternalLogo(photo=saved_path)     
                 images.save()
             if delete_zip_import:
                 zip_file.close()
@@ -186,7 +183,16 @@ class InternalFileLogo(models.Model):
 
 class ExportalLogo(models.Model):
     photo = models.ImageField(upload_to="images")
-    product=models.ForeignKey('ExportalProduct', on_delete=models.CASCADE,related_name="image_exportal_logo")
+    product=models.ForeignKey('ExportalProduct', on_delete=models.CASCADE,related_name="image_exportal_logo",null=True,blank=True)
+    
+    
+#     def save(self,*args,**kwargs):
+#         pic_name = str(self.photo)
+#         ali = pic_name.split('/')[1]
+#         exportal=ExportalProduct.objects.get(serial_number_of_the_peak_in_the_mine=ali[:4])
+#         self.product=exportal
+#         return  super(ExportalLogo, self).save(*args, **kwargs)
+        
     
 class ExportalFileLogo(models.Model):
     file = models.FileField(upload_to="file/")
@@ -251,9 +257,6 @@ class ExportalFileLogo(models.Model):
                     )
                     saved_path = default_storage.save(path, ContentFile(data))
                 images = ExportalLogo(photo=saved_path)
-                pic_name = str(self.images)
-                ali = pic_name.split('/')[1]
-                images.name=ali[:4]
                 images.save()
             if delete_zip_import:
                 zip_file.close()
@@ -263,12 +266,12 @@ class ExportalFileLogo(models.Model):
 class ImageInternalModel(models.Model):
     photo = models.ImageField(upload_to="images")
     name=models.CharField(max_length=100,blank=True,null=True)
-    product=models.ForeignKey('InternalProduct', on_delete=models.CASCADE,related_name="image_internal")
+    product=models.ForeignKey('InternalProduct', on_delete=models.CASCADE,related_name="image_internal",null=True,blank=True)
     
-    def save(self, *args, **kwargs):
-        p=InternalProduct.objects.get(serial_number_of_the_peak_in_the_mine=name)
-        self.product=p
-        super(ImageInternalModel, self).save(*args, **kwargs)
+#     def save(self, *args, **kwargs):
+#         p=InternalProduct.objects.get(serial_number_of_the_peak_in_the_mine=name)
+#         self.product=p
+#         return   super(ImageInternalModel, self).save(*args, **kwargs)
     
     
     
@@ -335,7 +338,7 @@ class InternalFile(models.Model):
                     )
                     saved_path = default_storage.save(path, ContentFile(data))
                 images = ImageInternalModel(photo=saved_path)
-                pic_name = str(self.images)
+                pic_name = str(images)
                 ali = pic_name.split('/')[1]
                 images.name=ali[:4]
                 images.save()
@@ -349,10 +352,10 @@ class ImageExportalModel(models.Model):
     name=models.CharField(max_length=100,blank=True,null=True)
     product=models.ForeignKey('ExportalProduct', on_delete=models.CASCADE,related_name="image_exportal",null=True,blank=True)
     
-    def save(self, *args, **kwargs):
-        p=ExportalProduct.objects.get(serial_number_of_the_peak_in_the_mine=name)
-        self.product=p
-        super(ImageExportalModel, self).save(*args, **kwargs)
+#     def save(self, *args, **kwargs):
+#         p=ExportalProduct.objects.get(serial_number_of_the_peak_in_the_mine=name)
+#         self.product=p
+#         return  super(ImageExportalModel, self).save(*args, **kwargs)
     
     
     
@@ -424,7 +427,7 @@ class ExportalFile(models.Model):
                     )
                     saved_path = default_storage.save(path, ContentFile(data))
                 images = ImageExportalModel(photo=saved_path)
-                name = str(self.images)
+                name = str(images)
                 ali = name.split('/')[1]
                 images.name=ali[:4]
                 images.save()
@@ -445,7 +448,7 @@ class ProductBase(models.Model):
     serial_number_of_the_peak_in_the_mine = models.CharField(max_length=125)
     add = models.DateField(auto_now_add=True)
     approximate_tonnage = models.PositiveIntegerField()
-    unique_id = models.CharField(max_length=255)
+    unique_id = models.CharField(max_length=255,null=True,blank=True)
     is_special = models.BooleanField(default=False)
     length = models.PositiveIntegerField(null=True,blank=True)
     width = models.PositiveIntegerField(null=True,blank=True)
@@ -466,9 +469,8 @@ class InternalProduct(ProductBase):
         month = str(self.created)[5:7]
         day = str(self.created)[8::]
         mine = self.mine
-        uniqu_id = models.CharField(max_length=255, blank=True, null=True)
         self.unique_id = kode_sine_kar + kode_darage_bandi + '-' + shomareh_ghole + year + month + day + '-' +str(mine)
-        super(InternalProduct, self).save(*args, **kwargs)
+        return super(InternalProduct, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.stone_name
@@ -489,14 +491,14 @@ class ExportalProduct(ProductBase):
         return exportal
     
     def save(self, *args, **kwargs):
-        color = self.color_code
-        year = str(self.created)
-        month = str(self.created)
-        goleh = self.serial_number_of_the_peak_in_the_mine
-        darz = self.grading_code
-        ghavareh = self.code_Slate
-        self.unique_id = color + '-' + year[3] + month[5] + month[6] + goleh + '-' + darz + ghavareh
-        super(ExportalProduct, self).save(*args, **kwargs)
+        color = str(self.color_code)
+        year = str(self.created)[3]
+        month = str(self.created)[5:7]
+        goleh = str(self.serial_number_of_the_peak_in_the_mine)
+        darz = str(self.grading_code)
+        ghavareh = str(self.code_Slate)
+        self.unique_id = color + '-' + year + month +  goleh + '-' + darz + ghavareh
+        return  super(ExportalProduct, self).save(*args, **kwargs)
 
 
     # Weight_of_scales = models.PositiveIntegerField(null=True,blank=True)

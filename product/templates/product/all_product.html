@@ -176,7 +176,7 @@
                 {% for ex in exportal %}
                     <div class="col-md-6 col-lg-3 col-sm-6 m-b30">
                         <div class="dez-box fly-box" style="margin: -10px;">
-                            {% for ia in ex.image.all %}
+                            {% for ia in ex.image_exportal_logo.all %}
                                 {% if forloop.counter < 2 %}
                                     <div class="dez-media"><a
                                             href="{% url "product:exportal_product_detail" ex.id %}"><img

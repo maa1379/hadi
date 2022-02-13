@@ -2,38 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c3d40b13-f103-445d-ac55-681ad5f18ea2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Madan.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demand/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demand/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mine/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/mine/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mine/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mine/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mine/templates/mine/mine_create.html" beforeDir="false" afterPath="$PROJECT_DIR$/mine/templates/mine/mine_create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Madan/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Madan/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/account/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/account/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/templates/account/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/account/templates/account/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/templates/account/wish_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/account/templates/account/wish_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/templates/blog/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/blog/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/templates/config/site_home.html" beforeDir="false" afterPath="$PROJECT_DIR$/config/templates/config/site_home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demand/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/demand/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mine/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/mine/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mine/templates/mine/mine_site_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/mine/templates/mine/mine_site_list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/migrations/0001_initial.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product/templates/product/add_exportal.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/product/add_exportal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/templates/product/add_internal.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/product/add_internal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/templates/product/create_lined.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/product/create_lined.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/templates/product/loaded_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/product/loaded_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/templates/product/rejected_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/product/rejected_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/templates/product/all_product.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/product/all_product.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/templates/product/exportal_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/product/exportal_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/templates/product/exportal_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/product/exportal_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/templates/product/exportal_list_complete.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/product/exportal_list_complete.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/templates/product/special_offer_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/product/special_offer_list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requiremrnts.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requiremrnts.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/panel/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/panel/navbar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +87,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1644737835196</updated>
-      <workItem from="1644737839554" duration="643000" />
+      <workItem from="1644737839554" duration="747000" />
+      <workItem from="1644773814240" duration="2637000" />
     </task>
     <servers />
   </component>

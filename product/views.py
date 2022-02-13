@@ -3,7 +3,8 @@ from tablib import Dataset
 from .filters import ProductFilter, LoadedFilter, DomesticFilter, ExportalFilter
 from django.views.generic import ListView, View, DetailView
 from .models import ExportalProduct, InternalProduct, LinedProduct, ProductBase, Rejected, Loaded, Internal_Image, \
-    Exportal_Image
+    Exportal_Image ,ExportalLogo,ExportalFileLogo
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .resources import Internal_Product_Resource, Exportal_Product_Resource, Internal_Product_Image_Resource, \
     Exportal_Product_Image_Resource, Lined_Product_Resource, Loaded_Product_Resource,Rejected_Product_Resource
@@ -17,7 +18,7 @@ import os
 from pathlib import Path
 from django.core.files.base import ContentFile
 from django.core.files.images import ImageFile
-from .forms import ExportalFileForm
+from .forms import ExportalFileForm,ExportalFileLogoForm
 # Create your views here.
 
 class SpecialOfferList(View):
@@ -47,6 +48,18 @@ class SpecialOfferListComplete(View):
 #         return render(request, "product/", context)
 
 
+def MainPictureExportalCreateView(request):
+    if request.method == "POST":
+        BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+        print(os.path.join(BASE_DIR, 'ali/file_dir'))
+        form = ExportalFileLogoForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = ExportalFileLogo(file=form.cleaned_data["file"])
+            file.save()
+            return redirect("config:panel_home")
+
+
+
 def MainPictureInternalCreateView(request):
     BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
     print(os.path.join(BASE_DIR, 'ali/file_dir'))
@@ -63,18 +76,14 @@ def MainPictureInternalCreateView(request):
 
 
 def MainPictureExportalCreateView(request):
-    BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
-    print(os.path.join(BASE_DIR, 'ali/file_dir'))
     if request.method == "POST":
-        form = ExportalFileForm(request.POST, request.FILES)
+        BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+        print(os.path.join(BASE_DIR, 'ali/file_dir'))
+        form = ExportalFileLogoForm(request.POST, request.FILES)
         if form.is_valid():
-            file = FileModel(file=form.cleaned_data["file"])
+            file = ExportalFileLogo(file=form.cleaned_data["file"])
             file.save()
-
-            return redirect("ali:test1")
-    else:
-        form = ExportalFileForm()
-    return render(request, "test.html", {"form": form})
+            return redirect("config:panel_home")
 
 
 
@@ -229,7 +238,7 @@ class ExportalProductPanelList(LoginRequiredMixin, ListView):
 
 
 class ExportalProductListView(LoginRequiredMixin, ListView):
-    model = ExportalProduct
+    queryset = ExportalProduct.objects.all()[:21]
     template_name = "product/exportal_list.html"
 
 class ExportalProductListCompleteView(LoginRequiredMixin, ListView):
@@ -282,7 +291,7 @@ class ExportalImage(View):
 # Lined
 class LinedProductList(ListView):
     model = LinedProduct
-    template_name = "product/"
+    template_name = "product/line_list.html"
 
 
 class LinedProductPanelList(ListView):
@@ -300,7 +309,7 @@ class LinedProductDetail(DetailView):
 class LinedProductCreateView(View):
 
     def get(self, request):
-        return render(request, "product/")
+        return render(request, "product/create_lined.html")
 
     def post(request):
         lined_resource = Lined_Product_Resource()

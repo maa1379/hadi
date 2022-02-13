@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import  AllProductList,SearchView, InternalProductPanelList, \
+from .views import  AllProductList,SearchView,MainPictureExportalCreateView, InternalProductPanelList, \
     InternalProductDetail, PartialPictureExportalCreateView ,InternalProductCreateView, ExportalProductPanelList, \
     ExportalProductListView, ExportalProductDetail, ExportalProductCreateView, \
     LinedProductList, LinedProductPanelList, LinedProductDetail, LinedProductCreateView, \
@@ -9,6 +9,7 @@ from .views import  AllProductList,SearchView, InternalProductPanelList, \
 
 app_name = "product"
 urlpatterns = [
+    path("exportal_logo/",MainPictureExportalCreateView,name="exportal_logo"),
     path("PartialPictureExportalCreateView/",PartialPictureExportalCreateView,name="partial_pic_create"),
     path("search/",SearchView.as_view(), name="search"),
     path("exportal_product_complete/",ExportalProductListCompleteView.as_view(), name="exportal_product_Complete"),

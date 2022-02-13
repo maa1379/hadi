@@ -184,13 +184,13 @@
                             <div class="carousel-item  act-{{ forloop.counter }}" style="text-align: center">
                                 {% for sliderimage in obj.image.all %}
                                 {% if forloop.counter < 2 %}
-                                 
+
                                                                <img src="{{ sliderimage.photo.url }}" alt="Los Angeles"
                                      style="max-width: 75%;height: 550px;">
-    \
 
 
-                          
+
+
                                 {% endif %}
                                 {% endfor %}
                                 <div class="carousel-caption "
@@ -232,7 +232,7 @@
 
 <!-- Content area -->
 <div class="section-full content-inner overlay-white-dark"
-     style="background-image:url(images/bgprofile3.jpg);margin-top: -80px; background-attachment:fixed">
+     style="background-image:url({% static 'images/bgprofile3.jpg' %});margin-top: -80px; background-attachment:fixed">
     <!-- special offer -->
     <div class="container-fluid p-l90 p-r90">
         <div class="section-head text-left" style="margin-right: 30px">
@@ -245,10 +245,10 @@
                 <div class="dez-box fly-box" style="margin: -10px;">
                     {% for m in pro.image.all %}
                     {% if forloop.counter < 2 %}
-                                                
-         
-            
-                      {% thumbnail m.photo "600x600" as test %}                        
+
+
+
+                      {% thumbnail m.photo "600x600" as test %}
                     <div class="dez-media"><a
                             href="{% url "product:exportal_product_detail" pro.pk %}"><img src="{{ test.url }}" class="card-img-top"></a>
                     </div>
@@ -286,7 +286,7 @@
                                 <li>ابعاد</li>
                                 <li>معدن</li>
                                 <li>وزن تقریبی</li>
-                           
+
                             </ul>
                         </div>
                         <div class="col-6 ">
@@ -295,7 +295,7 @@
                                 <li>{{ pro.width }}*{{ pro.length }}*{{ pro.height }}</li>
                                 <li>{{ pro.mine.province }}</li>
                                 <li>{{ pro.approximate_tonnage }}</li>
-                              
+
                             </ul>
                         </div>
                     </div>
@@ -327,36 +327,41 @@
             </div>
         </div>
     </div>
-    <!-- special offer END-->
-    <!-- export -->
+
+
     <div class="container-fluid p-l90 p-r90">
         <div class="section-head text-left" style="margin-right: 30px">
             <p class="text-uppercase font-weight-400 text-dark" style="font-size: x-large">صادراتی</p>
             <div class="clear"></div>
         </div>
         <div class="row">
-            {% for items in exportal %}
+           {% for items in exportal %}
             <div class="col-md-12 col-lg-4 col-sm-12 m-b30">
                 <div class="dez-box fly-box" style="margin: -10px;">
-                    {% for o in items.image.all %}
+                    {% for m in items.image.all %}
                     {% if forloop.counter < 2 %}
-                     {% thumbnail o.photo "300x300" as test1 %}                        
+
+
+
+                      {% thumbnail m.photo "600x600" as test %}
                     <div class="dez-media"><a
-                            href="{% url "product:exportal_product_detail" items.pk %}"><img src="{{ test1.url }}" class="card-img-top"></a>
+                            href="{% url "product:exportal_product_detail" items.pk %}"><img src="{{ test.url }}" class="card-img-top"></a>
                     </div>
                 {% endthumbnail %}
-                           {% endif %}
+                    {% endif %}
                     {% endfor %}
-                    </div>
-              
-       
                     <div class="dez-info p-10 row text-center m-auto"
                          style="background-color: #1D1D1F">
-                        <div class="col-lg-6 text-left" style="margin-top: auto"><a
-                                href="javascript:void(0);"
-                                style="font-size: large"
-                                class="fa fa-share-alt text-white "></a>
-                        </div>
+                        <div id="box" class="col-lg-6 text-left" style="margin-top: auto">
+                                    </a>
+                                    <div id="foo">
+                                        <i class="fa fa-share-alt text-white" style="font-size: large"></i>
+                                        <a href="" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-telegram"></i></a>
+                                        <a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-whatsapp"></i></a>
+                                        <a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-linkedin"></i></a>
+                                        <a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-envelope"></i></a>
+                                    </div>
+                                </div>
                         <div class="col-lg-6 text-right" style="font-size: larger"><a class="text-white">درجه
                             بندی :</a><a class="font-weight-600 text-white"
                                          href="{% url "blog:blog_list" %}"> {{ items.grading_code }}</a>
@@ -364,7 +369,7 @@
                     </div>
                     <div class="dez-info bg-white text-center m-auto row ">
                         <div class="col-lg-12 font-weight-bold "><a href="javascript:void(0);"
-                                                                    style="color: #333;font-size: large">{{items.stone_name }}
+                                                                    style="color: #333;font-size: large">{{pro.stone_name }}
                         </a></div>
                     </div>
 
@@ -376,7 +381,7 @@
                                 <li>ابعاد</li>
                                 <li>معدن</li>
                                 <li>وزن تقریبی</li>
-                         
+
                             </ul>
                         </div>
                         <div class="col-6 ">
@@ -385,7 +390,7 @@
                                 <li>{{ items.width }}*{{ items.length }}*{{ items.height }}</li>
                                 <li>{{ items.mine.province }}</li>
                                 <li>{{ items.approximate_tonnage }}</li>
-                          
+
                             </ul>
                         </div>
                     </div>
@@ -406,7 +411,7 @@
                 </div>
             </div>
             {% empty %}
-            <h1 class="text-center">هیچ محصول صادراتی موجود نیست</h1>
+            <h1 class="text-center">هیچ پیشنهاد ویؤه ای موجود نیست موجود نیست</h1>
             {% endfor %}
         </div>
         <div class="row">
@@ -417,6 +422,10 @@
             </div>
         </div>
     </div>
+
+
+
+
     <!-- export END-->
     <!-- lined in the mine -->
     <div class="container-fluid p-l90 p-r90">
@@ -499,7 +508,7 @@
     <!-- lined in the mine END-->
 </div>
 <!-- Content area END-->
-</div>
+
 <!-- Content END-->
 <!-- Footer -->
 <!-- Modal -->
