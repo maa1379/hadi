@@ -7,11 +7,15 @@ from import_export.admin import ImportExportModelAdmin
 @admin.register(Rejected)
 class PersonAdmin(ImportExportModelAdmin):
     pass
+
+@admin.register(Loaded)
+class PersonAdmin(ImportExportModelAdmin):
+    pass
 admin.site.register(ExportalProduct),
 admin.site.register(InternalProduct),
 admin.site.register(ProductBase),
 admin.site.register(Internal_Image),
 admin.site.register(Exportal_Image),
-admin.site.register(Loaded),
+# admin.site.register(Loaded),
 admin.site.register(LinedProduct),
 # admin.site.register(Rejected),
