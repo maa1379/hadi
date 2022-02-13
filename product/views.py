@@ -307,13 +307,10 @@ class LinedProductCreateView(View):
         dataset = Dataset()
         new_lined = request.FILES['file']
         imported_data = dataset.load(new_lined.read(), format='xlsx')
-        for data in imported_data:
-            print(data[1])
-            value = LinedProduct(
-                data[0],
-            )
-            value.save()
-        return render(request, "")
+        result = lined_resource.import_data(dataset, dry_run=True)
+        if not result.has_errors():
+            lined_resource.import_data(dataset, dry_run=False)
+        return render(request, "product/create_lined.html")
 
 
 # REJECTED
@@ -379,18 +376,10 @@ class LoadedProductCreateView(View):
         dataset = Dataset()
         new_loaded = request.FILES['myfile']
         imported_data = dataset.load(new_loaded.read(), format='xlsx')
-        for data in imported_data:
-            print(data[1])
-            value = Loaded(
-                data[0],
-                data[1],
-                data[2],
-                data[3],
-                data[4],
-                data[5],
-                data[6]
-            )
-            value.save()
+        result = loaded_resource.import_data(dataset, dry_run=True)
+        if not result.has_errors():
+            loaded_resource.import_data(dataset, dry_run=False)
+      
         return redirect("config:panel_home")
 
 
