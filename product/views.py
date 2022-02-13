@@ -327,7 +327,7 @@ class RejectedProductCreateView(View):
                 data[3],
                 data[4],
                 data[5],
-                data[6],
+            
                
             )
             value.save()
@@ -364,7 +364,7 @@ class LoadedProductCreateView(View):
                 data[3],
                 data[4],
                 data[5],
-                data[6],
+               
               
             )
             value.save()
