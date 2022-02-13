@@ -317,7 +317,7 @@ def RejectedProductCreateView(request):
         rejected_resource = Rejected_Product_Resource()
         dataset = Dataset()
         new_lined = request.FILES['file']
-        imported_data = dataset.load(new_lined.read(), format='xlsx')
+        imported_data = dataset.load(new_lined.read())
         result = rejected_resource.import_data(dataset, dry_run=True)
         if not result.has_errors():
             rejected_resource.import_data(dataset, dry_run=False)
@@ -377,8 +377,6 @@ class LoadedProductCreateView(View):
                 data[4],
                 data[5],
                 data[6]
-        
-              
             )
             value.save()
         return redirect("config:panel_home")
