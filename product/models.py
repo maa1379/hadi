@@ -456,7 +456,7 @@ class ProductBase(models.Model):
 
 
 class InternalProduct(ProductBase):
-    product_name=models.CharField(max_length=25,null=True,blank=True)
+    pass
     
     def save(self, *args, **kwargs):
         kode_sine_kar = self.working_breast_code
@@ -488,7 +488,7 @@ class ExportalProduct(ProductBase):
                                                   code_Slate=self.code_Slate).count()
         return exportal
     
-        def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):
         color = self.color_code
         year = str(self.created)
         month = str(self.created)
