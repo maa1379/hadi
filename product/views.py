@@ -198,6 +198,9 @@ class ExportalProductDetail(DetailView):
 
 
 class ExportalProductCreateView(View):
+    
+    def get(self,request):
+        return render(request, "product/add_exportal.html")
 
     def post(self, request):
         internal_resource = Exportal_Product_Resource()
