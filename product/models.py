@@ -110,10 +110,154 @@ class linedFile(models.Model):
 class InternalLogo(models.Model):
     photo = models.ImageField(upload_to="images")
     product=models.ForeignKey('InternalProduct', on_delete=models.CASCADE,related_name="image_internal_logo")
+    
+class InternalFileLogo(models.Model):
+    file = models.FileField(upload_to="file/")
+
+    def save(self, delete_zip_import=True, *args, **kwargs):
+        """
+        If a zip file is uploaded, extract any images from it and add
+        them to the gallery, before removing the zip file.
+        """
+        super().save(*args, **kwargs)
+        if self.file:
+            zip_file = ZipFile(self.file)
+            for name in zip_file.namelist():
+                data = zip_file.read(name)
+                try:
+                    from PIL import Image
+                    image = Image.open(BytesIO(data))
+                    image.load()
+                    image = Image.open(BytesIO(data))
+                    image.verify()
+                except ImportError:
+                    pass
+                except:  # noqa
+                    continue
+                name = os.path.split(name)[1]
+
+                # In python3, name is a string. Convert it to bytes.
+                if not isinstance(name, bytes):
+                    try:
+                        name = name.encode("cp437")
+                    except UnicodeEncodeError:
+                        # File name includes characters that aren't in cp437,
+                        # which isn't supported by most zip tooling. They will
+                        # not appear correctly.
+                        tempname = name
+
+                # Decode byte-name.
+                if isinstance(name, bytes):
+                    encoding = charsetdetect(name)["encoding"]
+                    tempname = name.decode(encoding)
+
+                # to / on disk; see os.path.join docs.
+                path = os.path.join(GALLERIES_UPLOAD_DIR, tempname)
+                try:
+                    saved_path = default_storage.save(path, ContentFile(data))
+                except UnicodeEncodeError:
+                    from warnings import warn
+
+                    warn(
+                        "A file was saved that contains unicode "
+                        "characters in its path, but somehow the current "
+                        "locale does not support utf-8. You may need to set "
+                        "'LC_ALL' to a correct value, eg: 'en_US.UTF-8'."
+                    )
+                    # The native() call is needed here around str because
+                    # os.path.join() in Python 2.x (in posixpath.py)
+                    # mixes byte-strings with unicode strings without
+                    # explicit conversion, which raises a TypeError as it
+                    # would on Python 3.
+                    path = os.path.join(
+                        GALLERIES_UPLOAD_DIR, slug, str(name, errors="ignore")
+                    )
+                    saved_path = default_storage.save(path, ContentFile(data))
+                images = InternalLogo(photo=saved_path)
+                pic_name = str(self.images)
+                ali = pic_name.split('/')[1]
+                images.name=ali[:4]
+                images.save()
+            if delete_zip_import:
+                zip_file.close()
+                self.file.delete(save=True)    
+    
+    
 
 class ExportalLogo(models.Model):
     photo = models.ImageField(upload_to="images")
     product=models.ForeignKey('ExportalProduct', on_delete=models.CASCADE,related_name="image_exportal_logo")
+    
+class ExportalFileLogo(models.Model):
+    file = models.FileField(upload_to="file/")
+
+    def save(self, delete_zip_import=True, *args, **kwargs):
+        """
+        If a zip file is uploaded, extract any images from it and add
+        them to the gallery, before removing the zip file.
+        """
+        super().save(*args, **kwargs)
+        if self.file:
+            zip_file = ZipFile(self.file)
+            for name in zip_file.namelist():
+                data = zip_file.read(name)
+                try:
+                    from PIL import Image
+                    image = Image.open(BytesIO(data))
+                    image.load()
+                    image = Image.open(BytesIO(data))
+                    image.verify()
+                except ImportError:
+                    pass
+                except:  # noqa
+                    continue
+                name = os.path.split(name)[1]
+
+                # In python3, name is a string. Convert it to bytes.
+                if not isinstance(name, bytes):
+                    try:
+                        name = name.encode("cp437")
+                    except UnicodeEncodeError:
+                        # File name includes characters that aren't in cp437,
+                        # which isn't supported by most zip tooling. They will
+                        # not appear correctly.
+                        tempname = name
+
+                # Decode byte-name.
+                if isinstance(name, bytes):
+                    encoding = charsetdetect(name)["encoding"]
+                    tempname = name.decode(encoding)
+
+                # to / on disk; see os.path.join docs.
+                path = os.path.join(GALLERIES_UPLOAD_DIR, tempname)
+                try:
+                    saved_path = default_storage.save(path, ContentFile(data))
+                except UnicodeEncodeError:
+                    from warnings import warn
+
+                    warn(
+                        "A file was saved that contains unicode "
+                        "characters in its path, but somehow the current "
+                        "locale does not support utf-8. You may need to set "
+                        "'LC_ALL' to a correct value, eg: 'en_US.UTF-8'."
+                    )
+                    # The native() call is needed here around str because
+                    # os.path.join() in Python 2.x (in posixpath.py)
+                    # mixes byte-strings with unicode strings without
+                    # explicit conversion, which raises a TypeError as it
+                    # would on Python 3.
+                    path = os.path.join(
+                        GALLERIES_UPLOAD_DIR, slug, str(name, errors="ignore")
+                    )
+                    saved_path = default_storage.save(path, ContentFile(data))
+                images = ExportalLogo(photo=saved_path)
+                pic_name = str(self.images)
+                ali = pic_name.split('/')[1]
+                images.name=ali[:4]
+                images.save()
+            if delete_zip_import:
+                zip_file.close()
+                self.file.delete(save=True)        
 
     
 class ImageInternalModel(models.Model):
@@ -203,7 +347,7 @@ class InternalFile(models.Model):
 class ImageExportalModel(models.Model):
     photo = models.ImageField(upload_to="images")
     name=models.CharField(max_length=100,blank=True,null=True)
-    product=models.ForeignKey('ExportalProduct', on_delete=models.CASCADE,related_name="image_exportal")
+    product=models.ForeignKey('ExportalProduct', on_delete=models.CASCADE,related_name="image_exportal",null=True,blank=True)
     
     def save(self, *args, **kwargs):
         p=ExportalProduct.objects.get(serial_number_of_the_peak_in_the_mine=name)
@@ -312,11 +456,19 @@ class ProductBase(models.Model):
 
 
 class InternalProduct(ProductBase):
-#     lined = models.BooleanField(default=False)
     product_name=models.CharField(max_length=25,null=True,blank=True)
-
-    def get_first_image(self):
-        return self.image.first()
+    
+      def save(self, *args, **kwargs):
+        kode_sine_kar = self.working_breast_code
+        kode_darage_bandi = self.grading_code
+        shomareh_ghole = self.serial_number_of_the_peak_in_the_mine
+        year = str(self.created)[3]
+        month = str(self.created)[5:7]
+        day = str(self.created)[8::]
+        mine = self.mine
+        uniqu_id = models.CharField(max_length=255, blank=True, null=True)
+        self.unique_id = kode_sine_kar + kode_darage_bandi + '-' + shomareh_ghole + year + month + day + '-' + mine
+        super(Internal, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.stone_name
@@ -335,6 +487,17 @@ class ExportalProduct(ProductBase):
         exportal = ExportalProduct.objects.filter(grading_code=self.grading_code, color_code=self.color_code,
                                                   code_Slate=self.code_Slate).count()
         return exportal
+    
+        def save(self, *args, **kwargs):
+        color = self.color_code
+        year = str(self.created)
+        month = str(self.created)
+        goleh = self.serial_number_of_the_peak_in_the_mine
+        darz = self.grading_code
+        ghavareh = self.code_Slate
+        self.unique_id = color + '-' + year[3] + month[5] + month[6] + goleh + '-' + darz + ghavareh
+        super(Exportal, self).save(*args, **kwargs)
+
 
     # Weight_of_scales = models.PositiveIntegerField(null=True,blank=True)
 
