@@ -199,54 +199,15 @@ class ExportalProductDetail(DetailView):
 
 class ExportalProductCreateView(View):
 
-    def get(self, request):
-        return render(request, "product/add_exportal.html")
-
     def post(self, request):
         internal_resource = Exportal_Product_Resource()
         dataset = Dataset()
         new_exportal = request.FILES['file']
         imported_data = dataset.load(new_exportal.read(), format='xlsx')
-        for data in imported_data:
-            print(data[0])
-            print(data[1])
-            print(data[2])
-            print(data[3])
-            print(data[4])
-            print(data[5])
-            print(data[6])
-            print(data[7])
-            print(data[8])
-            print(data[9])
-            print(data[10])
-            print(data[11])
-            print(data[12])
-            print(data[13])
-            print(data[14])
-            print(data[15])
-            print(data[16])
-            print("*"*100)
-            value = ExportalProduct(
-             
-                data[1],
-                data[2],
-                data[3],
-                data[4],
-                data[5],
-                data[6],
-                data[7],
-                data[8],
-                data[9],
-                data[10],
-                data[11],
-                data[12],
-                data[13],
-                data[14],
-                data[15],
-                data[16]
-            )
-            value.save()
-           
+        result = rejected_resource.import_data(dataset, dry_run=True)
+        if not result.has_errors():
+            rejected_resource.import_data(dataset, dry_run=False)
+    
         return render(request, "product/add_exportal.html")
 
 
