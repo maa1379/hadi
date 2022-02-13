@@ -467,7 +467,7 @@ class InternalProduct(ProductBase):
         day = str(self.created)[8::]
         mine = self.mine
         uniqu_id = models.CharField(max_length=255, blank=True, null=True)
-        self.unique_id = kode_sine_kar + kode_darage_bandi + '-' + shomareh_ghole + year + month + day + '-' + mine
+        self.unique_id = kode_sine_kar + kode_darage_bandi + '-' + shomareh_ghole + year + month + day + '-' +str(mine)
         super(Internal, self).save(*args, **kwargs)
 
     def __str__(self):
