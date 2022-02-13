@@ -311,9 +311,9 @@ class RejectedProductList(ListView):
     template_name = "product/rejected_list.html"
 
 
-class RejectedProductCreateView(View):
+def RejectedProductCreateView(request):
 
-    def post(self, request):
+     if request.method == 'POST':
         rejected_resource = Rejected_Product_Resource()
         dataset = Dataset()
         new_lined = request.FILES['file']
@@ -321,6 +321,8 @@ class RejectedProductCreateView(View):
         result = rejected_resource.import_data(dataset, dry_run=True)
         if not result.has_errors():
             rejected_resource.import_data(dataset, dry_run=False)
+            
+            
 #         for data in imported_data:
 #             print(data[0])
 #             print(data[1])
