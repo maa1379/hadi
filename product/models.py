@@ -458,7 +458,7 @@ class ProductBase(models.Model):
 class InternalProduct(ProductBase):
     product_name=models.CharField(max_length=25,null=True,blank=True)
     
-      def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):
         kode_sine_kar = self.working_breast_code
         kode_darage_bandi = self.grading_code
         shomareh_ghole = self.serial_number_of_the_peak_in_the_mine
