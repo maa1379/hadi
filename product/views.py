@@ -319,6 +319,8 @@ class RejectedProductCreateView(View):
         new_lined = request.FILES['file']
         imported_data = dataset.load(new_lined.read(), format='xlsx')
         result = rejected_resource.import_data(dataset, dry_run=True)
+        if not result.has_errors():
+            rejected_resource.import_data(dataset, dry_run=False)
 #         for data in imported_data:
 #             print(data[0])
 #             print(data[1])
