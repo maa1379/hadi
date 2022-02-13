@@ -19,6 +19,7 @@ import os
 from pathlib import Path
 from django.core.files.base import ContentFile
 from django.core.files.images import ImageFile
+from .forms import ExportalFileForm
 # Create your views here.
 
 class SpecialOfferList(View):
@@ -98,14 +99,14 @@ def PartialPictureExportalCreateView(request):
     BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
     print(os.path.join(BASE_DIR, 'ali/file_dir'))
     if request.method == "POST":
-        form = Y(request.POST, request.FILES)
+        form = ExportalFileForm(request.POST, request.FILES)
         if form.is_valid():
             file = FileModel(file=form.cleaned_data["file"])
             file.save()
 
-            return redirect("ali:test1")
+            return redirect("config:home_site")
     else:
-        form = Y()
+        form = ExportalFileForm()
     return render(request, "test.html", {"form": form})
 
 
