@@ -319,7 +319,7 @@ class RejectedProductCreateView(View):
         new_lined = request.FILES['file']
         imported_data = dataset.load(new_lined.read(), format='xlsx')
         for data in imported_data:
-            print(data[6])
+            print(data[0])
             print(data[1])
             print(data[2])
             print(data[3])
@@ -336,8 +336,6 @@ class RejectedProductCreateView(View):
                 data[4],
                 data[5],
                 data[6]
-            
-               
             )
             value.save()
         return redirect("config:panel_home")
@@ -374,7 +372,7 @@ class LoadedProductCreateView(View):
                 data[4],
                 data[5],
                 data[6]
-               
+        
               
             )
             value.save()
