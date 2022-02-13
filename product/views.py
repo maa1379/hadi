@@ -207,9 +207,9 @@ class ExportalProductCreateView(View):
         dataset = Dataset()
         new_exportal = request.FILES['file']
         imported_data = dataset.load(new_exportal.read(), format='xlsx')
-        result = rejected_resource.import_data(dataset, dry_run=True)
+        result = internal_resource.import_data(dataset, dry_run=True)
         if not result.has_errors():
-            rejected_resource.import_data(dataset, dry_run=False)
+            internal_resource.import_data(dataset, dry_run=False)
     
         return render(request, "product/add_exportal.html")
 
