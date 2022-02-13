@@ -6,7 +6,7 @@ from .models import ExportalProduct, InternalProduct, LinedProduct, ProductBase,
     Exportal_Image
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .resources import Internal_Product_Resource, Exportal_Product_Resource, Internal_Product_Image_Resource, \
-    Exportal_Product_Image_Resource, Lined_Product_Resource, Loaded_Product_Resource
+    Exportal_Product_Image_Resource, Lined_Product_Resource, Loaded_Product_Resource,Rejected_Product_Resource
 from django.db.models import Sum
 import random
 from django.db.models import Q
@@ -314,11 +314,11 @@ class RejectedProductList(ListView):
 class RejectedProductCreateView(View):
 
     def post(self, request):
-        lined_resource = Lined_Product_Resource()
+        rejected_resource = Rejected_Product_Resource()
         dataset = Dataset()
         new_lined = request.FILES['file']
         imported_data = dataset.load(new_lined.read(), format='xlsx')
-        result = person_resource.import_data(dataset, dry_run=True)
+        result = rejected_resource.import_data(dataset, dry_run=True)
 #         for data in imported_data:
 #             print(data[0])
 #             print(data[1])
