@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'captcha',
     'widget_tweaks',
     'sorl.thumbnail',
+    'django_social_share',
 
 
 ]
@@ -147,7 +148,7 @@ MEDIA_ROOT = BASE_DIR / "static_cdn" / "media"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "account.User"
-
+#
 DEFAULT_FILE_STORAGE = "minio_storage.storage.MinioMediaStorage"
 STATICFILES_STORAGE = "minio_storage.storage.MinioStaticStorage"
 MINIO_STORAGE_ENDPOINT = "hadi-mohammadaa1379-rqfyfc80.darkube.app"
@@ -164,8 +165,8 @@ MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
 
 
 
-#
-#
+
+
 #
 #
 # """
@@ -223,6 +224,7 @@ MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
 #     'captcha',
 #     'widget_tweaks',
 #     'sorl.thumbnail',
+#     'django_social_share',
 # ]
 #
 # MIDDLEWARE = [

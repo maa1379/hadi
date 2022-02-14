@@ -50,6 +50,7 @@ django-minio-storage==0.3.10
 django-ranged-response==0.2.0
 django-simple-captcha==0.5.14
 django-widget-tweaks==1.4.12
+django-social-share==2.2.1
 et-xmlfile==1.1.0
 future==0.18.2
 geocoder==1.38.1
