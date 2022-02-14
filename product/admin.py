@@ -21,13 +21,17 @@ class PersonAdmin(ImportExportModelAdmin):
 @admin.register(InternalProduct)
 class PersonAdmin(ImportExportModelAdmin):
     pass
+
+@admin.register(LinedProduct)
+class PersonAdmin(ImportExportModelAdmin):
+    pass
 admin.site.register(InternalLogo),
 admin.site.register(ExportalLogo),
 admin.site.register(ProductBase),
 admin.site.register(Internal_Image),
 admin.site.register(Exportal_Image),
 # admin.site.register(Loaded),
-admin.site.register(LinedProduct),
+
 admin.site.register(ImageExportalModel),
 admin.site.register(ImageInternalModel)
 # admin.site.register(Rejected),
