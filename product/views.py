@@ -326,7 +326,7 @@ class LinedProductCreateView(View):
     def get(self, request):
         return render(request, "product/create_lined.html")
 
-    def post(request):
+    def post(self,request):
         lined_resource = Lined_Product_Resource()
         dataset = Dataset()
         new_lined = request.FILES['file']
