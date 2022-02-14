@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from tablib import Dataset
-from .filters import ProductFilter, LoadedFilter, DomesticFilter, ExportalFilter
+from .filters import ProductFilter, LoadedFilter, DomesticFilter, ExportalFilter,RejectedFilter
 from django.views.generic import ListView, View, DetailView
 from .models import ExportalProduct, InternalProduct, LinedProduct, ProductBase, Rejected, Loaded, Internal_Image, \
     Exportal_Image ,ExportalLogo,ExportalFileLogo
@@ -344,7 +344,7 @@ class LinedProductCreateView(View):
 #     template_name = "product/rejected_list_panel.html"
 class RejectedProductList(View):
     def get(self, request):
-        queryset = ProductRejectedFilter(request.GET, queryset=Rejected.objects.all())
+        queryset = RejectedFilter(request.GET, queryset=Rejected.objects.all())
         return render(request, "product/rejected_list_panel.html", {'filter': queryset})
     
 
