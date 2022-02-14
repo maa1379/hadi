@@ -341,7 +341,7 @@ class LinedProductCreateView(View):
 
 class RejectedProductList(ListView):
     model = Rejected
-    template_name = "product/rejected_list.html"
+    template_name = "product/rejected_list_panel.html"
 
 
 def RejectedProductCreateView(request):
