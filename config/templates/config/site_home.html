@@ -449,13 +449,13 @@
                         </div>
                         <div class="col-lg-6 text-right" style="font-size: larger"><a class="text-white">درجه
                             بندی :</a><a class="font-weight-600 text-white"
-                                         href="javascript:void(0);"> A</a>
+                                         href="javascript:void(0);"> {{l.grading_code}}</a>
                         </div>
                     </div>
                     <div class="dez-info bg-white text-center m-auto row ">
                         <div class="col-lg-12 font-weight-bold "><a href="javascript:void(0);"
-                                                                    style="color: #333;font-size: large">سیلور
-                            سلماس </a></div>
+                                                                    style="color: #333;font-size: large">{{ l.stone_name }}
+                             </a></div>
                     </div>
 
                     <div class="dez-info p-a15 bg-white row m-auto ">
@@ -471,11 +471,10 @@
                         </div>
                         <div class="col-6 ">
                             <ul class="product-box-ul font-weight-300 p-r60" style="list-style-type:none;">
-                                <li>تراورتن</li>
-                                <li>120*150*160</li>
-                                <li>کرج-ایران</li>
-                                <li>10 تن</li>
-                                <li>120 تن</li>
+                            <li>{{ l.mine.stone_type }}</li>
+                                <li>{{ l.width }}*{{ l.length }}*{{ l.height }}</li>
+                                <li>{{ l.mine.province }}</li>
+                                <li>{{ l.approximate_tonnage }}</li>
                             </ul>
                         </div>
                     </div>
@@ -489,7 +488,7 @@
                         <div class="col-6"><a class="site-button block-num-block-box bg-white text-secondry"
                                               style="font-size: 14px !important;"
                         >بلوک
-                            : #123456789aas</a></div>
+                            : {{  lo.unique_id}}/a></div>
                     </div>
                 </div>
             </div>
