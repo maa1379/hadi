@@ -108,7 +108,7 @@
                 </div>
                 <div class="row m-b50">
                     {% for product in object_list %}
-                        <div class="col-md-6 col-lg-3 col-sm-6 m-b30">
+                        <div class="col-md-6 col-lg-3 col-sm-6 m-b100">
                             <div class="dez-box fly-box" style="margin: -10px;">
                                 {% for p in product.image_exportal_logo.all %}
                                     {% if forloop.counter < 2 %}
@@ -180,7 +180,7 @@
                         </div>
                     {% endfor %}
                     {% for items in exportal_list %}
-                        <div class="col-md-6 col-lg-3 col-sm-6 m-b30">
+                        <div class="col-md-6 col-lg-3 col-sm-6 m-b100">
                             <div class="dez-box fly-box" style="margin: -10px;">
                                 {% for o in items.image_exportal_logo.all %}
                                     {% if forloop.counter < 2 %}
