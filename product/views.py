@@ -336,6 +336,13 @@ class LinedProductCreateView(View):
             lined_resource.import_data(dataset, dry_run=False)
         return render(request, "product/create_lined.html")
 
+class ExportalProductDetail(View):
+
+    def get(self,request,pk):
+        object=get_object_or_404(InternalProduct,pk=pk)
+        full_path=request.build_absolute_uri()
+        return render(request,"product/.html",{"object":object,"full_path":full_path})    
+    
 
 # REJECTED
 
