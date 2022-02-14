@@ -442,8 +442,7 @@ class ExportalInventory(View):
         queryset = ExportalFilter(request.GET, queryset=ExportalProduct.objects.all())
         return render(request, 'product/exportal_reports.html', {'filter': queryset})
 
-class SearchView(View):
-    def get(self,request):
+def SearchView(request):
         internal_product = InternalProduct.objects.filter(
             Q(mine__stone_type=request.GET.get("stone_type"))) | Q(stone_name=request.GET.get("stone_name"))|Q(mine__name=request.GET.get("mine")) | Q(grading_code=request.GET.get("grading_code"))| Q(length__lt=request.GET.get("length__max"))|Q(height__gt=request.GET.get("length_min")) | Q(width__lt=request.GET.get("width__max")) |  Q(width__gt=request.GET.get("width__min")) |    Q(approximate_tonnage__gt=request.GET.get("ton")))
         exportal_product = ExportalProduct.objects.filter(Q(mine__stone_type=request.GET.get("stone_type"))) | Q(stone_name=request.GET.get("stone_name"))|Q(mine__name=request.GET.get("mine")) | Q(grading_code=request.GET.get("grading_code"))| Q(length__lt=request.GET.get("length__max"))|Q(height__gt=request.GET.get("length_min")) | Q(width__lt=request.GET.get("width__max")) |  Q(width__gt=request.GET.get("width__min")) |    Q(approximate_tonnage__gt=request.GET.get("ton") | Q(color_code=request.GET.get("color_code")))
