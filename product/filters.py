@@ -1,5 +1,16 @@
 import django_filters
-from .models import ProductBase, Loaded, InternalProduct, ExportalProduct
+from .models import ProductBase, Loaded, InternalProduct, ExportalProduct,Rejected
+
+
+class RejectedFilter(django_filters.FilterSet):
+    class Meta:
+        model = Rejected
+        fields = [
+            'mine'
+        ]
+
+
+
 
 
 class ProductFilter(django_filters.FilterSet):
@@ -19,6 +30,8 @@ class LoadedFilter(django_filters.FilterSet):
         fields = [
             'mine'
         ]
+        
+        
 
 
 class DomesticFilter(django_filters.FilterSet):
@@ -35,3 +48,6 @@ class ExportalFilter(django_filters.FilterSet):
         fields = [
             'mine'
         ]
+
+        
+        
