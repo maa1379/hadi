@@ -1,5 +1,6 @@
 {% extends "site/base.html" %}
 {% load thumbnail %}
+{% load static %}
 {% block search %}
     <!-- extra nav -->
     <div class="extra-nav" style="height: 65px;">
@@ -100,7 +101,7 @@
 
         <!-- special offer -->
         <div class="section-full content-inner overlay-white-dark"
-             style="background-image:url(images/bgprofile3.jpg); background-attachment: fixed">
+             style="background-image:url({% static 'site/images/bgprofile3.jpg' %}); background-attachment: fixed">
             <div class="container-fluid p-l90 p-r90">
                 <div class="section-head text-left" style="margin-right: 30px">
                     <p class="text-uppercase font-weight-400 text-dark" style="font-size: x-large">پیشنهاد ویژه</p>
@@ -110,7 +111,7 @@
                     {% for product in exportal_list %}
                         <div class="col-md-6 col-lg-3 col-sm-6 m-b30">
                             <div class="dez-box fly-box" style="margin: -10px;">
-                                {% for p in product.image.all %}
+                                {% for p in product.image_exportal_logo.all %}
                                     {% if forloop.counter < 2 %}
                                             {% thumbnail p.photo "300x300" as img %}
                                                                                                      <div class="dez-media"><a
@@ -181,7 +182,7 @@
                     {% for items in internal_special %}
                         <div class="col-md-6 col-lg-3 col-sm-6 m-b30">
                             <div class="dez-box fly-box" style="margin: -10px;">
-                                {% for o in items.image.all %}
+                                {% for o in items.image_internal_logo.all %}
                                     {% if forloop.counter < 2 %}
                                                              
                                                                       {% thumbnail o.photo "300x300" as img1 %}
