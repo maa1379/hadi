@@ -110,7 +110,7 @@
 
             <div class="row m-b50">
                 {% for l in internal %}
-                    <div class="col-md-6 col-lg-3 col-sm-6 m-b30">
+                    <div class="col-md-6 col-lg-3 col-sm-6 m-b100">
                         <div class="dez-box fly-box" style="margin: -10px;">
                             {% for im in l.image_internal_logo.all %}
                                 {% if forloop.counter < 2 %}
@@ -175,7 +175,7 @@
                     </div>
                 {% endfor %}
                 {% for ex in exportal %}
-                    <div class="col-md-6 col-lg-3 col-sm-6 m-b30">
+                    <div class="col-md-6 col-lg-3 col-sm-6 m-b100">
                         <div class="dez-box fly-box" style="margin: -10px;">
                             {% for ia in ex.image_exportal_logo.all %}
                                 {% if forloop.counter < 2 %}
@@ -242,7 +242,7 @@
                 {% for line in lined %}
                     {% if forloop.counter < 2 %}
                         {% for n in line.info.all %}
-                            <div class="col-md-6 col-lg-3 col-sm-6 m-b30">
+                            <div class="col-md-6 col-lg-3 col-sm-6 m-b100">
                                 <div class="dez-box fly-box" style="margin: -10px;">
                                     {% for p in product.image.all %}
                                         {% if forloop.counter < 2 %}
