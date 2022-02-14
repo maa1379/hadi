@@ -13,17 +13,20 @@ from zipfile import ZipFile
 from chardet import detect as charsetdetect
 from wheel.util import native
 
+
 GALLERIES_UPLOAD_DIR = "galleries"
+
+
 
 
 class ImageLinedModel(models.Model):
     photo = models.ImageField(upload_to="images")
-    name = models.CharField(max_length=100, blank=True, null=True)
-    product = models.ForeignKey('LinedProduct', on_delete=models.CASCADE, related_name="image_lined")
-
+    name=models.CharField(max_length=100,blank=True,null=True)
+    product=models.ForeignKey('LinedProduct', on_delete=models.CASCADE,related_name="image_lined")
+    
     def save(self, *args, **kwargs):
-        p = LinedProduct.objects.get(id=name)
-        self.product = p
+        p=LinedProduct.objects.get(id=name)
+        self.product=p
         super(ImageInternalModel, self).save(*args, **kwargs)
 
 
@@ -92,18 +95,24 @@ class linedFile(models.Model):
                 images = ImageLinedModel(photo=saved_path)
                 pic_name = str(images)
                 ali = pic_name.split('/')[1]
-                images.name = ali[:4]
+                images.name=ali[:4]
                 images.save()
             if delete_zip_import:
                 zip_file.close()
                 self.file.delete(save=True)
 
 
+
+
+
+
+
+
+
 class InternalLogo(models.Model):
     photo = models.ImageField(upload_to="images")
-    product = models.ForeignKey('InternalProduct', on_delete=models.CASCADE, related_name="image_internal_logo")
-
-
+    product=models.ForeignKey('InternalProduct', on_delete=models.CASCADE,related_name="image_internal_logo")
+    
 class InternalFileLogo(models.Model):
     file = models.FileField(upload_to="file/")
 
@@ -166,27 +175,27 @@ class InternalFileLogo(models.Model):
                         GALLERIES_UPLOAD_DIR, slug, str(name, errors="ignore")
                     )
                     saved_path = default_storage.save(path, ContentFile(data))
-                images = InternalLogo(photo=saved_path)
+                images = InternalLogo(photo=saved_path)     
                 images.save()
             if delete_zip_import:
                 zip_file.close()
-                self.file.delete(save=True)
-
+                self.file.delete(save=True)    
+    
+    
 
 class ExportalLogo(models.Model):
     photo = models.ImageField(upload_to="images")
-    product = models.ForeignKey('ExportalProduct', on_delete=models.CASCADE, related_name="image_exportal_logo",
-                                null=True, blank=True)
-
-
+    product=models.ForeignKey('ExportalProduct', on_delete=models.CASCADE,related_name="image_exportal_logo",null=True,blank=True)
+    
+    
 #     def save(self,*args,**kwargs):
 #         pic_name = str(self.photo)
 #         ali = pic_name.split('/')[1]
 #         exportal=ExportalProduct.objects.get(serial_number_of_the_peak_in_the_mine=ali[:4])
 #         self.product=exportal
 #         return  super(ExportalLogo, self).save(*args, **kwargs)
-
-
+        
+    
 class ExportalFileLogo(models.Model):
     file = models.FileField(upload_to="file/")
 
@@ -253,22 +262,21 @@ class ExportalFileLogo(models.Model):
                 images.save()
             if delete_zip_import:
                 zip_file.close()
-                self.file.delete(save=True)
+                self.file.delete(save=True)        
 
-
+    
 class ImageInternalModel(models.Model):
     photo = models.ImageField(upload_to="images")
-    name = models.CharField(max_length=100, blank=True, null=True)
-    product = models.ForeignKey('InternalProduct', on_delete=models.CASCADE, related_name="image_internal", null=True,
-                                blank=True)
-
-
+    name=models.CharField(max_length=100,blank=True,null=True)
+    product=models.ForeignKey('InternalProduct', on_delete=models.CASCADE,related_name="image_internal",null=True,blank=True)
+    
 #     def save(self, *args, **kwargs):
 #         p=InternalProduct.objects.get(serial_number_of_the_peak_in_the_mine=name)
 #         self.product=p
 #         return   super(ImageInternalModel, self).save(*args, **kwargs)
-
-
+    
+    
+    
 class InternalFile(models.Model):
     file = models.FileField(upload_to="file/")
 
@@ -334,7 +342,7 @@ class InternalFile(models.Model):
                 images = ImageInternalModel(photo=saved_path)
                 pic_name = str(images)
                 ali = pic_name.split('/')[1]
-                images.name = ali[:4]
+                images.name=ali[:4]
                 images.save()
             if delete_zip_import:
                 zip_file.close()
@@ -343,15 +351,18 @@ class InternalFile(models.Model):
 
 class ImageExportalModel(models.Model):
     photo = models.ImageField(upload_to="images")
-    name = models.CharField(max_length=100, blank=True, null=True)
-    product = models.ForeignKey('ExportalProduct', on_delete=models.CASCADE, related_name="image_exportal", null=True,
-                                blank=True)
-
-
+    name=models.CharField(max_length=100,blank=True,null=True)
+    product=models.ForeignKey('ExportalProduct', on_delete=models.CASCADE,related_name="image_exportal",null=True,blank=True)
+    
 #     def save(self, *args, **kwargs):
 #         p=ExportalProduct.objects.get(serial_number_of_the_peak_in_the_mine=name)
 #         self.product=p
 #         return  super(ImageExportalModel, self).save(*args, **kwargs)
+    
+    
+    
+    
+
 
 
 class ExportalFile(models.Model):
@@ -420,11 +431,14 @@ class ExportalFile(models.Model):
                 images = ImageExportalModel(photo=saved_path)
                 name = str(images)
                 ali = name.split('/')[1]
-                images.name = ali[:4]
+                images.name=ali[:4]
                 images.save()
             if delete_zip_import:
                 zip_file.close()
                 self.file.delete(save=True)
+
+
+
 
 
 # Create your models here.
@@ -436,11 +450,11 @@ class ProductBase(models.Model):
     serial_number_of_the_peak_in_the_mine = models.CharField(max_length=125)
     add = models.DateField(auto_now_add=True)
     approximate_tonnage = models.PositiveIntegerField()
-    unique_id = models.CharField(max_length=255, null=True, blank=True)
+    unique_id = models.CharField(max_length=255,null=True,blank=True)
     is_special = models.BooleanField(default=False)
-    length = models.PositiveIntegerField(null=True, blank=True)
-    width = models.PositiveIntegerField(null=True, blank=True)
-    height = models.PositiveIntegerField(null=True, blank=True)
+    length = models.PositiveIntegerField(null=True,blank=True)
+    width = models.PositiveIntegerField(null=True,blank=True)
+    height = models.PositiveIntegerField(null=True,blank=True)
     stair_code = models.CharField(max_length=10)
     buyer = models.CharField(max_length=255, null=True, blank=True)
     grading_code = models.CharField(max_length=10)
@@ -448,16 +462,16 @@ class ProductBase(models.Model):
 
 class InternalProduct(ProductBase):
     pass
-
+    
     def save(self, *args, **kwargs):
         kode_sine_kar = self.working_breast_code
         kode_darage_bandi = self.grading_code
         shomareh_ghole = self.serial_number_of_the_peak_in_the_mine
         year = str(self.created)[3]
         month = str(self.created)[5:7]
-        day = str(self.created)[8:10]
+        day=str(self.created)[8:10]
         mine = self.mine
-        self.unique_id = kode_sine_kar + kode_darage_bandi + '-' + shomareh_ghole + year + month + day + '-' + str(mine)
+        self.unique_id = kode_sine_kar + kode_darage_bandi + '-' + shomareh_ghole + year + month + day + '-' +str(mine)
         return super(InternalProduct, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -466,8 +480,7 @@ class InternalProduct(ProductBase):
 
 class Internal_Image(models.Model):
     photo = models.ImageField(upload_to="image/product/")
-    product_name = models.ForeignKey(InternalProduct, on_delete=models.CASCADE, related_name="image", null=True,
-                                     blank=True)
+    product_name = models.ForeignKey(InternalProduct, on_delete=models.CASCADE, related_name="image",null=True,blank=True)
 
 
 class ExportalProduct(ProductBase):
@@ -478,7 +491,7 @@ class ExportalProduct(ProductBase):
         exportal = ExportalProduct.objects.filter(grading_code=self.grading_code, color_code=self.color_code,
                                                   code_Slate=self.code_Slate).count()
         return exportal
-
+    
     def save(self, *args, **kwargs):
         color = str(self.color_code)
         year = str(self.created)[3]
@@ -486,8 +499,9 @@ class ExportalProduct(ProductBase):
         goleh = str(self.serial_number_of_the_peak_in_the_mine)
         darz = str(self.grading_code)
         ghavareh = str(self.code_Slate)
-        self.unique_id = color + '-' + year + month + goleh + '-' + darz + ghavareh
-        return super(ExportalProduct, self).save(*args, **kwargs)
+        self.unique_id = color + '-' + year + month +  goleh + '-' + darz + ghavareh
+        return  super(ExportalProduct, self).save(*args, **kwargs)
+
 
     # Weight_of_scales = models.PositiveIntegerField(null=True,blank=True)
 
@@ -527,7 +541,6 @@ class Rejected(models.Model):
     buyer = models.CharField(max_length=255)
     serial_number_of_the_peak_in_the_mine = models.CharField(max_length=125)
 
-
 # class uploder(models.Model):
 #     name = models.CharField(max_length=125)
 #     date = models.DateField(auto_now_add=True)
@@ -536,7 +549,9 @@ class Rejected(models.Model):
 class LinedProduct(ProductBase):
     pass
 
-
 class LinedProductObject():
-    unique_id = models.CharField()
-    line = models.ForeignKey("LinedProduct", on_delete=models.CASCADE)
+    unique_id=models.CharField()
+    line=models.ForeignKey("LinedProduct",on_delete=models.CASCADE)
+
+    
+    

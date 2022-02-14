@@ -199,7 +199,7 @@ class InternalProductCreateView(View):
     def get(self, request):
         return render(request, "product/add_internal.html")
 
-    def post(request):
+    def post(self,request):
         internal_resource = Internal_Product_Resource()
         dataset = Dataset()
         new_internal = request.FILES['file']
