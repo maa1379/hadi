@@ -969,7 +969,7 @@
             <div class="clear"></div>
         </div>
         <div class="row">
-           {% for items in exportal %}
+           {% for l in lined %}
             <div class="col-md-12 col-lg-4 col-sm-12 m-b30">
                 <div class="dez-box fly-box" style="margin: -10px;">
                     {% for m in items.image_exportal_logo.all %}
@@ -979,7 +979,7 @@
 
                       {% thumbnail m.photo "600x600" as test %}
                     <div class="dez-media"><a
-                            href="{% url "product:exportal_product_detail" items.pk %}"><img src="{{ test.url }}" class="card-img-top"></a>
+                            href="{% url "product:lined_product_detail" l.pk %}"><img src="{{ test.url }}" class="card-img-top"></a>
                     </div>
                 {% endthumbnail %}
                     {% endif %}
@@ -998,12 +998,12 @@
                                 </div>
                         <div class="col-lg-6 text-right" style="font-size: larger"><a class="text-white">درجه
                             بندی :</a><a class="font-weight-600 text-white"
-                                         href="{% url "blog:blog_list" %}"> {{ items.grading_code }}</a>
+                                         href="{% url "blog:blog_list" %}"> {{ l.grading_code }}</a>
                         </div>
                     </div>
                     <div class="dez-info bg-white text-center m-auto row ">
                         <div class="col-lg-12 font-weight-bold "><a href="javascript:void(0);"
-                                                                    style="color: #333;font-size: large">{{items.stone_name }}
+                                                                    style="color: #333;font-size: large">{{l.stone_name }}
                         </a></div>
                     </div>
 
@@ -1020,10 +1020,10 @@
                         </div>
                         <div class="col-6 ">
                             <ul class="product-box-ul font-weight-300 p-r60" style="list-style-type:none;">
-                                <li>{{ items.mine.stone_type }}</li>
-                                <li>{{ items.width }}*{{ items.length }}*{{ items.height }}</li>
-                                <li>{{ items.mine.province }}</li>
-                                <li>{{ items.approximate_tonnage }}</li>
+                                <li>{{ l.mine.stone_type }}</li>
+                                <li>{{ l.width }}*{{ l.length }}*{{ l.height }}</li>
+                                <li>{{ l.mine.province }}</li>
+                                <li>{{ l.approximate_tonnage }}</li>
 
                             </ul>
                         </div>
@@ -1031,16 +1031,16 @@
                     <div class="dez-info p-a0 bg-white row m-auto ">
 
                         <div class="col-6"><a style="font-size: 9px"
-                                              href="{% url "account:create_favorite" items.unique_id %}"
+                                              href="{% url "account:create_favorite" l.unique_id %}"
                             class="site-button add-to-wish-list-btn text-white"
                             ><i class="fa fa-heart-o text-warning" style="margin-left: 5px"></i>
                             به لیست علاقه مندی های من اضافه شود
                             </a></div>
-                        <div class="col-6"><a href="{% url "product:exportal_product_detail" items.pk %}"
+                        <div class="col-6"><a href="{% url "product:lined_product_detail" l.pk %}"
                             class="site-button block-num-block-box bg-white text-secondry"
                             style="font-size: 14px !important;"
                             >بلوک
-                            : {{ items.unique_id }}</a></div>
+                            : {{ l.unique_id }}</a></div>
                     </div>
                 </div>
             </div>
@@ -1050,7 +1050,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12 m-b30 m-t50 text-center">
-                <a href="{% url "product:exportal_list" %}"
+                <a href="{% url "product:lined_product" %}"
                 class="site-button m-t10 m-l10 radius-no more-btn-default">
                 بیشتر </a>
             </div>
