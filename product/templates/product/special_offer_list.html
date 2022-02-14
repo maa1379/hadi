@@ -20,12 +20,12 @@
                            style="background-color: #ffffffc4;height: 35px; font-size: 12px;"/>
                 </div>
                 <div class="col-4 form-group text-left">
-                    <input name="stone_name" required="" class="form-control " placeholder="نام سنگ"
+                    <input name="stone_name" class="form-control " placeholder="نام سنگ"
                            type="text"
                            style="background-color: #ffffffc4;height: 35px; font-size: 12px;"/>
                 </div>
                 <div class="col-2 form-group text-left">
-                    <input name="color_code" required="" class="form-control " placeholder="رنگ"
+                    <input name="color_code" class="form-control " placeholder="رنگ"
                            type="text"
                            style="background-color: #ffffffc4;height: 35px; font-size: 12px;"/>
                 </div>
@@ -36,22 +36,22 @@
             </div>
             <div class="row " style="margin-top: -10px">
                 <div class="col-3 form-group text-left">
-                    <input name="dzName" required="" class="form-control " placeholder="حداقل طول"
+                    <input name="dzName" class="form-control " placeholder="حداقل طول"
                            type="text"
                            style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>
                 </div>
                 <div class="col-3 form-group text-left">
-                    <input name="dzName" required="" class="form-control " placeholder="حداکثر طول"
+                    <input name="dzName" class="form-control " placeholder="حداکثر طول"
                            type="text"
                            style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>
                 </div>
                 <div class="col-2 form-group text-left">
-                    <input name="dzName" required="" class="form-control " placeholder="حداقل ارتفاع"
+                    <input name="dzName" class="form-control " placeholder="حداقل ارتفاع"
                            type="text"
                            style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>
                 </div>
                 <div class="col-2 form-group text-left">
-                    <input name="dzName" required="" class="form-control " placeholder="حداکثر ارتفاع"
+                    <input name="dzName" class="form-control " placeholder="حداکثر ارتفاع"
                            type="text"
                            style="background-color: #ffffff5c;height: 35px; font-size: 12px;;"/>
                 </div>
@@ -65,17 +65,17 @@
             </div>
             <div class="row " style="margin-top: -10px">
                 <div class="col-3 form-group text-left">
-                    <input name="mine" required="" class="form-control " placeholder="محل دپو"
+                    <input name="mine" class="form-control " placeholder="محل دپو"
                            type="text"
                            style="background-color: #ffffffc4;height: 35px; font-size: 12px;"/>
                 </div>
                 <div class="col-4 form-group text-left">
-                    <input name="dzName" required="" class="form-control " placeholder="تناژ مورد نیاز"
+                    <input name="dzName" class="form-control " placeholder="تناژ مورد نیاز"
                            type="text"
                            style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>
                 </div>
                 <div class="col-3 form-group text-left">
-                    <input name="grading_code" required="" class="form-control " placeholder="درجه بندی"
+                    <input name="grading_code" class="form-control " placeholder="درجه بندی"
                            type="text"
                            style="background-color: #ffffffc4;height: 35px; font-size: 12px;"/>
                 </div>
@@ -108,7 +108,7 @@
                 </div>
                 <div class="row m-b50">
                     {% for product in exportal_list %}
-                        <div class="col-md-6 col-lg-3 col-sm-6 m-b30">
+                        <div class="col-md-6 col-lg-3 col-sm-6 m-b100">
                             <div class="dez-box fly-box" style="margin: -10px;">
                                 {% for p in product.image_exportal_logo.all %}
                                     {% if forloop.counter < 2 %}
@@ -181,7 +181,7 @@
                         </div>
                     {% endfor %}
                     {% for items in internal_special %}
-                        <div class="col-md-6 col-lg-3 col-sm-6 m-b30">
+                        <div class="col-md-6 col-lg-3 col-sm-6 m-b100">
                             <div class="dez-box fly-box" style="margin: -10px;">
                                 {% for o in items.image.all %}
                                     {% if forloop.counter < 2 %}
