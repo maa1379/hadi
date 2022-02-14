@@ -10,7 +10,7 @@ from django.db.models import Sum
 class HomePage(LoginRequiredMixin, View):
     def get(self, request):
         context = {
-            "exportal": ExportalProduct.objects.all()[:3],
+            "exportal": InternalProduct.objects.all()[:3],
             "lined": LinedProduct.objects.all()[:3],
             "special_offer": ExportalProduct.objects.filter(is_special=True)[:3],
             "sliders": ExportalProduct.objects.filter(is_special=True)[:5],
