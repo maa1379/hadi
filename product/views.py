@@ -339,9 +339,14 @@ class LinedProductCreateView(View):
 
 # REJECTED
 
-class RejectedProductList(ListView):
-    model = Rejected
-    template_name = "product/rejected_list_panel.html"
+# class RejectedProductList(ListView):
+#     model = Rejected
+#     template_name = "product/rejected_list_panel.html"
+class RejectedProductList(View):
+    def get(self, request):
+        queryset = ProductRejectedFilter(request.GET, queryset=Rejected.objects.all())
+        return render(request, "product/rejected_list_panel.html", {'filter': queryset})
+    
 
 
 def RejectedProductCreateView(request):
