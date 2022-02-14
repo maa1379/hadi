@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from tablib import Dataset
 from .filters import ProductFilter, LoadedFilter, DomesticFilter, ExportalFilter
 from django.views.generic import ListView, View, DetailView
@@ -142,7 +142,7 @@ class AllProductList(LoginRequiredMixin, View):
             "total_count": total_count,
             "total_ton": total_ton
         }
-        return render(request, "product/all_product.html", context)
+        return render(request, "product/all_product_complete.html", context)
 
 class AllProductListComplete(LoginRequiredMixin, View):
     def get(self, request):
@@ -184,10 +184,14 @@ class InternalProductPanelList(ListView):
 
 
 class InternalProductDetail(DetailView):
-    model = InternalProduct
-    slug_field = "pk"
-    slug_url_kwarg = "pk"
-    template_name = "product/internal_detail.html"
+#     model = InternalProduct
+#     slug_field = "pk"
+#     slug_url_kwarg = "pk"
+#     template_name = "product/internal_detail.html"
+    def get(self,request,pk):
+        object=get_object_or_404(InternalProduct,pk=pk)
+        full_path=request.build_absolute_uri()
+        return render(request,"product/exportal_detail.html",{"object":object,"full_path":full_path})
 
 
 class InternalProductCreateView(View):
@@ -199,13 +203,15 @@ class InternalProductCreateView(View):
         internal_resource = Internal_Product_Resource()
         dataset = Dataset()
         new_internal = request.FILES['file']
-        imported_data = dataset.load(new_internal.read(), format='xlsx')
-           
+        imported_data = dataset.load(new_internal.read(), format='xlsx')       
         result = internal_resource.import_data(dataset, dry_run=True)
         if not result.has_errors():
             internal_resource.import_data(dataset, dry_run=False)
       
         return render(request, "product/add_internal.html")
+
+    
+ 
 
 
 class InternalImage(View):
@@ -238,7 +244,7 @@ class ExportalProductPanelList(LoginRequiredMixin, ListView):
 
 
 class ExportalProductListView(LoginRequiredMixin, ListView):
-    queryset = ExportalProduct.objects.all()[:21]
+    queryset = ExportalProduct.objects.all()[:20]
     template_name = "product/exportal_list.html"
 
 class ExportalProductListCompleteView(LoginRequiredMixin, ListView):
@@ -247,11 +253,20 @@ class ExportalProductListCompleteView(LoginRequiredMixin, ListView):
     
     
 
-class ExportalProductDetail(DetailView):
-    model = ExportalProduct
-    slug_field = "pk"
-    slug_url_kwarg = "pk"
-    template_name = "product/exportal_detail.html"
+class ExportalProductDetail(View):
+#     model = ExportalProduct
+#     slug_field = "pk"
+#     slug_url_kwarg = "pk"
+#     template_name = "product/exportal_detail.html"
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context = {'full_path': self.request.build_absolute_uri()}
+#         return context
+    def get(self,request,pk):
+        object=get_object_or_404(ExportalProduct,pk=pk)
+        full_path=request.build_absolute_uri()
+        return render(request,"product/exportal_detail.html",{"object":object,"full_path":full_path})
+      
 
 
 class ExportalProductCreateView(View):
@@ -419,13 +434,13 @@ class SearchView(View):
     def get(self, request):
         internal_product = InternalProduct.objects.filter(
             Q(mine__stone_type=request.GET.get("stone_type")) | Q(stone_name=request.GET.get("stone_name")),
-            Q(mine__name=request.GET.get("mine")) | Q(grading_code=request.GET.get("grading_code"))| Q(length_lt=request.GET.get("length")),
-            Q(height_lt=request.GET.get("height")) | Q(width_lt=request.GET.get("width")) )
+            Q(mine__name=request.GET.get("mine")) | Q(grading_code=request.GET.get("grading_code"))| Q(length__lt=request.GET.get("length")),
+            Q(height__lt=request.GET.get("height")) | Q(width__lt=request.GET.get("width")) )
         exportal_product = ExportalProduct.objects.filter(
             Q(mine__stone_type=request.GET.get("stone_type")) | Q(stone_name=request.GET.get("stone_name")),
             Q(mine__name=request.GET.get("mine")) | Q(grading_code=request.GET.get("grading_code")),
-            Q(color_code=request.GET.get("color_code")) | Q(length_lt=request.GET.get("length")),
-            Q(height_lt=request.GET.get("height")) | Q(width_lt=request.GET.get("width"))
+            Q(color_code=request.GET.get("color_code")) | Q(length__lt=request.GET.get("length")),
+            Q(height__lt=request.GET.get("height")) | Q(width__lt=request.GET.get("width"))
         )
         return render(request, "product/search.html", {"internal": internal_product, "exportal": exportal_product})    
     

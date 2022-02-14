@@ -1,148 +1,5 @@
 {% extends "site/base.html" %}
 {% load thumbnail %}
-{% block search %}
-    <!-- extra nav -->
-    <div class="extra-nav">
-        <div class="extra-cell ">
-            <button id="quik-search-btn" type="button" class="site-button bg-white"
-                    style="color: #1A74B5;font-size: large;padding-top: 5px"><i
-                    class="fa fa-search font-weight-300"></i><a class="font-weight-300"> جستجو </a>
-            </button>
-        </div>
-    </div>
-    <!-- main nav -->
-    <div class="header-nav navbar-collapse collapse justify-content-right" id="navbarNavDropdown">
-        <ul class=" nav navbar-nav" style="padding-right: 25px;">
-
-            <li style="padding-right: 17px">
-                <div>
-                    <a href="{% url "config:site_home" %}">خانه</a>
-                </div>
-            </li>
-            <li style="padding-right: 17px" class="active">
-                <div>
-                    <a href="{% url "product:all_product" %}">کل
-                        موجودی</a>
-                </div>
-            </li>
-            <li style="padding-right: 17px">
-                <div>
-                    <a href="{% url "product:exportal_list" %}">صادراتی</a>
-                </div>
-            </li>
-            <li style="padding-right: 17px">
-                <div>
-                    <a href="{% url "product:special_offer" %}">پیشنهاد
-                        ویژه</a>
-                </div>
-            </li>
-            <li style="padding-right: 17px">
-                <div>
-                    <a href="{% url "mine:list" %}">معادن</a>
-                </div>
-            </li>
-            <li style="padding-right: 17px">
-                <div>
-                    <a href="block-details.html">بلاگ</a>
-                </div>
-            </li>
-            <li style="padding-right: 17px">
-                <div>
-                    <a href="{% url "account:favorite_product" %}">انتخاب های
-                        من</a>
-                </div>
-            </li>
-        </ul>
-    </div>
-    </div>
-    </div>
-    </div>
-    <!-- main header END -->
-    </header>
-    <!-- header END -->
-    <!-- Content -->
-    <div class="page-content font-style-2">
-
-    <!-- Quik search -->
-    <div class="dez-quik-search "
-         style="width: 100%; left: 0px; right: 0px;margin-top: 40px;z-index: 10;font-size: 12px">
-        <form action="#" style="margin: auto;margin-top: 20px">
-            <div class="row ">
-                <div class="col-4 form-group text-left">
-                    <input name="stone_type" class="form-control " placeholder="نوع سنگ"
-                           type="text"
-                           style="background-color: #ffffffc4;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #e3e3e3;"/>
-                </div>
-                <div class="col-4 form-group text-left">
-                    <input name="stone_name" class="form-control " placeholder="نام سنگ"
-                           type="text"
-                           style="background-color: #ffffffc4;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #e3e3e3;"/>
-                </div>
-                <div class="col-2 form-group text-left">
-                    <input name="color" class="form-control " placeholder="رنگ"
-                           type="text"
-                           style="background-color: #ffffffc4;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #e3e3e3;"/>
-                </div>
-                <div class="col-2 form-group text-left">
-                    <button class="site-button dz-xs-flex m-r5"
-                            style="background-color: #1A74B5; width: 100%">
-                        جستجو
-                    </button>
-                </div>
-            </div>
-            <div class="row " style="margin-top: -10px">
-                <div class="col-3 form-group text-left">
-                    <input name="dzName" class="form-control " placeholder="حداقل طول"
-                           type="text"
-                           style="background-color: #ffffff5c;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #c5c5c5;"/>
-                </div>
-                <div class="col-3 form-group text-left">
-                    <input name="dzName" class="form-control " placeholder="حداکثر طول"
-                           type="text"
-                           style="background-color: #ffffff5c;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #c5c5c5;"/>
-                </div>
-                <div class="col-2 form-group text-left">
-                    <input name="dzName" class="form-control " placeholder="حداقل ارتفاع"
-                           type="text"
-                           style="background-color: #ffffff5c;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #c5c5c5;"/>
-                </div>
-                <div class="col-2 form-group text-left">
-                    <input name="dzName" class="form-control " placeholder="حداکثر ارتفاع"
-                           type="text"
-                           style="background-color: #ffffff5c;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #c5c5c5;"/>
-                </div>
-                <div class="col-2 form-group text-left">
-                    <button class="site-button dz-xs-flex m-r5"
-                            style="background-color: #df0000;  width: 100%">
-                        Reset
-                    </button>
-                </div>
-            </div>
-            <div class="row " style="margin-top: -10px">
-                <div class="col-3 form-group text-left">
-                    <input name="mine" class="form-control " placeholder="محل دپو"
-                           type="text"
-                           style="background-color: #ffffffc4;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #e3e3e3;"/>
-                </div>
-                <div class="col-4 form-group text-left">
-                    <input name="dzName"  class="form-control " placeholder="تناژ مورد نیاز"
-                           type="text"
-                           style="background-color: #ffffff5c;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #c5c5c5;"/>
-                </div>
-                <div class="col-3 form-group text-left">
-                    <input name="grade" class="form-control " placeholder="درجه بندی"
-                           type="text"
-                           style="background-color: #ffffffc4;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #e3e3e3;"/>
-                </div>
-            </div>
-            <!--                <input name="search" value="" type="text" class="form-control" placeholder="جستجو">-->
-            <!--                            <span id="quik-search-remove"><i class="fa fa-remove"></i></span>-->
-        </form>
-        <div class="dez-quik-search-opacity w-100 h-100 bg-green" style="position: absolute;top: 0;z-index: -1">dafsdf
-        </div>
-
-    </div>
-{% endblock %}
 {% block content %}
  <style>
 
@@ -691,126 +548,6 @@
         </div>
         <!-- sample end -->
 
-        <!-- Side Nav End-->
-
-
-        <!-- header -->
-        <header class="site-header header mo-left header-style-1">
-            <!-- top bar -->
-
-            <!-- top bar END-->
-            <!-- main header -->
-            <!--        <div class="sticky-header main-bar-wraper navbar-expand-lg">-->
-            <div class=" main-bar-wraper navbar-expand-lg">
-                <div class="main-bar clearfix ">
-                    <div class="container-fluid p-l60 p-r60 clearfix">
-
-                        <!-- nav toggle button -->
-                        <button class="navbar-toggler collapsed navicon justify-content-end" type="button"
-                                data-toggle="collapse" data-target="#navbarNavDropdown"
-                                aria-controls="navbarNavDropdown"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </button>
-
-
-<!--                         <!-- Quik search -->
-                        <div class="dez-quik-search ">
-                            <form action="#" style="margin: auto;margin-top: 20px">
-                                <div class="row ">
-                                    <div class="col-4 form-group text-left">
-                                        <input name="dzName" required="" class="form-control " placeholder="نوع سنگ"
-                                               type="text"
-                                               style="background-color: #ffffffc4;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #e3e3e3;"/>
-                                    </div>
-                                    <div class="col-4 form-group text-left">
-                                        <input name="dzName" required="" class="form-control " placeholder="نام سنگ"
-                                               type="text"
-                                               style="background-color: #ffffffc4;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #e3e3e3;"/>
-                                    </div>
-                                    <div class="col-2 form-group text-left">
-                                        <input name="dzName" required="" class="form-control " placeholder="رنگ"
-                                               type="text"
-                                               style="background-color: #ffffffc4;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #e3e3e3;"/>
-                                    </div>
-                                    <div class="col-2 form-group text-left">
-                                        <span id="quik-search-remove"><i class="fa fa-remove"></i></span>
-                                    </div>
-
-                                </div>
-                                <div class="row " style="margin-top: -10px">
-                                    <div class="col-3 form-group text-left">
-                                        <input name="dzName" required="" class="form-control " placeholder="حداقل طول"
-                                               type="text"
-                                               style="background-color: #ffffff5c;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #c5c5c5;"/>
-                                    </div>
-                                    <div class="col-3 form-group text-left">
-                                        <input name="dzName" required="" class="form-control " placeholder="حداکثر طول"
-                                               type="text"
-                                               style="background-color: #ffffff5c;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #c5c5c5;"/>
-                                    </div>
-                                    <div class="col-2 form-group text-left">
-                                        <input name="dzName" required="" class="form-control "
-                                               placeholder="حداقل ارتفاع"
-                                               type="text"
-                                               style="background-color: #ffffff5c;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #c5c5c5;"/>
-                                    </div>
-                                    <div class="col-2 form-group text-left">
-                                        <input name="dzName" required="" class="form-control "
-                                               placeholder="حداکثر ارتفاع"
-                                               type="text"
-                                               style="background-color: #ffffff5c;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #c5c5c5;"/>
-                                    </div>
-                                    <div class="col-2 form-group text-left">
-                                        <button class="site-button dz-xs-flex m-r5"
-                                                style="background-color: #1A74B5; width: 100%">
-                                            جستجو
-                                        </button>
-                                    </div>
-
-                                </div>
-                                <div class="row " style="margin-top: -10px">
-                                    <div class="col-3 form-group text-left">
-                                        <input name="dzName" required="" class="form-control " placeholder="محل دپو"
-                                               type="text"
-                                               style="background-color: #ffffffc4;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #e3e3e3;"/>
-                                    </div>
-                                    <div class="col-4 form-group text-left">
-                                        <input name="dzName" required="" class="form-control "
-                                               placeholder="تناژ مورد نیاز"
-                                               type="text"
-                                               style="background-color: #ffffff5c;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #c5c5c5;"/>
-                                    </div>
-                                    <div class="col-3 form-group text-left">
-                                        <input name="dzName" required="" class="form-control " placeholder="درجه بندی"
-                                               type="text"
-                                               style="background-color: #ffffffc4;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #e3e3e3;"/>
-                                    </div>
-                                    <div class="col-2 form-group text-left">
-                                        <button class="site-button dz-xs-flex m-r5"
-                                                style="background-color: #df0000;  width: 100%">
-                                            Reset
-                                        </button>
-                                    </div>
-                                </div>
-                                <!--                <input name="search" value="" type="text" class="form-control" placeholder="جستجو">-->
-                                <!--                            <span id="quik-search-remove"><i class="fa fa-remove"></i></span>-->
-                            </form>
-                            <div class="dez-quik-search-opacity w-100 h-100 bg-green"
-                                 style="position: absolute;top: 0;z-index: -1">dafsdf
-                            </div>
-                        </div>
-                        <!-- main nav -->
-
-                    </div>
-                </div> -->
-            </div>
-            <!-- main header END -->
-        </header>
-        <!-- header END -->
-
         <!-- contact area -->
         <div class="section-full content-inner-3 bg-single contact-style-1">
             <div class="container-fluid" style="padding-right: 11%">
@@ -819,10 +556,10 @@
                     <div class="col-lg-4  d-lg-flex row">
                         <div style="margin-bottom: 5%; padding: 6%"
                              class="col-12 bg-gray w-100 p-b0 border text-center contact-area border-1  align-self-stretch">
-                            <h2 class="m-b10">{{ object.stone_name }}</h2>
+                            <h2 class="m-b10 p-t40">{{ object.stone_name }}</h2>
                             <p>{{ object.unique_id }}</p>
 
-                            <div class="row p-t20 m-r40">
+                            <div class="row m-r40">
                                 <div class="col-6">
                                     <ul class="no-margin text-left">
                                         <li class="icon-bx-wraper left m-b15">
@@ -848,7 +585,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6 p-r20">
                                     <ul class="no-margin text-left">
                                         <li class="icon-bx-wraper left m-b15">
                                             <p>{{ object.mine.stone_type }}</p>
@@ -965,7 +702,7 @@
                             <div class="row">
                                 <!--                            <div class="col-1"></div>-->
                                 <div class="col-2 openbtnwish p-a0" style="margin:auto; ">
-                                    <button name="submit" href="{% url "account:create_favorite" object.unique_id %}" type="submit" value="Submit" class="site-button "
+                                    <button name="submit"  type="submit" value="Submit" class="site-button "
                                             style="width: 100%;border-radius: 0 35px 0 0; background-color: #ffffff; color: gray; border: 1px solid gray;">
                                         <span style="margin-right: -20px;font-size: x-small;color: black">افزودن به لیست انتخاب های من</span>
                                     </button>
@@ -986,7 +723,7 @@
                                 </div>
                                 
                                 
-                                
+                                 
                                 
                                 
                                 <div class="col-2 openbtnshare p-a0" style="margin:auto; ">
@@ -1001,12 +738,12 @@
                                             <div class="shareBox text-center">
                                                 <a class="iclass" href="#" data-toggle="modal"
                                                    data-target="#exampleModal"><i class="fa fa-telegram"></i></a>
-                                                <a class="iclass" href="#" data-toggle="modal"
+                                                <a class="iclass" href="https://wa.me/?text={{ full_path }}" data-toggle="modal"
                                                    data-target="#exampleModal"><i class="fa fa-whatsapp"></i></a>
-                                                <a class="iclass" href="#" data-toggle="modal"
+                                                <a class="iclass" href="https://www.linkedin.com/shareArticle?mini=true&url={{full_path}}" data-toggle="modal"
                                                    data-target="#exampleModal"><i class="fa fa-linkedin"></i></a>
-                                                <a class="iclass" href="#" data-toggle="modal"
-                                                   data-target="#exampleModal"><i class="fa fa-envelope"></i></a>
+                                                <a class="iclass" href="mailto:?subject=[SUBJECT]&body={{full_path}}" data-toggle="modal"
+                                                   data-target="https://t.me/share/url?url={{full_path}}"><i class="fa fa-envelope"></i></a>
                                             </div>
                                         </div>
                                     </button>
@@ -1020,7 +757,7 @@
                                 
                                 
                                 <div class="col-2 openbtnvisit p-a0" style="margin:auto; ">
-                                    <button name="submit" type="submit" value="Submit" class="site-button "
+                                    <button name="submit" type="submit"  href="{% url "account:create_favorite" object.unique_id %}" value="Submit" class="site-button "
                                             style="width: 100%;border-radius: 0 35px 0 0; background-color: #ffffff; color: gray; border: 1px solid gray;">
                                         <span style="margin-right: -20px;font-size: x-small;color: black">هماهنگی بازدید انجام شود</span>
                                     </button>

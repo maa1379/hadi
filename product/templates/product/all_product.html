@@ -1,7 +1,8 @@
 {% extends "site/base.html" %}
+{% load static %}
 {% block search %}
     <!-- extra nav -->
-    <div class="extra-nav">
+    <div class="extra-nav" style="height: 65px;">
         <div class="extra-cell ">
             <button id="quik-search-btn" type="button" class="site-button bg-white"
                     style="color: #1A74B5;font-size: large;padding-top: 5px"><i
@@ -10,23 +11,23 @@
         </div>
     </div>
     <!-- Quik search -->
-    <div class="dez-quik-search ">
+    <div class="dez-quik-search " style="top:65px">
         <form action="{% url "product:search" %}" style="margin: auto;margin-top: 20px">
             <div class="row ">
                 <div class="col-4 form-group text-left">
                     <input name="stone_type"  class="form-control " placeholder="نوع سنگ"
                            type="text"
-                           style="background-color: #ffffffc4;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #e3e3e3;"/>
+                           style="background-color: #ffffffc4;height: 35px; font-size: 12px;"/>
                 </div>
                 <div class="col-4 form-group text-left">
                     <input name="stone_name" required="" class="form-control " placeholder="نام سنگ"
                            type="text"
-                           style="background-color: #ffffffc4;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #e3e3e3;"/>
+                           style="background-color: #ffffffc4;height: 35px; font-size: 12px;"/>
                 </div>
                 <div class="col-2 form-group text-left">
                     <input name="color_code" required="" class="form-control " placeholder="رنگ"
                            type="text"
-                           style="background-color: #ffffffc4;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #e3e3e3;"/>
+                           style="background-color: #ffffffc4;height: 35px; font-size: 12px;"/>
                 </div>
                 <div class="col-2 form-group text-left">
                     <span id="quik-search-remove"><i class="fa fa-remove"></i></span>
@@ -37,22 +38,22 @@
                 <div class="col-3 form-group text-left">
                     <input name="dzName" required="" class="form-control " placeholder="حداقل طول"
                            type="text"
-                           style="background-color: #ffffff5c;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #c5c5c5;"/>
+                           style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>
                 </div>
                 <div class="col-3 form-group text-left">
                     <input name="dzName" required="" class="form-control " placeholder="حداکثر طول"
                            type="text"
-                           style="background-color: #ffffff5c;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #c5c5c5;"/>
+                           style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>
                 </div>
                 <div class="col-2 form-group text-left">
                     <input name="dzName" required="" class="form-control " placeholder="حداقل ارتفاع"
                            type="text"
-                           style="background-color: #ffffff5c;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #c5c5c5;"/>
+                           style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>
                 </div>
                 <div class="col-2 form-group text-left">
                     <input name="dzName" required="" class="form-control " placeholder="حداکثر ارتفاع"
                            type="text"
-                           style="background-color: #ffffff5c;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #c5c5c5;"/>
+                           style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>
                 </div>
                 <div class="col-2 form-group text-left">
                     <button class="site-button dz-xs-flex m-r5"
@@ -66,17 +67,17 @@
                 <div class="col-3 form-group text-left">
                     <input name="mine" required="" class="form-control " placeholder="محل دپو"
                            type="text"
-                           style="background-color: #ffffffc4;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #e3e3e3;"/>
+                           style="background-color: #ffffffc4;height: 35px; font-size: 12px;"/>
                 </div>
                 <div class="col-4 form-group text-left">
                     <input name="dzName" required="" class="form-control " placeholder="تناژ مورد نیاز"
                            type="text"
-                           style="background-color: #ffffff5c;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #c5c5c5;"/>
+                           style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>
                 </div>
                 <div class="col-3 form-group text-left">
                     <input name="grading_code" required="" class="form-control " placeholder="درجه بندی"
                            type="text"
-                           style="background-color: #ffffffc4;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #e3e3e3;"/>
+                           style="background-color: #ffffffc4;height: 35px; font-size: 12px;"/>
                 </div>
                 <div class="col-2 form-group text-left">
                     <button class="site-button dz-xs-flex m-r5"
@@ -96,9 +97,9 @@
 {% block content %}
     <!-- special offer -->
     <div class="section-full content-inner overlay-white-dark"
-         style="background-image:url(images/bgprofile3.jpg); background-attachment: fixed">
+         style="background-image:url({%  static 'site/images/bgprofile3.jpg' %}); background-attachment: fixed">
 
-        <div class="container-fluid p-l90 p-r90" style="margin-top: 190px">
+        <div class="container-fluid p-l90 p-r90" style="margin-top: 150px">
             <div class="section-head text-left" style="margin-right: 30px">
                 <p class="text-uppercase font-weight-400 text-dark" style="font-size: x-large">کل موجودی</P>
                 <p class="text-uppercase text-gray" style="margin-top:-15px; margin-bottom:-15px">تعداد
@@ -111,7 +112,7 @@
                 {% for l in internal %}
                     <div class="col-md-6 col-lg-3 col-sm-6 m-b30">
                         <div class="dez-box fly-box" style="margin: -10px;">
-                            {% for im in l.image.all %}
+                            {% for im in l.image_internal_logo.all %}
                                 {% if forloop.counter < 2 %}
                                     <div class="dez-media"><a
                                             href="{% url "product:internal_product_detail" l.id %}"><img
@@ -128,7 +129,7 @@
                                 <div class="col-lg-6 text-right" style="font-size: larger"><a class="text-white"
                                                                                               style="font-size: small">درجه
                                     بندی :</a><a class="font-weight-600 text-white"
-                                                 href="{% url "config:info" %}">{{ l.grading_code }}</a>
+                                                 href="{% url "blog:blog_list" %}">{{ l.grading_code }}</a>
                                 </div>
                             </div>
                             <div class="dez-info bg-white text-center m-auto row ">
@@ -148,7 +149,7 @@
                                     </ul>
                                 </div>
                                 <div class="col-6 ">
-                                    <ul class="product-box-ul font-weight-300" style="list-style-type:none;">
+                                    <ul class="product-box-ul font-weight-300 p-r30" style="list-style-type:none;">
                                         <li>{{ l.mine.stone_type }}</li>
                                         <li>{{ l.length }}*{{ l.width }}*{{ l.height }}</li>
                                         <li>{{ l.mine }}</li>
@@ -193,7 +194,7 @@
                                 <div class="col-lg-6 text-right" style="font-size: larger"><a class="text-white"
                                                                                               style="font-size: small">درجه
                                     بندی :</a><a class="font-weight-600 text-white"
-                                                 href="{% url "config:info" %}"> {{ ex.grading_code }}</a>
+                                                 href="{% url "blog:blog_list" %}"> {{ ex.grading_code }}</a>
                                 </div>
                             </div>
                             <div class="dez-info bg-white text-center m-auto row ">
@@ -213,7 +214,7 @@
                                     </ul>
                                 </div>
                                 <div class="col-6 ">
-                                    <ul class="product-box-ul font-weight-300" style="list-style-type:none;">
+                                    <ul class="product-box-ul font-weight-300 p-r30" style="list-style-type:none;">
                                         <li>{{ ex.mine.stone_type }}</li>
                                         <li>{{ ex.width }}*{{ ex.length }}*{{ ex.height }}</li>
                                         <li>{{ ex.mine }}</li>
@@ -282,7 +283,7 @@
                                             </ul>
                                         </div>
                                         <div class="col-6 ">
-                                            <ul class="product-box-ul font-weight-300" style="list-style-type:none;">
+                                            <ul class="product-box-ul font-weight-300 p-r30" style="list-style-type:none;">
                                                 <li>{{ n.mine.stone_type }}</li>
                                                 <li>{{ n.width }}*{{ n.length }}*{{ n.height }}</li>
                                                 <li>{{ n.mine }}</li>

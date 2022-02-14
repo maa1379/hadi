@@ -416,7 +416,7 @@
                     <!-- Left part start -->
                     <div class="col-lg-7">
                         <div class="row">
-                            {% for im in object.image.all %}
+                            {% for im in object.image_internal_logo.all %}
                                 {% if forloop.counter < 2 %}
                                     <div class="col-12">
                                         <ul id="masonry1"
@@ -444,7 +444,7 @@
                             {% endfor %}
                             <div class="col-12">
                                 <div class="row " style="margin-top: -5px">
-                                    {% for i in object.image.all %}
+                                    {% for i in object.image_internal.all %}
                                         <div class="col-3"><img style="width: 100%" src="{{ i.photo.url }}">
                                             <div class="dez-info p-10 row "
                                                  style="background-color: #1A74B5;margin: auto; text-align: center;">
@@ -466,7 +466,7 @@
                             <div class="row">
                                 <!--                            <div class="col-1"></div>-->
                                 <div class="col-2 openbtnwish" style="margin:auto; ">
-                                    <button name="submit" type="submit" value="Submit" class="site-button "
+                                    <button name="submit"  href="{% url "account:create_favorite" object.unique_id %}" type="submit" value="Submit" class="site-button "
                                             style="width: 100%;border-radius: 0 35px 0 0; background-color: #ffffff; color: gray; border: 1px solid gray;">
                                         <span style="margin-right: -20px;font-size: x-small;color: black">افزودن به لیست انتخاب های من</span>
                                     </button>

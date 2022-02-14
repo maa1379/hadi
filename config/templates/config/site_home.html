@@ -1,7 +1,7 @@
 {% extends "site/base.html" %}
 {% load static %}
 {% load thumbnail %}
-
+{% load social_share %}
 {% block search %}
 <!-- extra nav -->
 <style>
@@ -71,7 +71,7 @@
         transition: all .25s ease-out;
     }
 </style>
-<div class="extra-nav">
+<div class="extra-nav" style="height: 65px;">
     <div class="extra-cell ">
         <button id="quik-search-btn" type="button" class="site-button bg-white"
                 style="color: #1A74B5;font-size: large;padding-top: 5px"><i
@@ -80,23 +80,23 @@
     </div>
 </div>
 <!-- Quik search -->
-<div class="dez-quik-search ">
-    <form action="#" style="margin: auto;margin-top: 20px">
+<div class="dez-quik-search "  style="top: 65px">
+    <form action="{%   url "product:search"  %}" style="margin: auto;margin-top: 20px">
         <div class="row ">
             <div class="col-4 form-group text-left">
-                <input name="dzName" required="" class="form-control " placeholder="نوع سنگ"
+                <input name="stone_type"  class="form-control " placeholder="نوع سنگ"
                        type="text"
-                       style="background-color: #ffffffc4;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #e3e3e3;"/>
+                       style="background-color: #ffffffc4;height: 35px; font-size: 12px;"/>
             </div>
             <div class="col-4 form-group text-left">
-                <input name="dzName" required="" class="form-control " placeholder="نام سنگ"
+                <input name="stone_name"  class="form-control " placeholder="نام سنگ"
                        type="text"
-                       style="background-color: #ffffffc4;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #e3e3e3;"/>
+                       style="background-color: #ffffffc4;height: 35px; font-size: 12px;"/>
             </div>
             <div class="col-2 form-group text-left">
-                <input name="dzName" required="" class="form-control " placeholder="رنگ"
+                <input name="color_code"  class="form-control " placeholder="رنگ"
                        type="text"
-                       style="background-color: #ffffffc4;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #e3e3e3;"/>
+                       style="background-color: #ffffffc4;height: 35px; font-size: 12px;"/>
             </div>
             <div class="col-2 form-group text-left">
                 <span id="quik-search-remove"><i class="fa fa-remove"></i></span>
@@ -105,24 +105,24 @@
         </div>
         <div class="row " style="margin-top: -10px">
             <div class="col-3 form-group text-left">
-                <input name="dzName" required="" class="form-control " placeholder="حداقل طول"
+                <input name="dzName"  class="form-control " placeholder="حداقل طول"
                        type="text"
-                       style="background-color: #ffffff5c;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #c5c5c5;"/>
+                       style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>
             </div>
             <div class="col-3 form-group text-left">
-                <input name="dzName" required="" class="form-control " placeholder="حداکثر طول"
-                       type="text"
-                       style="background-color: #ffffff5c;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #c5c5c5;"/>
+                <input name="length" class="form-control " placeholder="حداکثر طول"
+                       type="number"
+                       style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>
             </div>
             <div class="col-2 form-group text-left">
-                <input name="dzName" required="" class="form-control " placeholder="حداقل ارتفاع"
-                       type="text"
-                       style="background-color: #ffffff5c;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #c5c5c5;"/>
+                <input name="height"  class="form-control " placeholder="حداقل ارتفاع"
+                       type="number"
+                       style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>
             </div>
             <div class="col-2 form-group text-left">
-                <input name="dzName" required="" class="form-control " placeholder="حداکثر ارتفاع"
-                       type="text"
-                       style="background-color: #ffffff5c;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #c5c5c5;"/>
+                <input name="width"  class="form-control " placeholder="حداکثر ارتفاع"
+                       type="number"
+                       style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>
             </div>
             <div class="col-2 form-group text-left">
                 <button class="site-button dz-xs-flex m-r5"
@@ -134,19 +134,19 @@
         </div>
         <div class="row " style="margin-top: -10px">
             <div class="col-3 form-group text-left">
-                <input name="dzName" required="" class="form-control " placeholder="محل دپو"
+                <input name="mine"  class="form-control " placeholder="محل دپو"
                        type="text"
-                       style="background-color: #ffffffc4;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #e3e3e3;"/>
+                       style="background-color: #ffffffc4;height: 35px; font-size: 12px;"/>
             </div>
             <div class="col-4 form-group text-left">
-                <input name="dzName" required="" class="form-control " placeholder="تناژ مورد نیاز"
+                <input name="dzName"  class="form-control " placeholder="تناژ مورد نیاز"
                        type="text"
-                       style="background-color: #ffffff5c;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #c5c5c5;"/>
+                       style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>
             </div>
             <div class="col-3 form-group text-left">
-                <input name="dzName" required="" class="form-control " placeholder="درجه بندی"
+                <input name="grading_code"  class="form-control " placeholder="درجه بندی"
                        type="text"
-                       style="background-color: #ffffffc4;height: 35px; font-size: 12px;box-shadow: 1px 1px 5px 1px #e3e3e3;"/>
+                       style="background-color: #ffffffc4;height: 35px; font-size: 12px;"/>
             </div>
             <div class="col-2 form-group text-left">
                 <button class="site-button dz-xs-flex m-r5"
@@ -182,7 +182,7 @@
                         <div class="carousel-inner p-a25 m-auto">
                             {% for obj in sliders %}
                             <div class="carousel-item  act-{{ forloop.counter }}" style="text-align: center">
-                                {% for sliderimage in obj.image.all %}
+                                {% for sliderimage in obj.image_exportal_logo.all %}
                                 {% if forloop.counter < 2 %}
 
                                                                <img src="{{ sliderimage.photo.url }}" alt="Los Angeles"
@@ -194,7 +194,7 @@
                                 {% endif %}
                                 {% endfor %}
                                 <div class="carousel-caption "
-                                     style="width: 25%; height: 65%;position: absolute;top: 17%; left: 4%">
+                                     style="width: 358px; height: 358px;position: absolute;top: 17%; left: 4%">
                                     <div class="h-25"></div>
                                     <p class="text-uppercase font-weight-300 text-black"
                                        style="font-size: x-large; font-weight: bold">
@@ -217,10 +217,10 @@
                         </div>
                     </div>
                 </div>
-                <a class="carousel-control-prev" href="#demo" data-slide="prev" style="top: 45%">
+                <a class="carousel-control-prev" href="#demo" data-slide="prev" style="top: 20% !important">
                     <span><i class="fa fa-5x fa-angle-right"></i></span>
                 </a>
-                <a class="carousel-control-next" href="#demo" data-slide="next" style="top: 45%">
+                <a class="carousel-control-next" href="#demo" data-slide="next" style="top: 20% !important">
                     <span><i class="fa fa-5x fa-angle-left"></i></span>
                 </a>
             </div>
@@ -232,7 +232,7 @@
 
 <!-- Content area -->
 <div class="section-full content-inner overlay-white-dark"
-     style="background-image:url({% static 'images/bgprofile3.jpg' %});margin-top: -80px; background-attachment:fixed">
+     style="background-image:url({% static 'images/bgprofile3.jpg' %});margin-top: -50px; background-attachment:fixed">
     <!-- special offer -->
     <div class="container-fluid p-l90 p-r90">
         <div class="section-head text-left" style="margin-right: 30px">
@@ -243,7 +243,7 @@
             {% for pro in special_offer %}
             <div class="col-md-12 col-lg-4 col-sm-12 m-b30">
                 <div class="dez-box fly-box" style="margin: -10px;">
-                    {% for m in pro.image.all %}
+                    {% for m in pro.image_exportal_logo.all %}
                     {% if forloop.counter < 2 %}
 
 
@@ -262,9 +262,9 @@
                                     <div id="foo">
                                         <i class="fa fa-share-alt text-white" style="font-size: large"></i>
                                         <a href="" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-telegram"></i></a>
-                                        <a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-whatsapp"></i></a>
-                                        <a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-linkedin"></i></a>
-                                        <a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-envelope"></i></a>
+                                        <a href="" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-whatsapp"></i></a>
+                                        <a href="" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-linkedin"></i></a>
+                                        <a href="" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-envelope"></i></a>
                                     </div>
                                 </div>
                         <div class="col-lg-6 text-right" style="font-size: larger"><a class="text-white">درجه
@@ -290,7 +290,7 @@
                             </ul>
                         </div>
                         <div class="col-6 ">
-                            <ul class="product-box-ul font-weight-300 p-r40" style="list-style-type:none;">
+                            <ul class="product-box-ul font-weight-300 p-r60" style="list-style-type:none;">
                                 <li>{{ pro.mine.stone_type }}</li>
                                 <li>{{ pro.width }}*{{ pro.length }}*{{ pro.height }}</li>
                                 <li>{{ pro.mine.province }}</li>
@@ -338,7 +338,7 @@
            {% for items in exportal %}
             <div class="col-md-12 col-lg-4 col-sm-12 m-b30">
                 <div class="dez-box fly-box" style="margin: -10px;">
-                    {% for m in items.image.all %}
+                    {% for m in items.image_exportal_logo.all %}
                     {% if forloop.counter < 2 %}
 
 
@@ -385,7 +385,7 @@
                             </ul>
                         </div>
                         <div class="col-6 ">
-                            <ul class="product-box-ul font-weight-300 p-r40" style="list-style-type:none;">
+                            <ul class="product-box-ul font-weight-300 p-r60" style="list-style-type:none;">
                                 <li>{{ items.mine.stone_type }}</li>
                                 <li>{{ items.width }}*{{ items.length }}*{{ items.height }}</li>
                                 <li>{{ items.mine.province }}</li>
@@ -470,7 +470,7 @@
                             </ul>
                         </div>
                         <div class="col-6 ">
-                            <ul class="product-box-ul font-weight-300 p-r40" style="list-style-type:none;">
+                            <ul class="product-box-ul font-weight-300 p-r60" style="list-style-type:none;">
                                 <li>تراورتن</li>
                                 <li>120*150*160</li>
                                 <li>کرج-ایران</li>

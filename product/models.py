@@ -13,7 +13,9 @@ from zipfile import ZipFile
 from chardet import detect as charsetdetect
 from wheel.util import native
 
+
 GALLERIES_UPLOAD_DIR = "galleries"
+
 
 
 
@@ -467,7 +469,7 @@ class InternalProduct(ProductBase):
         shomareh_ghole = self.serial_number_of_the_peak_in_the_mine
         year = str(self.created)[3]
         month = str(self.created)[5:7]
-        day = str(self.created)[8::]
+        day=str(self.created)[8:10]
         mine = self.mine
         self.unique_id = kode_sine_kar + kode_darage_bandi + '-' + shomareh_ghole + year + month + day + '-' +str(mine)
         return super(InternalProduct, self).save(*args, **kwargs)
@@ -522,12 +524,12 @@ class Loaded(models.Model):
     serial_number_of_the_peak_in_the_mine = models.CharField(max_length=125)
 
 
-class LinedProduct(models.Model):
-    line_number = models.CharField(max_length=125)
-    serial_number_of_the_peak_in_the_mine=models.CharField(max_length=125)
+# class LinedProduct(models.Model):
+#     line_number = models.CharField(max_length=125)
+#     serial_number_of_the_peak_in_the_mine=models.CharField(max_length=125)
 
-    def get_line_total(self):
-        return InternalProduct.objects.filter(line_number=self.line_number).aggregate(Sum("approximate_tonnage"))
+#     def get_line_total(self):
+#         return InternalProduct.objects.filter(line_number=self.line_number).aggregate(Sum("approximate_tonnage"))
 
 
 class Rejected(models.Model):
@@ -539,6 +541,17 @@ class Rejected(models.Model):
     buyer = models.CharField(max_length=255)
     serial_number_of_the_peak_in_the_mine = models.CharField(max_length=125)
 
-    
+# class uploder(models.Model):
+#     name = models.CharField(max_length=125)
+#     date = models.DateField(auto_now_add=True)
+#     user = models.ForeignKey("User", on_delete=models.CASCADE)
+
+class LinedProduct(ProductBase):
+    pass
+
+class LinedProductObject():
+    unique_id=models.CharField()
+    line=models.ForeignKey("lined",on_delete=models.CASCADE)
+
     
     
