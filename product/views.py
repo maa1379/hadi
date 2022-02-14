@@ -444,18 +444,19 @@ class ExportalInventory(View):
 
 class SearchView(View):
     def get(self, request):
-        internal_product = InternalProduct.objects.filter(
-            Q(mine__stone_type=request.GET.get("stone_type")))
-#             | Q(stone_name=request.GET.get("stone_name")),
-#             Q(mine__name=request.GET.get("mine")) | Q(grading_code=request.GET.get("grading_code"))| Q(length__lt=request.GET.get("length__max")),
-#             Q(height__lt=request.GET.get("length_max")) | Q(width__lt=request.GET.get("width")) |   Q(approximate_tonnage__gt=request.GET.get("ton")))
-        exportal_product = ExportalProduct.objects.filter(
-            Q(mine__stone_type=request.GET.get("stone_type")))
-#             | Q(stone_name=request.GET.get("stone_name")),
-#             Q(mine__name=request.GET.get("mine")) | Q(grading_code=request.GET.get("grading_code")),
-#             Q(color_code=request.GET.get("color_code")) | Q(length__lt=request.GET.get("length")),
-#             Q(height__lt=request.GET.get("height")) | Q(width__lt=request.GET.get("width")|Q(approximate_tonnage__lt=request.GET.get("ton"))
-        )
-        return render(request, "product/search.html", {"internal": internal_product, "exportal": exportal_product})    
+        pass
+#         internal_product = InternalProduct.objects.filter(
+#             Q(mine__stone_type=request.GET.get("stone_type")))
+# #             | Q(stone_name=request.GET.get("stone_name")),
+# #             Q(mine__name=request.GET.get("mine")) | Q(grading_code=request.GET.get("grading_code"))| Q(length__lt=request.GET.get("length__max")),
+# #             Q(height__lt=request.GET.get("length_max")) | Q(width__lt=request.GET.get("width")) |   Q(approximate_tonnage__gt=request.GET.get("ton")))
+#         exportal_product = ExportalProduct.objects.filter(
+#             Q(mine__stone_type=request.GET.get("stone_type")))
+# #             | Q(stone_name=request.GET.get("stone_name")),
+# #             Q(mine__name=request.GET.get("mine")) | Q(grading_code=request.GET.get("grading_code")),
+# #             Q(color_code=request.GET.get("color_code")) | Q(length__lt=request.GET.get("length")),
+# #             Q(height__lt=request.GET.get("height")) | Q(width__lt=request.GET.get("width")|Q(approximate_tonnage__lt=request.GET.get("ton"))
+#         )
+#         return render(request, "product/search.html", {"internal": internal_product, "exportal": exportal_product})    
     
     
