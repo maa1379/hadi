@@ -470,8 +470,8 @@ class InternalProduct(ProductBase):
         year = str(self.created)[3]
         month = str(self.created)[5:7]
         day=str(self.created)[8:10]
-        mine = self.mine
-        self.unique_id = kode_sine_kar + kode_darage_bandi + '-' + shomareh_ghole + year + month + day + '-' +str(mine)
+        mine = str(self.mine)
+        self.unique_id = kode_sine_kar + kode_darage_bandi + '-' + shomareh_ghole + year + month + day + '-' +mine
         return super(InternalProduct, self).save(*args, **kwargs)
 
     def __str__(self):
