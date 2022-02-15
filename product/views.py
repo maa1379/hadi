@@ -184,12 +184,8 @@ class InternalProductPanelList(ListView):
 
 
 class InternalProductDetail(DetailView):
-#     model = InternalProduct
-#     slug_field = "pk"
-#     slug_url_kwarg = "pk"
-#     template_name = "product/internal_detail.html"
-    def get(self,request,pk):
-        object=get_object_or_404(InternalProduct,pk=pk)
+    def get(self,request,unique_id):
+        object=get_object_or_404(ExportalProduct, unique_id=unique_id)
         full_path=request.build_absolute_uri()
         return render(request,"product/exportal_detail.html",{"object":object,"full_path":full_path})
 
@@ -314,11 +310,12 @@ class LinedProductPanelList(ListView):
     template_name = "product/line_list.html"
 
 
-class LinedProductDetail(DetailView):
-    model = InternalProduct
-    slug_field = "uniqe_id"
-    slug_url_kwarg = "uniqe_id"
-    template_name = "product/line_list.html"
+class LinedProductDetail(View):
+    def get(self,request,unique_id):
+        print(unique_id)
+        object=get_object_or_404(LinedProduct,unique_id=unique_id)
+        full_path=request.build_absolute_uri()
+        return render(request,"product/exportal_detail.html",{"object":object,"full_path":full_path})
 
 
 class LinedProductCreateView(View):
@@ -337,12 +334,11 @@ class LinedProductCreateView(View):
         return render(request, "product/create_lined.html")
 
 class ExportalProductDetail(View):
-
     def get(self,request,pk):
-        object=get_object_or_404(InternalProduct,pk=pk)
+        object=get_object_or_404(ExportalProduct, pk=pk)
         full_path=request.build_absolute_uri()
-        return render(request,"product/.html",{"object":object,"full_path":full_path})    
-    
+        context = {"object":object,"full_path":full_path}
+        return render(request, "product/exportal_detail.html", context)
 
 # REJECTED
 
@@ -443,9 +439,128 @@ class ExportalInventory(View):
         return render(request, 'product/exportal_reports.html', {'filter': queryset})
 
 
+def is_valid_queryparam(param):
+    return param != '' and param is not None
+
 def SearchView(request):
-        internal_product = InternalProduct.objects.filter(
-            Q(mine__stone_type=request.GET.get("stone_type")) | Q(stone_name=request.GET.get("stone_name"))|Q(mine__name=request.GET.get("mine")) | Q(grading_code=request.GET.get("grading_code"))| Q(length__lt=request.GET.get("length__max"))|Q(height__gt=request.GET.get("length_min")) | Q(width__lt=request.GET.get("width__max")) |  Q(width__gt=request.GET.get("width__min")) |    Q(approximate_tonnage__gt=request.GET.get("ton")))
-        exportal_product = ExportalProduct.objects.filter(Q(mine__stone_type=request.GET.get("stone_type"))) | Q(stone_name=request.GET.get("stone_name"))|Q(mine__name=request.GET.get("mine")) | Q(grading_code=request.GET.get("grading_code"))| Q(length__lt=request.GET.get("length__max"))|Q(height__gt=request.GET.get("length_min")) | Q(width__lt=request.GET.get("width__max")) |  Q(width__gt=request.GET.get("width__min")) |    Q(approximate_tonnage__gt=request.GET.get("ton") | Q(color_code=request.GET.get("color_code")))
-        return render(request, "product/search.html", {"internal": internal_product, "exportal": exportal_product})
-    
+    stone_type = request.GET.get('stone_type')
+    stone_name = request.GET.get('stone_name')
+    mine = request.GET.get('mine')
+    color_code = request.GET.get('color_code')
+
+    length_min = request.GET.get('length_min')
+    length_max = request.GET.get('length_max')
+    height_min = request.GET.get('height_min')
+    height_max = request.GET.get('height_max')
+    ton = request.GET.get('ton')
+
+    grading_code = request.GET.get('grading_code')
+    width_min = request.GET.get("width_min")
+    param = False
+
+    queryset = InternalProduct.objects.all()
+    if is_valid_queryparam(stone_type):
+        queryset = queryset.filter(mine__stone_type=stone_type)
+        param = True
+    if is_valid_queryparam(stone_name):
+        queryset = queryset.filter(stone_name=stone_name)
+        param = True
+    if is_valid_queryparam(mine):
+        queryset = queryset.filter(mine__name=mine)
+        param = True
+    if is_valid_queryparam(grading_code):
+        queryset = queryset.filter(grading_code=grading_code)
+        param = True
+    if is_valid_queryparam(length_max):
+        queryset = queryset.filter(length__lte=length_max)
+        param = True
+    if is_valid_queryparam(length_min):
+        queryset = queryset.filter(height__gte=length_min)
+        param = True
+    if is_valid_queryparam(height_max):
+        queryset = queryset.filter(height__lte=height_max)
+        param = True
+    if is_valid_queryparam(height_min):
+        queryset = queryset.filter(height__gte=height_min)
+        param = True
+    if is_valid_queryparam(width_min):
+        queryset = queryset.filter(width__gt=width_min)
+        param = True
+    if is_valid_queryparam(ton):
+        queryset = queryset.filter(approximate_tonnage__gt=ton)
+        param = True
+
+    if param:
+        internal_product = queryset
+        print('here == ', internal_product)
+    else:
+        internal_product = None
+
+    queryset = ExportalProduct.objects.all()
+    if is_valid_queryparam(stone_type):
+        queryset = queryset.filter(mine__stone_type=stone_type)
+        param = True
+    if is_valid_queryparam(stone_name):
+        queryset = queryset.filter(stone_name=stone_name)
+        param = True
+    if is_valid_queryparam(mine):
+        queryset = queryset.filter(mine__name=mine)
+        param = True
+    if is_valid_queryparam(grading_code):
+        queryset = queryset.filter(grading_code=grading_code)
+        param = True
+    if is_valid_queryparam(length_max):
+        queryset = queryset.filter(length__lte=length_max)
+        param = True
+    if is_valid_queryparam(length_min):
+        queryset = queryset.filter(height__gte=length_min)
+        param = True
+    if is_valid_queryparam(height_max):
+        queryset = queryset.filter(height__lte=height_max)
+        param = True
+    if is_valid_queryparam(height_min):
+        queryset = queryset.filter(height__gte=height_min)
+        param = True
+    if is_valid_queryparam(width_min):
+        queryset = queryset.filter(width__gt=width_min)
+        param = True
+    if is_valid_queryparam(ton):
+        queryset = queryset.filter(approximate_tonnage__gt=ton)
+        param = True
+    if is_valid_queryparam(color_code):
+        queryset = queryset.filter(color_code=color_code)
+        param = True
+
+    if param:
+        exportal_product = queryset
+        print('here2 ==', exportal_product)
+    else:
+        exportal_product = None
+
+    # internal_product = InternalProduct.objects.filter(
+        # Q(mine__stone_type=request.GET.get("stone_type"))|\
+        # Q(stone_name=request.GET.get("stone_name"))|\
+        # Q(mine__name=request.GET.get("mine")) |\
+        # Q(grading_code=request.GET.get("grading_code"))|\
+        # Q(length__lt=request.GET.get("length_max"))|\
+        # Q(height__gt=request.GET.get("length_min")) |\
+        # Q(width__lt=request.GET.get("height_max")) |\
+        # Q(width__gt=request.GET.get("width_min")) |\
+        # Q(approximate_tonnage__gt=request.GET.get("ton"))
+    # )
+
+    # exportal_product = ExportalProduct.objects.filter(
+    #     Q(mine__stone_type=request.GET.get("stone_type"))) |\
+    #                    Q(stone_name=request.GET.get("stone_name"))|\
+    #                    Q(mine__name=request.GET.get("mine")) |\
+    #                    Q(grading_code=request.GET.get("grading_code"))|\
+    #                    Q(length__lt=request.GET.get("length_max"))|\
+    #                    Q(height__gt=request.GET.get("length_min")) |\
+    #                    Q(width__lt=request.GET.get("height_max")) |\
+    #                    Q(width__gt=request.GET.get("width_min")) |\
+    #                    Q(approximate_tonnage__gt=request.GET.get("ton") |
+    #                  Q(color_code=request.GET.get("color_code")))
+
+    context = {"internal": internal_product, "exportal": exportal_product}
+
+    return render(request, "product/search.html", context)
