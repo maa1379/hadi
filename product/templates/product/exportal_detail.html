@@ -628,38 +628,103 @@
                     <!-- Left part start -->
                     <div class="col-lg-7">
                         <div class="row">
-                            {% for im in object.image_exportal_logo.all %}
-                             {% if forloop.counter < 2 %}
-                                    <div class="col-12">
-                                        <ul id="masonry1"
-                                            class="row dez-gallery-listing gallery-grid-4 m-lr0 mfp-gallery">
-                                            <li class="office card-container ">
-                                                <div class="dez-box ">
-                                                    <div class="dez-thum dez-img-overlay1 dez-img-effect zoom-slow"><a
-                                                            href="javascript:void(0);">
-                                                     
-                                                           {% thumbnail im.photo "300x300" as img %}
-   <img style="width: 100%; height: 436px;" src="{{ img.url }}"> </a>
-            {% endthumbnail %}
-                                                     
-                                                     
-                                                        <div class="overlay-bx">
-                                                            <div class="overlay-icon">
-                                                                <a href="{{ im.photo.url }}" class="mfp-link"
-                                                                 
-                                                                   title="{{ object.stone_name }}">
-                                                                    <i class="fa fa-picture-o icon-bx-xs"></i>
-                                                                </a>
+                            {% if is_exportal == 1 %}
+                                {% for im in object.image_exportal_logo.all %}
+                                    {% if forloop.counter < 2 %}
+                                        <div class="col-12">
+                                            <ul id="masonry1"
+                                                class="row dez-gallery-listing gallery-grid-4 m-lr0 mfp-gallery">
+                                                <li class="office card-container ">
+                                                    <div class="dez-box ">
+                                                        <div class="dez-thum dez-img-overlay1 dez-img-effect zoom-slow"><a
+                                                                href="javascript:void(0);">
+
+                                                               {% thumbnail im.photo "300x300" as img %}
+                                                                    <img style="width: 100%; height: 436px;" src="{{ img.url }}"> </a>
+                                                                {% endthumbnail %}
+
+
+                                                            <div class="overlay-bx">
+                                                                <div class="overlay-icon">
+                                                                    <a href="{{ im.photo.url }}" class="mfp-link"
+
+                                                                       title="{{ object.stone_name }}">
+                                                                        <i class="fa fa-picture-o icon-bx-xs"></i>
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                               {% endif %}
-                            {% endfor %}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                   {% endif %}
+                                {% endfor %}
+                            {% elif is_internal == 1 %}
+                                {% for im in object.image_internal_logo.all %}
+                                    {% if forloop.counter < 2 %}
+                                        <div class="col-12">
+                                            <ul id="masonry1"
+                                                class="row dez-gallery-listing gallery-grid-4 m-lr0 mfp-gallery">
+                                                <li class="office card-container ">
+                                                    <div class="dez-box ">
+                                                        <div class="dez-thum dez-img-overlay1 dez-img-effect zoom-slow"><a
+                                                                href="javascript:void(0);">
 
+                                                               {% thumbnail im.photo "300x300" as img %}
+                                                                    <img style="width: 100%; height: 436px;" src="{{ img.url }}"> </a>
+                                                                {% endthumbnail %}
+
+
+                                                            <div class="overlay-bx">
+                                                                <div class="overlay-icon">
+                                                                    <a href="{{ im.photo.url }}" class="mfp-link"
+
+                                                                       title="{{ object.stone_name }}">
+                                                                        <i class="fa fa-picture-o icon-bx-xs"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                   {% endif %}
+                                {% endfor %}
+                            {% elif is_lined == 1 %}
+                                {% for im in object.image_lined.all %}
+                                    {% if forloop.counter < 2 %}
+                                        <div class="col-12">
+                                            <ul id="masonry1"
+                                                class="row dez-gallery-listing gallery-grid-4 m-lr0 mfp-gallery">
+                                                <li class="office card-container ">
+                                                    <div class="dez-box ">
+                                                        <div class="dez-thum dez-img-overlay1 dez-img-effect zoom-slow"><a
+                                                                href="javascript:void(0);">
+
+                                                               {% thumbnail im.photo "300x300" as img %}
+                                                                    <img style="width: 100%; height: 436px;" src="{{ img.url }}"> </a>
+                                                                {% endthumbnail %}
+
+
+                                                            <div class="overlay-bx">
+                                                                <div class="overlay-icon">
+                                                                    <a href="{{ im.photo.url }}" class="mfp-link"
+
+                                                                       title="{{ object.stone_name }}">
+                                                                        <i class="fa fa-picture-o icon-bx-xs"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                   {% endif %}
+                                {% endfor %}
+                            {% endif %}
 
                             <div class="col-12">
                                 <div class="row " style="margin-top: -5px">

@@ -189,7 +189,7 @@ class InternalProductDetail(DetailView):
     def get(self,request,unique_id):
         object=get_object_or_404(InternalProduct, unique_id=unique_id)
         full_path=request.build_absolute_uri()
-        return render(request,"product/exportal_detail.html",{"object":object,"full_path":full_path})
+        return render(request,"product/exportal_detail.html",{"object":object,"full_path":full_path, 'is_internal':1})
 
 
 class InternalProductCreateView(View):
@@ -259,18 +259,10 @@ class ExportalProductListCompleteView(LoginRequiredMixin, ListView):
     
 
 class ExportalProductDetail(View):
-#     model = ExportalProduct
-#     slug_field = "pk"
-#     slug_url_kwarg = "pk"
-#     template_name = "product/exportal_detail.html"
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context = {'full_path': self.request.build_absolute_uri()}
-#         return context
     def get(self,request,pk):
         object=get_object_or_404(ExportalProduct,pk=pk)
         full_path=request.build_absolute_uri()
-        return render(request,"product/exportal_detail.html",{"object":object,"full_path":full_path})
+        return render(request,"product/exportal_detail.html",{"object":object,"full_path":full_path, 'is_exportal': 1})
       
 
 
@@ -324,7 +316,7 @@ class LinedProductDetail(View):
         print(unique_id)
         object=get_object_or_404(LinedProduct,unique_id=unique_id)
         full_path=request.build_absolute_uri()
-        return render(request,"product/exportal_detail.html",{"object":object,"full_path":full_path})
+        return render(request,"product/exportal_detail.html",{"object":object,"full_path":full_path, 'is_lined':1})
 
 
 def lined_product_image(request):
@@ -354,7 +346,7 @@ class ExportalProductDetail(View):
     def get(self,request,unique_id):
         object=get_object_or_404(ExportalProduct, unique_id=unique_id)
         full_path=request.build_absolute_uri()
-        context = {"object":object,"full_path":full_path}
+        context = {"object":object,"full_path":full_path, 'is_exportal':1}
         return render(request, "product/exportal_detail.html", context)
 
 # REJECTED
