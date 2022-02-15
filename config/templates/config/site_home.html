@@ -843,7 +843,7 @@
                             ><i class="fa fa-heart-o text-warning" style="margin-left: 5px"></i>
                             به لیست علاقه مندی های من اضافه شود
                             </a></div>
-                        <div class="col-6"><a href="{% url "product:exportal_product_detail" pro.pk %}"
+                        <div class="col-6"><a href="{% url "product:exportal_product_detail" pro.unique_id %}"
                             class="site-button block-num-block-box bg-white text-secondry"
                             style="font-size: 14px !important;"
                             >بلوک
@@ -938,7 +938,7 @@
                             ><i class="fa fa-heart-o text-warning" style="margin-left: 5px"></i>
                             به لیست علاقه مندی های من اضافه شود
                             </a></div>
-                        <div class="col-6"><a href="{% url 'product:internal_product_detail' items.unique_id %}"
+                        <div class="col-6"><a href="{% url 'product:exportal_product_detail' items.unique_id %}"
                             class="site-button block-num-block-box bg-white text-secondry"
                             style="font-size: 14px !important;"
                             >بلوک
@@ -969,14 +969,11 @@
            {% for items in lined %}
             <div class="col-md-12 col-lg-4 col-sm-12 m-b30">
                 <div class="dez-box fly-box" style="margin: -10px;">
-                    {% for m in items.image_exportal_logo.all %}
+                    {% for m in items.image_lined.all %}
                     {% if forloop.counter < 2 %}
-
-
-
                       {% thumbnail m.photo "600x600" as test %}
                     <div class="dez-media"><a
-                            href="{% url "product:exportal_product_detail" items.pk %}"><img src="{{ test.url }}" class="card-img-top"></a>
+                            href="{% url 'product:exportal_product_detail' items.pk %}"><img src="{{ test.url }}" class="card-img-top"></a>
                     </div>
                 {% endthumbnail %}
                     {% endif %}

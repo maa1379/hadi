@@ -207,13 +207,13 @@
                             <div class="dez-info p-a0 bg-white row m-auto ">
 
                                 <div class="col-6"><a style="font-size: 7px"
-                                                      href="{% url "account:create_favorite" l.unique_id %}"
+                                                      href="{% url 'account:create_favorite' l.unique_id %}"
                                                       class="site-button add-to-wish-list-btn text-white"
                                 ><i class="fa fa-heart-o text-warning" style="margin-left: 5px"></i>
                                     به لیست علاقه مندی های من اضافه شود
                                 </a></div>
                                 <div class="col-6"><a class="site-button block-num-block-box bg-white text-secondry"
-                                                      style="font-size: 10px !important;"  href="{% url "product:internal_product_detail" l.id %}"
+                                                      style="font-size: 10px !important;"  href="{% url 'product:internal_product_detail' l.unique_id %}"
                                 >بلوک
                                     : {{ l.unique_id }}</a></div>
                             </div>
@@ -272,13 +272,13 @@
                             <div class="dez-info p-a0 bg-white row m-auto ">
 
                                 <div class="col-6"><a style="font-size: 7px"
-                                                      href="{% url "account:create_favorite" ex.unique_id %}"
+                                                      href="{% url 'account:create_favorite' ex.unique_id %}"
                                                       class="site-button add-to-wish-list-btn text-white"
                                 ><i class="fa fa-heart-o text-warning" style="margin-left: 5px"></i>
                                     به لیست علاقه مندی های من اضافه شود
                                 </a></div>
                                 <div class="col-6"><a class="site-button block-num-block-box bg-white text-secondry"
-                                                      style="font-size: 10px !important;" href="{% url "product:exportal_product_detail" ex.id %}"
+                                                      style="font-size: 10px !important;" href="{% url 'product:exportal_product_detail' ex.unique_id %}"
                                 >بلوک
                                     : {{ ex.unique_id }}</a></div>
                             </div>

@@ -3,7 +3,7 @@ from tablib import Dataset
 from .filters import ProductFilter, LoadedFilter, DomesticFilter, ExportalFilter,RejectedFilter
 from django.views.generic import ListView, View, DetailView
 from .models import ExportalProduct, InternalProduct, LinedProduct, ProductBase, Rejected, Loaded, Internal_Image, \
-    Exportal_Image ,ExportalLogo,ExportalFileLogo
+    Exportal_Image, ExportalLogo, ExportalFileLogo, InternalFileLogo, linedFile
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .resources import Internal_Product_Resource, Exportal_Product_Resource, Internal_Product_Image_Resource, \
@@ -18,7 +18,9 @@ import os
 from pathlib import Path
 from django.core.files.base import ContentFile
 from django.core.files.images import ImageFile
-from .forms import ExportalFileForm,ExportalFileLogoForm
+from .forms import ExportalFileForm, ExportalFileLogoForm, InternalFileLogoForm, linedFileForm
+
+
 # Create your views here.
 
 class SpecialOfferList(View):
@@ -136,8 +138,8 @@ class AllProductList(LoginRequiredMixin, View):
         #     exportal = ExportalProduct.objects.filter(mine__stone_type=stone_type, stone_name=stone_name,
         #                                               mine__name=mine, grading_code=grade, color_code=color)
         context = {
-            "internal": InternalProduct.objects.all()[:10],
-            "exportal": ExportalProduct.objects.all()[:10],
+            "internal": InternalProduct.objects.all(),
+            "exportal": ExportalProduct.objects.all(),
             "lined": LinedProduct.objects.all(),
             "total_count": total_count,
             "total_ton": total_ton
@@ -185,7 +187,7 @@ class InternalProductPanelList(ListView):
 
 class InternalProductDetail(DetailView):
     def get(self,request,unique_id):
-        object=get_object_or_404(ExportalProduct, unique_id=unique_id)
+        object=get_object_or_404(InternalProduct, unique_id=unique_id)
         full_path=request.build_absolute_uri()
         return render(request,"product/exportal_detail.html",{"object":object,"full_path":full_path})
 
@@ -210,21 +212,28 @@ class InternalProductCreateView(View):
  
 
 
-class InternalImage(View):
+# class InternalImage(View):
+def InternalImage(request):
+    if request.method == "POST":
+        form = InternalFileLogoForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = InternalFileLogo(file=form.cleaned_data["file"])
+            file.save()
+            return redirect("config:panel_home")
+    # def post(self, request):
+    #     internal_image_resource = Internal_Product_Image_Resource()
+    #     dataset = Dataset()
+    #     new_internal_image = request.FILES['file']
+    #     imported_data = dataset.load(new_internal_image.read(), format='zip')
+    #     for data in imported_data:
+    #         print(data[1])
+    #         value = Internal_Image(
+    #             data[0],
+    #             data[1],
+    #         )
+    #         value.save()
+    #     return redirect("config:panel_home")
 
-    def post(request):
-        internal_image_resource = Internal_Product_Image_Resource()
-        dataset = Dataset()
-        new_internal_image = request.FILES['file']
-        imported_data = dataset.load(new_internal_image.read(), format='xlsx')
-        for data in imported_data:
-            print(data[1])
-            value = Internal_Image(
-                data[0],
-                data[1],
-            )
-            value.save()
-        return redirect("config:panel_home")
 
 
 # Exportal
@@ -318,8 +327,16 @@ class LinedProductDetail(View):
         return render(request,"product/exportal_detail.html",{"object":object,"full_path":full_path})
 
 
-class LinedProductCreateView(View):
+def lined_product_image(request):
+    if request.method == "POST":
+        form = linedFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = linedFile(file=form.cleaned_data["file"])
+            file.save()
+            return redirect("config:panel_home")
 
+
+class LinedProductCreateView(View):
     def get(self, request):
         return render(request, "product/create_lined.html")
 
@@ -334,8 +351,8 @@ class LinedProductCreateView(View):
         return render(request, "product/create_lined.html")
 
 class ExportalProductDetail(View):
-    def get(self,request,pk):
-        object=get_object_or_404(ExportalProduct, pk=pk)
+    def get(self,request,unique_id):
+        object=get_object_or_404(ExportalProduct, unique_id=unique_id)
         full_path=request.build_absolute_uri()
         context = {"object":object,"full_path":full_path}
         return render(request, "product/exportal_detail.html", context)

@@ -1,15 +1,17 @@
 from django.urls import path
-from .views import  AllProductList,SearchView,MainPictureExportalCreateView, InternalProductPanelList, \
-    InternalProductDetail, PartialPictureExportalCreateView ,InternalProductCreateView, ExportalProductPanelList, \
+from .views import AllProductList, SearchView, MainPictureExportalCreateView, InternalProductPanelList, \
+    InternalProductDetail, PartialPictureExportalCreateView, InternalProductCreateView, ExportalProductPanelList, \
     ExportalProductListView, ExportalProductDetail, ExportalProductCreateView, \
     LinedProductList, LinedProductPanelList, LinedProductDetail, LinedProductCreateView, \
     RejectedProductList, RejectedProductCreateView, LoadedProductList, LoadedProductCreateView, \
     InternalImage, ExportalImage, SpecialOfferList, ProductionReportsList, LoadedReports, DomesticInventory, \
-    ExportalInventory,AllProductListComplete,SpecialOfferListComplete,ExportalProductListCompleteView
+    ExportalInventory, AllProductListComplete, SpecialOfferListComplete, ExportalProductListCompleteView, \
+    lined_product_image
 
 app_name = "product"
 urlpatterns = [
     path("exportal_logo/",MainPictureExportalCreateView,name="exportal_logo"),
+    path("lined_product_images/",lined_product_image,name="lined_product_image"),
     path("PartialPictureExportalCreateView/",PartialPictureExportalCreateView,name="partial_pic_create"),
     path("search/",SearchView, name="search"),
     path("exportal_product_complete/",ExportalProductListCompleteView.as_view(), name="exportal_product_Complete"),
@@ -19,10 +21,10 @@ urlpatterns = [
     path("Interna_list/", InternalProductPanelList.as_view(), name="internal_list_panel"),
     path("internal_product_detail/<str:unique_id>/", InternalProductDetail.as_view(), name="internal_product_detail"),
     path("internal_product_create/", InternalProductCreateView.as_view(), name="internal_product_create"),
-    path("internal_image/", InternalImage.as_view(), name="internal_image"),
+    path("internal_image/", InternalImage, name="internal_image"),
     path("exportal_list/", ExportalProductListView.as_view(), name="exportal_list"),
     path("exportal_list_panel/", ExportalProductPanelList.as_view(), name="exportal_list_panel"),
-    path("exportal_product_detail/<int:pk>/", ExportalProductDetail.as_view(), name="exportal_product_detail"),
+    path("exportal_product_detail/<str:unique_id>/", ExportalProductDetail.as_view(), name="exportal_product_detail"),
     path("exportal_product_create/", ExportalProductCreateView.as_view(), name="exportal_product_create"),
     path("exportal_image/", ExportalImage.as_view(), name="exportal_image"),
     path("lined_product/", LinedProductList.as_view(), name="lined_product"),
