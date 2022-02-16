@@ -1,10 +1,15 @@
 from django import forms
-from .models import ExportalFile, ExportalFileLogo, InternalFileLogo, linedFile
+from .models import ExportalFile, ExportalFileLogo, InternalFileLogo, linedFile, InternalFile
 
 
 class ExportalFileForm(forms.ModelForm):
     class Meta:
         model=ExportalFile
+        fields="__all__"
+
+class InternalFileForm(forms.ModelForm):
+    class Meta:
+        model=InternalFile
         fields="__all__"
 
 class ExportalFileLogoForm(forms.ModelForm):
@@ -21,7 +26,3 @@ class linedFileForm(forms.ModelForm):
     class Meta:
         model=linedFile
         fields="__all__"
-
-        
-        
-        

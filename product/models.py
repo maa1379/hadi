@@ -207,12 +207,6 @@ class ImageInternalModel(models.Model):
                                 blank=True)
 
 
-#     def save(self, *args, **kwargs):
-#         p=InternalProduct.objects.get(serial_number_of_the_peak_in_the_mine=name)
-#         self.product=p
-#         return   super(ImageInternalModel, self).save(*args, **kwargs)
-
-
 class InternalFile(models.Model):
     file = models.FileField(upload_to="file/")
 
@@ -255,28 +249,14 @@ class InternalFile(models.Model):
 
                 # to / on disk; see os.path.join docs.
                 path = os.path.join(GALLERIES_UPLOAD_DIR, tempname)
-                try:
-                    saved_path = default_storage.save(path, ContentFile(data))
-                except UnicodeEncodeError:
-                    from warnings import warn
-
-                    warn(
-                        "A file was saved that contains unicode "
-                        "characters in its path, but somehow the current "
-                        "locale does not support utf-8. You may need to set "
-                        "'LC_ALL' to a correct value, eg: 'en_US.UTF-8'."
-                    )
-                    # The native() call is needed here around str because
-                    # os.path.join() in Python 2.x (in posixpath.py)
-                    # mixes byte-strings with unicode strings without
-                    # explicit conversion, which raises a TypeError as it
-                    # would on Python 3.
-                    path = os.path.join(
-                        GALLERIES_UPLOAD_DIR, slug, str(name, errors="ignore")
-                    )
-                    saved_path = default_storage.save(path, ContentFile(data))
+                saved_path = default_storage.save(path, ContentFile(data))
                 images = ImageInternalModel(photo=saved_path)
-                pic_name = str(images)
+                try:
+                    images.product = InternalProduct.objects.get(
+                        serial_number_of_the_peak_in_the_mine=str(saved_path).split('/')[1][:5])
+                except:
+                    continue
+                pic_name = str(saved_path)
                 ali = pic_name.split('/')[1]
                 images.name = ali[:4]
                 images.save()
@@ -290,12 +270,6 @@ class ImageExportalModel(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
     product = models.ForeignKey('ExportalProduct', on_delete=models.CASCADE, related_name="image_exportal", null=True,
                                 blank=True)
-
-
-#     def save(self, *args, **kwargs):
-#         p=ExportalProduct.objects.get(serial_number_of_the_peak_in_the_mine=name)
-#         self.product=p
-#         return  super(ImageExportalModel, self).save(*args, **kwargs)
 
 
 class ExportalFile(models.Model):
@@ -341,27 +315,9 @@ class ExportalFile(models.Model):
 
                 # to / on disk; see os.path.join docs.
                 path = os.path.join(GALLERIES_UPLOAD_DIR, tempname)
-                try:
-                    saved_path = default_storage.save(path, ContentFile(data))
-                except UnicodeEncodeError:
-                    from warnings import warn
-
-                    warn(
-                        "A file was saved that contains unicode "
-                        "characters in its path, but somehow the current "
-                        "locale does not support utf-8. You may need to set "
-                        "'LC_ALL' to a correct value, eg: 'en_US.UTF-8'."
-                    )
-                    # The native() call is needed here around str because
-                    # os.path.join() in Python 2.x (in posixpath.py)
-                    # mixes byte-strings with unicode strings without
-                    # explicit conversion, which raises a TypeError as it
-                    # would on Python 3.
-                    path = os.path.join(
-                        GALLERIES_UPLOAD_DIR, slug, str(name, errors="ignore")
-                    )
-                    saved_path = default_storage.save(path, ContentFile(data))
+                saved_path = default_storage.save(path, ContentFile(data))
                 images = ImageExportalModel(photo=saved_path)
+                images.product = ExportalProduct.objects.get(serial_number_of_the_peak_in_the_mine=str(saved_path).split('/')[1][:5])
                 name = str(saved_path)
                 ali = name.split('/')[1]
                 images.name = ali[:4]
@@ -405,7 +361,7 @@ class InternalProduct(ProductBase):
         return super(InternalProduct, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.stone_name
+        return self.unique_id
 
 
 class Internal_Image(models.Model):
@@ -452,14 +408,6 @@ class Loaded(models.Model):
     mine = models.ForeignKey(Mine, on_delete=models.CASCADE)
     buyer = models.CharField(max_length=255)
     serial_number_of_the_peak_in_the_mine = models.CharField(max_length=125)
-
-
-# class LinedProduct(models.Model):
-#     line_number = models.CharField(max_length=125)
-#     serial_number_of_the_peak_in_the_mine=models.CharField(max_length=125)
-
-#     def get_line_total(self):
-#         return InternalProduct.objects.filter(line_number=self.line_number).aggregate(Sum("approximate_tonnage"))
 
 
 class Rejected(models.Model):

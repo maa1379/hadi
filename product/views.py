@@ -3,7 +3,8 @@ from tablib import Dataset
 from .filters import ProductFilter, LoadedFilter, DomesticFilter, ExportalFilter,RejectedFilter
 from django.views.generic import ListView, View, DetailView
 from .models import ExportalProduct, InternalProduct, LinedProduct, ProductBase, Rejected, Loaded, Internal_Image, \
-    Exportal_Image, ExportalLogo, ExportalFileLogo, InternalFileLogo, linedFile
+    Exportal_Image, ExportalLogo, ExportalFileLogo, InternalFileLogo, linedFile, ImageExportalModel, ExportalFile, \
+    InternalFile
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .resources import Internal_Product_Resource, Exportal_Product_Resource, Internal_Product_Image_Resource, \
@@ -18,7 +19,7 @@ import os
 from pathlib import Path
 from django.core.files.base import ContentFile
 from django.core.files.images import ImageFile
-from .forms import ExportalFileForm, ExportalFileLogoForm, InternalFileLogoForm, linedFileForm
+from .forms import ExportalFileForm, ExportalFileLogoForm, InternalFileLogoForm, linedFileForm, InternalFileForm
 
 
 # Create your views here.
@@ -106,13 +107,11 @@ def PartialPictureInternalCreateView(request):
 
 def PartialPictureExportalCreateView(request):
     if request.method == "POST":
-        form = ExportalFileLogoForm(request.POST, request.FILES)
+        form = ExportalFileForm(request.POST, request.FILES)
         if form.is_valid():
-            file = ExportalFileLogo(file=form.cleaned_data["file"])
+            file = ExportalFile(file=form.cleaned_data["file"])
             file.save()
             return redirect("config:panel_home")
-
-
 
 
 class AllProductList(LoginRequiredMixin, View):
@@ -294,6 +293,15 @@ class ExportalImage(View):
         return redirect("config:panel_home")
 
 
+def PartialPictureInternalCreateView(request):
+    if request.method == "POST":
+        form = InternalFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = InternalFile(file=form.cleaned_data["file"])
+            file.save()
+            return redirect("config:panel_home")
+
+
 # Lined
 class LinedProductList(ListView):
     model = LinedProduct
@@ -404,17 +412,15 @@ class LoadedProductList(ListView):
         return context_data
 
 
-class LoadedProductCreateView(View):
-
-    def post(self, request):
+def LoadedProductCreateView(request):
+    if request.method == 'POST':
         loaded_resource = Loaded_Product_Resource()
         dataset = Dataset()
-        new_loaded = request.FILES['myfile']
+        new_loaded = request.FILES['loadedData']
         imported_data = dataset.load(new_loaded.read(), format='xlsx')
-        result = loaded_resource.import_data(dataset, dry_run=True)
+        result = loaded_resource.import_data(dataset, dry_run=True)  # Test the data import
         if not result.has_errors():
-            loaded_resource.import_data(dataset, dry_run=False)
-      
+            loaded_resource.import_data(dataset, dry_run=False)  # Actually import now
         return redirect("config:panel_home")
 
 
