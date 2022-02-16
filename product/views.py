@@ -105,18 +105,12 @@ def PartialPictureInternalCreateView(request):
 
 
 def PartialPictureExportalCreateView(request):
-    BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
-    print(os.path.join(BASE_DIR, 'ali/file_dir'))
     if request.method == "POST":
-        form = ExportalFileForm(request.POST, request.FILES)
+        form = ExportalFileLogoForm(request.POST, request.FILES)
         if form.is_valid():
-            file = FileModel(file=form.cleaned_data["file"])
+            file = ExportalFileLogo(file=form.cleaned_data["file"])
             file.save()
-
-            return redirect("config:home_site")
-    else:
-        form = ExportalFileForm()
-    return render(request, "test.html", {"form": form})
+            return redirect("config:panel_home")
 
 
 
@@ -188,7 +182,7 @@ class InternalProductPanelList(ListView):
 class InternalProductDetail(DetailView):
     def get(self,request,unique_id):
         object=get_object_or_404(InternalProduct, unique_id=unique_id)
-        full_path=request.build_absolute_uri()
+        full_path=request.build_absolute_uri()+'?share=1'
         return render(request,"product/exportal_detail.html",{"object":object,"full_path":full_path, 'is_internal':1})
 
 
@@ -261,7 +255,7 @@ class ExportalProductListCompleteView(LoginRequiredMixin, ListView):
 class ExportalProductDetail(View):
     def get(self,request,pk):
         object=get_object_or_404(ExportalProduct,pk=pk)
-        full_path=request.build_absolute_uri()
+        full_path=request.build_absolute_uri()+'?share=1'
         return render(request,"product/exportal_detail.html",{"object":object,"full_path":full_path, 'is_exportal': 1})
       
 
@@ -315,7 +309,7 @@ class LinedProductDetail(View):
     def get(self,request,unique_id):
         print(unique_id)
         object=get_object_or_404(LinedProduct,unique_id=unique_id)
-        full_path=request.build_absolute_uri()
+        full_path=request.build_absolute_uri()+'?share=1'
         return render(request,"product/exportal_detail.html",{"object":object,"full_path":full_path, 'is_lined':1})
 
 
@@ -345,7 +339,7 @@ class LinedProductCreateView(View):
 class ExportalProductDetail(View):
     def get(self,request,unique_id):
         object=get_object_or_404(ExportalProduct, unique_id=unique_id)
-        full_path=request.build_absolute_uri()
+        full_path=request.build_absolute_uri()+'?share=1'
         context = {"object":object,"full_path":full_path, 'is_exportal':1}
         return render(request, "product/exportal_detail.html", context)
 

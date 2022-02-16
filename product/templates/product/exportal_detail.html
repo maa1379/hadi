@@ -1,7 +1,9 @@
 {% extends "site/base.html" %}
 {% load thumbnail %}
 {% block content %}
- <style>
+
+    {% if request.user.is_authenticated or request.GET.share == '1' %}
+    <style>
 
         /** {*/
         /*    margin: 0;*/
@@ -801,14 +803,10 @@
                             اشتراک
                         گذاری </a></span>
                                             <div class="shareBox text-center">
-                                                <a class="iclass" href="#" data-toggle="modal"
-                                                   data-target="#exampleModal"><i class="fa fa-telegram"></i></a>
-                                                <a class="iclass" href="https://wa.me/?text={{ full_path }}" data-toggle="modal"
-                                                   data-target="#exampleModal"><i class="fa fa-whatsapp"></i></a>
-                                                <a class="iclass" href="https://www.linkedin.com/shareArticle?mini=true&url={{full_path}}" data-toggle="modal"
-                                                   data-target="#exampleModal"><i class="fa fa-linkedin"></i></a>
-                                                <a class="iclass" href="mailto:?subject=[SUBJECT]&body={{full_path}}" data-toggle="modal"
-                                                   data-target="https://t.me/share/url?url={{full_path}}"><i class="fa fa-envelope"></i></a>
+                                                <a target="_blank" class="iclass" href="https://t.me/share/url?url={{ full_path }}&text="><i class="fa fa-telegram"></i></a>
+                                                <a target="_blank" class="iclass" href="https://wa.me/?text={{ full_path }}"><i class="fa fa-whatsapp"></i></a>
+                                                <a target="_blank" class="iclass" href="https://www.linkedin.com/shareArticle?mini=true&url={{full_path}}"><i class="fa fa-linkedin"></i></a>
+                                                <a target="_blank" class="iclass" href="mailto:?subject=[SUBJECT]&body={{full_path}}"><i class="fa fa-envelope"></i></a>
                                             </div>
                                         </div>
                                     </button>
@@ -875,4 +873,7 @@
         </div>
     </div>
 </div>
+</div>
+    {% endif %}
+
 {% endblock %}

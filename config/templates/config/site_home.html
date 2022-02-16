@@ -786,7 +786,7 @@
 
                       {% thumbnail m.photo "600x600" as test %}
                     <div class="dez-media"><a
-                            href="{% url "product:exportal_product_detail" pro.pk %}"><img src="{{ test.url }}" class="card-img-top"></a>
+                            href="{% url 'product:exportal_product_detail' pro.unique_id %}"><img src="{{ test.url }}" class="card-img-top"></a>
                     </div>
                 {% endthumbnail %}
                     {% endif %}
@@ -838,12 +838,12 @@
                     <div class="dez-info p-a0 bg-white row m-auto ">
 
                         <div class="col-6"><a style="font-size: 9px"
-                                              href="{% url "account:create_favorite" pro.unique_id %}"
+                                              href="{% url 'account:create_favorite' pro.unique_id %}"
                             class="site-button add-to-wish-list-btn text-white"
                             ><i class="fa fa-heart-o text-warning" style="margin-left: 5px"></i>
                             به لیست علاقه مندی های من اضافه شود
                             </a></div>
-                        <div class="col-6"><a href="{% url "product:exportal_product_detail" pro.unique_id %}"
+                        <div class="col-6"><a href="{% url 'product:exportal_product_detail' pro.unique_id %}"
                             class="site-button block-num-block-box bg-white text-secondry"
                             style="font-size: 14px !important;"
                             >بلوک
@@ -881,7 +881,7 @@
 
                       {% thumbnail m.photo "600x600" as test %}
                     <div class="dez-media"><a
-                            href="{% url "product:exportal_product_detail" items.pk %}"><img src="{{ test.url }}" class="card-img-top"></a>
+                            href="{% url 'product:exportal_product_detail' items.unique_id %}"><img src="{{ test.url }}" class="card-img-top"></a>
                     </div>
                 {% endthumbnail %}
                     {% endif %}
@@ -973,7 +973,7 @@
                     {% if forloop.counter < 2 %}
                       {% thumbnail m.photo "600x600" as test %}
                     <div class="dez-media"><a
-                            href="{% url 'product:exportal_product_detail' items.pk %}"><img src="{{ test.url }}" class="card-img-top"></a>
+                            href="{% url 'product:lined_product_detail' items.unique_id %}"><img src="{{ test.url }}" class="card-img-top"></a>
                     </div>
                 {% endthumbnail %}
                     {% endif %}

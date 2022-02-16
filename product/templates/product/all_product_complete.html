@@ -161,7 +161,7 @@
                             {% for im in l.image_internal_logo.all %}
                                 {% if forloop.counter < 2 %}
                                     <div class="dez-media"><a
-                                            href="{% url "product:internal_product_detail" l.id %}"><img
+                                            href="{% url 'product:internal_product_detail' l.unique_id %}"><img
                                             src="{{ im.photo.url }}" alt=""></a>
                                     </div>
                                 {% endif %}
@@ -226,7 +226,7 @@
                             {% for ia in ex.image_exportal_logo.all %}
                                 {% if forloop.counter < 2 %}
                                     <div class="dez-media"><a
-                                            href="{% url "product:exportal_product_detail" ex.id %}"><img
+                                            href="{% url 'product:exportal_product_detail' ex.unique_id %}"><img
                                             src="{{ ia.photo.url }}" alt=""></a>
                                     </div>
                                 {% endif %}
@@ -283,7 +283,7 @@
                                     : {{ ex.unique_id }}</a></div>
                             </div>
                         </div>
-                    </div>
+                    </div>s
                 {% endfor %}
                 {% for line in lined %}
                     {% if forloop.counter < 2 %}
