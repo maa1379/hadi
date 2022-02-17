@@ -231,82 +231,83 @@
     <div id="mySidenavHold" class="sidenav coming-side-bar content "><a href="javascript:void(0)"
                                                                         class="closebtnhold bg-primary">&times;</a>
         <div class="clearfix"></div>
-        <div class="p-a20 text-center">
-            <div class="row">
-                <div class="col-8">
-                    <h4 class="text-left"> درخواست هولد</h4>
+        <form action="." method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="p-a20 text-center">
+                <div class="row">
+                    <div class="col-8">
+                        <h4 class="text-left"> درخواست هولد</h4>
+                    </div>
+
+                    <div class="col-4">
+                        <input name="pin" class=" bg-gray text-right"
+                               style="background-color: #ffffff5c;height: 35px; font-size: 12px;color: black;border: 1px solid #e1e6ea"
+                               type="text"
+                               placeholder="pin#">
+                    </div>
+                </div>
+                <p class="font-size-10 text-black">لطفا فرم زیر را تکمیل و ارسال فرمایید و یا شماره PIN اختصاصی خود را وارد نمایید
+                    <br>بلوک انتخابی به مدت ۴۸ ساعت به نام شما نگه داشته میشود . در صورت نیاز به زمان بیشتر با شماره
+                    ۰۹۱۹۷۴۴۹۱۹۹ تماس حاصل فرمایید.</p>
+                <div style="width: 100%; border-top: 2px solid black"></div>
+                <div class="row p-a20">
+                    <div class="col-10 text-left" style="padding-top: 25px">
+                        <label>شماره بلوک</label>
+                        <input class=" bg-gray " disabled
+                               style="background-color: #e1e6ea; width: 85%;height: 25px; font-size: 14px;color: black;border: 1px solid #e1e6ea"
+                               type="text"
+                               placeholder="#245252563637367">
+                    </div>
+                    <div class="col-2 text-right">
+                        {% if is_exportal == 1 %}
+                            {% for im in object.image_exportal_logo.all %}
+                                {% if forloop.counter == 1 %}
+                                    <img src="{{ im.photo.url }}" width="150px">
+                                {% endif %}
+                            {% endfor %}
+                        {% elif is_internal == 1 %}
+                            {% for im in object.image_internal_logo.all %}
+                                {% if forloop.counter == 1 %}
+                                    <img src="{{ im.photo.url }}" width="150px">
+                                {% endif %}
+                            {% endfor %}
+                        {% elif is_lined == 1 %}
+                            {% for im in object.image_lined.all %}
+                                {% if forloop.counter == 1 %}
+                                    <img src="{{ im.photo.url }}" width="150px">
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                 </div>
 
-                <div class="col-4">
-                    <input class=" bg-gray text-right"
-                           style="background-color: #ffffff5c;height: 35px; font-size: 12px;color: black;border: 1px solid #e1e6ea"
-                           type="text"
-                           placeholder="pin#">
-                </div>
-            </div>
-            <p class="font-size-10 text-black">لطفا فرم زیر را تکمیل و ارسال فرمایید و یا شماره PIN اختصاصی خود را وارد نمایید
-                <br>بلوک انتخابی به مدت ۴۸ ساعت به نام شما نگه داشته میشود . در صورت نیاز به زمان بیشتر با شماره
-                ۰۹۱۹۷۴۴۹۱۹۹ تماس حاصل فرمایید.</p>
-            <div style="width: 100%; border-top: 2px solid black"></div>
-            <div class="row p-a20">
-                <div class="col-10 text-left" style="padding-top: 25px">
-                    <label>شماره بلوک</label>
-                    <input class=" bg-gray " disabled
-                           style="background-color: #e1e6ea; width: 85%;height: 25px; font-size: 14px;color: black;border: 1px solid #e1e6ea"
-                           type="text"
-                           placeholder="#245252563637367">
-                </div>
-                <div class="col-2 text-right">
-                    {% if is_exportal == 1 %}
-                        {% for im in object.image_exportal_logo.all %}
-                            {% if forloop.counter == 1 %}
-                                <img src="{{ im.photo.url }}" width="150px">
-                            {% endif %}
-                        {% endfor %}
-                    {% elif is_internal == 1 %}
-                        {% for im in object.image_internal_logo.all %}
-                            {% if forloop.counter == 1 %}
-                                <img src="{{ im.photo.url }}" width="150px">
-                            {% endif %}
-                        {% endfor %}
-                    {% elif is_lined == 1 %}
-                        {% for im in object.image_lined.all %}
-                            {% if forloop.counter == 1 %}
-                                <img src="{{ im.photo.url }}" width="150px">
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
-                </div>
-            </div>
-
-            <form action="#">
                 <div class="row">
                     <div class="col-8">
                         <p class="text-left font-weight-600">زمینه فعالیت</p>
                         <div class="row"  style="margin-top: -17px">
 
                             <div class="col-2 p-a0 m-a0" style="margin-top: -17px">
-                                <input type="radio" id="htmlr" name="fav_language" value="کارخانه سنگ بری">
-                                <label for="html" class="font-weight-400" style="font-size: 10px">کارخانه سنگ
+                                <input type="radio" id="stone_cutting_factory1" name="field" value="stone_cutting_factory">
+                                <label for="stone_cutting_factory1" class="font-weight-400" style="font-size: 10px">کارخانه سنگ
                                     بری</label>
                             </div>
                             <div class="col-1 p-a0 m-a0" style="margin-top: -17px">
-                                <input type="radio" id="cssr" name="fav_language" value="صادرات">
-                                <label for="css" class="font-weight-400" style="font-size: 10px">صادرات</label>
+                                <input id="export1" type="radio" name="field" value="export">
+                                <label for="export1" class="font-weight-400" style="font-size: 10px">صادرات</label>
                             </div>
                             <div class="col-2 p-a0 m-a0" style="margin-top: -17px">
-                                <input type="radio" id="javascriptr" name="fav_language" value="انبار بلوک">
-                                <label for="javascript" class="font-weight-400" style="font-size: 10px">انبار
+                                <input id="block_warehouse1" type="radio" name="field" value="block_warehouse">
+                                <label for="block_warehouse1" class="font-weight-400" style="font-size: 10px">انبار
                                     بلوک</label>
                             </div>
                             <div class="col-2  p-a0 m-a0" style="margin-top: -17px">
-                                <input type="radio" id="trr" name="fav_language" value="فروش داخلی بلوک">
-                                <label for="javascript" class="font-weight-400" style="font-size: 10px">فروش داخلی
+                                <input id="internal_sales_of_blocks1" type="radio" name="field" value="internal_sales_of_blocks">
+                                <label for="internal_sales_of_blocks1" class="font-weight-400" style="font-size: 10px">فروش داخلی
                                     بلوک</label>
                             </div>
 
                             <div class="col-5 form-group text-left">
-                                <input style="font-size: 12px; height: 25px; background-color: #e1e6ea" name="dzName" required=""
+                                <input style="font-size: 12px; height: 25px; background-color: #e1e6ea" name="field"
                                        class="form-control " placeholder="سایر"
                                        type="text"
                                 />
@@ -316,21 +317,21 @@
                         <p class="text-left font-weight-600">نام</p>
                         <div class="row p-t30" style="margin-top: -47px">
                             <div class="col-1 p-a0 m-a0" style="margin-top: -17px">
-                                <input type="radio" id="men" name="fav_language" value="آقا" style="margin-top: -13px">
-                                <label for="html" class="font-weight-400" style="font-size: 10px">آقا</label>
+                                <input type="radio" id="sex1" name="male" value="true" style="margin-top: -13px">
+                                <label for="sex1" class="font-weight-400" style="font-size: 10px">آقا</label>
                             </div>
                             <div class="col-1 p-a0 m-a0" style="margin-top: -17px">
-                                <input type="radio" id="women" name="fav_language" value="خانم" style="margin-top: -13px">
-                                <label for="css" class="font-weight-400" style="font-size: 10px">خانم</label>
+                                <input id="sex2" type="radio" name="male" value="false" style="margin-top: -13px">
+                                <label for="sex2" class="font-weight-400" style="font-size: 10px">خانم</label>
                             </div>
                             <div class="col-5 form-group text-left">
-                                <input name="dzName" style="background-color: #e1e6ea;font-size: 12px; height: 25px" required="" class="form-control "
+                                <input name="first_name" style="background-color: #e1e6ea;font-size: 12px; height: 25px"  class="form-control "
                                        placeholder="نام"
                                        type="text"
                                 />
                             </div>
                             <div class="col-5 form-group text-left">
-                                <input name="dzName" style="background-color: #e1e6ea;font-size: 12px; height: 25px" required="" class="form-control "
+                                <input name="last_name" style="background-color: #e1e6ea;font-size: 12px; height: 25px"  class="form-control "
                                        placeholder="نام خانوادگی"
                                        type="text"
                                 />
@@ -339,8 +340,8 @@
                         </div>
                         <div class="row p-t30">
                             <div class="col-12 form-group text-left">
-                                <label for="javascript">شرح درخواست</label>
-                                <textarea name="dzName" style="font-size: 12px; background-color: #e1e6ea"
+                                <label>شرح درخواست</label>
+                                <textarea name="description" style="font-size: 12px; background-color: #e1e6ea"
                                           class="form-control "
                                 ></textarea>
                             </div>
@@ -350,27 +351,27 @@
                     <div class="col-4">
                         <div class=" form-group text-left">
                             <label> تعداد/ تناژ مورد نیاز مشابه</label>
-                            <input name="dzName" style="background-color: #e1e6ea; font-size: 12px; height: 25px" required="" class="form-control "
+                            <input name="tonnage" style="background-color: #e1e6ea; font-size: 12px; height: 25px"  class="form-control "
                                    placeholder="تعداد/ تناژ مورد نیاز مشابه"
                                    type="text"
                             />
                         </div>
                         <div class="form-group text-left">
-                            <label>شماره تلفن یا ایمیل</label>
-                            <input name="dzName" style="background-color: #e1e6ea; font-size: 12px; height: 25px" required="" class="form-control "
+                            <label>شماره تلفن و ایمیل</label>
+                            <input name="phone" style="background-color: #e1e6ea; font-size: 12px; height: 25px"  class="form-control "
                                    placeholder="تلفن"
                                    type="text"
                             />
                         </div>
                         <div class="form-group text-left"  style="margin-top: -20px">
-                            <input name="dzName" style="background-color: #e1e6ea; font-size: 12px; height: 25px" required="" class="form-control "
+                            <input name="email" style="background-color: #e1e6ea; font-size: 12px; height: 25px"  class="form-control "
                                    placeholder="ایمیل"
                                    type="text"
                             />
                         </div>
                         <div class=" form-group text-left">
-                            <label for="javascript">آپلود فایل</label>
-                            <input name="dzName" required="" style="background-color: #e1e6ea" class="form-control "
+                            <label>آپلود فایل</label>
+                            <input name="file"  style="background-color: #e1e6ea" class="form-control "
                                    placeholder="ایمیل"
                                    type="file"
                             />
@@ -381,15 +382,14 @@
                 <div class="row p-t20">
 
                     <div class="col-12 form-group text-left " style="margin-bottom: -10px">
-                        <button class="site-button dz-xs-flex w-25 m-r5"
+                        <button type="submit" name="submit" value="hold" class="site-button dz-xs-flex w-25 m-r5"
                                 style="background-color: #cb0000; width: 100%">
                             ارسال
                         </button>
                     </div>
                 </div>
-            </form>
-
-        </div>
+            </div>
+        </form>
     </div>
     <!-- hold end -->
 
@@ -397,82 +397,84 @@
     <div id="mySidenavSample" class="sidenav coming-side-bar content "><a href="javascript:void(0)"
                                                                           class="closebtnsample bg-primary">&times;</a>
         <div class="clearfix"></div>
-        <div class="p-a20 text-center">
-            <div class="row">
+        <form action="." method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="p-a20 text-center">
+                <div class="row">
 
-                <div class="col-8">
-                    <h4 class="text-left"> درخواست نمونه</h4>
+                    <div class="col-8">
+                        <h4 class="text-left"> درخواست نمونه</h4>
+                    </div>
+
+                    <div class="col-4">
+                        <input name="pin" class=" bg-gray text-right"
+                               style="background-color: #ffffff5c;height: 35px; font-size: 12px;color: black;border: 1px solid #e1e6ea"
+                               type="text"
+                               placeholder="pin#">
+                    </div>
+                </div>
+                <p class="font-size-10 text-black">لطفا فرم زیر را تکمیل و ارسال فرمایید و یا شماره PIN اختصاصی خود را وارد نمایید
+                    <br>اندازه نمونه استاندارد ۱۰*۱۰ سانتیمتر است جهت دریافت نمونه در ابعاد دیگر با شماره
+                    ۰۹۱۹۷۴۴۹۱۹۹ تماس حاصل فرمایید.</p>
+                <div style="width: 100%; border-top: 2px solid black"></div>
+                <div class="row p-a20">
+                    <div class="col-10 text-left" style="padding-top: 25px">
+                        <label>شماره بلوک</label>
+                        <input class=" bg-gray " disabled
+                               style="background-color: #e1e6ea; width: 85%;height: 25px; font-size: 14px;color: black;border: 1px solid #e1e6ea"
+                               type="text"
+                               placeholder="#245252563637367">
+                    </div>
+                    <div class="col-2 text-right">
+                        {% if is_exportal == 1 %}
+                            {% for im in object.image_exportal_logo.all %}
+                                {% if forloop.counter == 1 %}
+                                    <img src="{{ im.photo.url }}" width="150px">
+                                {% endif %}
+                            {% endfor %}
+                        {% elif is_internal == 1 %}
+                            {% for im in object.image_internal_logo.all %}
+                                {% if forloop.counter == 1 %}
+                                    <img src="{{ im.photo.url }}" width="150px">
+                                {% endif %}
+                            {% endfor %}
+                        {% elif is_lined == 1 %}
+                            {% for im in object.image_lined.all %}
+                                {% if forloop.counter == 1 %}
+                                    <img src="{{ im.photo.url }}" width="150px">
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                 </div>
 
-                <div class="col-4">
-                    <input class=" bg-gray text-right"
-                           style="background-color: #ffffff5c;height: 35px; font-size: 12px;color: black;border: 1px solid #e1e6ea"
-                           type="text"
-                           placeholder="pin#">
-                </div>
-            </div>
-            <p class="font-size-10 text-black">لطفا فرم زیر را تکمیل و ارسال فرمایید و یا شماره PIN اختصاصی خود را وارد نمایید
-                <br>اندازه نمونه استاندارد ۱۰*۱۰ سانتیمتر است جهت دریافت نمونه در ابعاد دیگر با شماره
-                ۰۹۱۹۷۴۴۹۱۹۹ تماس حاصل فرمایید.</p>
-            <div style="width: 100%; border-top: 2px solid black"></div>
-            <div class="row p-a20">
-                <div class="col-10 text-left" style="padding-top: 25px">
-                    <label>شماره بلوک</label>
-                    <input class=" bg-gray " disabled
-                           style="background-color: #e1e6ea; width: 85%;height: 25px; font-size: 14px;color: black;border: 1px solid #e1e6ea"
-                           type="text"
-                           placeholder="#245252563637367">
-                </div>
-                <div class="col-2 text-right">
-                    {% if is_exportal == 1 %}
-                        {% for im in object.image_exportal_logo.all %}
-                            {% if forloop.counter == 1 %}
-                                <img src="{{ im.photo.url }}" width="150px">
-                            {% endif %}
-                        {% endfor %}
-                    {% elif is_internal == 1 %}
-                        {% for im in object.image_internal_logo.all %}
-                            {% if forloop.counter == 1 %}
-                                <img src="{{ im.photo.url }}" width="150px">
-                            {% endif %}
-                        {% endfor %}
-                    {% elif is_lined == 1 %}
-                        {% for im in object.image_lined.all %}
-                            {% if forloop.counter == 1 %}
-                                <img src="{{ im.photo.url }}" width="150px">
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
-                </div>
-            </div>
-            <form action="#">
                 <div class="row">
                     <div class="col-8">
                         <p class="text-left font-weight-600">زمینه فعالیت</p>
                         <div class="row"  style="margin-top: -17px">
 
                             <div class="col-2 p-a0 m-a0" style="margin-top: -17px">
-                                <input type="radio" id="htmlr" name="fav_language" value="کارخانه سنگ بری">
-                                <label for="html" class="font-weight-400" style="font-size: 10px">کارخانه سنگ
+                                <input type="radio" id="stone_cutting_factory2" name="field" value="stone_cutting_factory">
+                                <label for="stone_cutting_factory2" class="font-weight-400" style="font-size: 10px">کارخانه سنگ
                                     بری</label>
                             </div>
                             <div class="col-1 p-a0 m-a0" style="margin-top: -17px">
-                                <input type="radio" id="cssr" name="fav_language" value="صادرات">
-                                <label for="css" class="font-weight-400" style="font-size: 10px">صادرات</label>
+                                <input id="export2" type="radio" name="field" value="export">
+                                <label for="export2" class="font-weight-400" style="font-size: 10px">صادرات</label>
                             </div>
                             <div class="col-2 p-a0 m-a0" style="margin-top: -17px">
-                                <input type="radio" id="javascriptr" name="fav_language" value="انبار بلوک">
-                                <label for="javascript" class="font-weight-400" style="font-size: 10px">انبار
+                                <input id="block_warehouse2" type="radio" name="field" value="block_warehouse">
+                                <label for="block_warehouse2" class="font-weight-400" style="font-size: 10px">انبار
                                     بلوک</label>
                             </div>
                             <div class="col-2  p-a0 m-a0" style="margin-top: -17px">
-                                <input type="radio" id="trr" name="fav_language" value="فروش داخلی بلوک">
-                                <label for="javascript" class="font-weight-400" style="font-size: 10px">فروش داخلی
+                                <input id="internal_sales_of_blocks2" type="radio" name="field" value="internal_sales_of_blocks">
+                                <label for="internal_sales_of_blocks2" class="font-weight-400" style="font-size: 10px">فروش داخلی
                                     بلوک</label>
                             </div>
 
                             <div class="col-5 form-group text-left">
-                                <input style="font-size: 12px; height: 25px; background-color: #e1e6ea" name="dzName" required=""
+                                <input style="font-size: 12px; height: 25px; background-color: #e1e6ea" name="field"
                                        class="form-control " placeholder="سایر"
                                        type="text"
                                 />
@@ -482,21 +484,21 @@
                         <p class="text-left font-weight-600">نام</p>
                         <div class="row p-t30" style="margin-top: -47px">
                             <div class="col-1 p-a0 m-a0" style="margin-top: -17px">
-                                <input type="radio" id="men" name="fav_language" value="آقا" style="margin-top: -13px">
-                                <label for="html" class="font-weight-400" style="font-size: 10px">آقا</label>
+                                <input id="sex3" type="radio" name="male" value="true" style="margin-top: -13px">
+                                <label for="sex3" class="font-weight-400" style="font-size: 10px">آقا</label>
                             </div>
                             <div class="col-1 p-a0 m-a0" style="margin-top: -17px">
-                                <input type="radio" id="women" name="fav_language" value="خانم" style="margin-top: -13px">
-                                <label for="css" class="font-weight-400" style="font-size: 10px">خانم</label>
+                                <input id="sex4" type="radio" name="male" value="false" style="margin-top: -13px">
+                                <label for="sex4" class="font-weight-400" style="font-size: 10px">خانم</label>
                             </div>
                             <div class="col-5 form-group text-left">
-                                <input name="dzName" style="background-color: #e1e6ea;font-size: 12px; height: 25px" required="" class="form-control "
+                                <input name="first_name" style="background-color: #e1e6ea;font-size: 12px; height: 25px"  class="form-control "
                                        placeholder="نام"
                                        type="text"
                                 />
                             </div>
                             <div class="col-5 form-group text-left">
-                                <input name="dzName" style="background-color: #e1e6ea;font-size: 12px; height: 25px" required="" class="form-control "
+                                <input name="last_name" style="background-color: #e1e6ea;font-size: 12px; height: 25px"  class="form-control "
                                        placeholder="نام خانوادگی"
                                        type="text"
                                 />
@@ -505,8 +507,8 @@
                         </div>
                         <div class="row p-t30">
                             <div class="col-12 form-group text-left">
-                                <label for="javascript">شرح درخواست</label>
-                                <textarea name="dzName" style="font-size: 12px; background-color: #e1e6ea"
+                                <label>شرح درخواست</label>
+                                <textarea name="description" style="font-size: 12px; background-color: #e1e6ea"
                                           class="form-control "
                                 ></textarea>
                             </div>
@@ -516,27 +518,27 @@
                     <div class="col-4">
                         <div class=" form-group text-left">
                             <label> تعداد/ تناژ مورد نیاز مشابه</label>
-                            <input name="dzName" style="background-color: #e1e6ea; font-size: 12px; height: 25px" required="" class="form-control "
+                            <input name="tonnage" style="background-color: #e1e6ea; font-size: 12px; height: 25px"  class="form-control "
                                    placeholder="تعداد/ تناژ مورد نیاز مشابه"
                                    type="text"
                             />
                         </div>
                         <div class="form-group text-left">
-                            <label>شماره تلفن یا ایمیل</label>
-                            <input name="dzName" style="background-color: #e1e6ea; font-size: 12px; height: 25px" required="" class="form-control "
+                            <label>شماره تلفن و ایمیل</label>
+                            <input name="phone" style="background-color: #e1e6ea; font-size: 12px; height: 25px"  class="form-control "
                                    placeholder="تلفن"
                                    type="text"
                             />
                         </div>
                         <div class="form-group text-left"  style="margin-top: -20px">
-                            <input name="dzName" style="background-color: #e1e6ea; font-size: 12px; height: 25px" required="" class="form-control "
+                            <input name="email" style="background-color: #e1e6ea; font-size: 12px; height: 25px"  class="form-control "
                                    placeholder="ایمیل"
                                    type="text"
                             />
                         </div>
                         <div class=" form-group text-left">
-                            <label for="javascript">آپلود فایل</label>
-                            <input name="dzName" required="" style="background-color: #e1e6ea" class="form-control "
+                            <label>آپلود فایل</label>
+                            <input name="file"  style="background-color: #e1e6ea" class="form-control "
                                    placeholder="ایمیل"
                                    type="file"
                             />
@@ -547,14 +549,14 @@
                 <div class="row p-t20">
 
                     <div class="col-12 form-group text-left " style="margin-bottom: -10px">
-                        <button class="site-button dz-xs-flex w-25 m-r5"
+                        <button type="submit" name="submit" value="sample" class="site-button dz-xs-flex w-25 m-r5"
                                 style="background-color: #cb0000; width: 100%">
                             ارسال
                         </button>
                     </div>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
     <!-- sample end -->
 
@@ -562,212 +564,211 @@
     <div id="mySidenavVisit" class="sidenav coming-side-bar content "><a href="javascript:void(0)"
                                                                          class="closebtnvisit bg-primary">&times;</a>
         <div class="clearfix"></div>
-        <div class="p-a20 text-center">
-            <div class="row">
-                <div class="col-8">
-                    <h4 class="text-left"> درخواست ملاقات / بازدید معدن</h4>
-                </div>
-                <div class="col-4">
-                </div>
-            </div>
-
-            <div class="row p-a20 p-t0">
-                <div class="col-10 text-left" style="padding-top: 25px">
-                    <label>شماره بلوک</label>
-                    <input class=" bg-gray " disabled
-                           style="background-color: #e1e6ea; width: 85%;height: 25px; font-size: 14px;color: black;border: 1px solid #e1e6ea"
-                           type="text"
-                           placeholder="#245252563637367">
-                </div>
-                <div class="col-2 text-right">
-                    {% if is_exportal == 1 %}
-                        {% for im in object.image_exportal_logo.all %}
-                            {% if forloop.counter == 1 %}
-                                <img src="{{ im.photo.url }}" width="150px">
-                            {% endif %}
-                        {% endfor %}
-                    {% elif is_internal == 1 %}
-                        {% for im in object.image_internal_logo.all %}
-                            {% if forloop.counter == 1 %}
-                                <img src="{{ im.photo.url }}" width="150px">
-                            {% endif %}
-                        {% endfor %}
-                    {% elif is_lined == 1 %}
-                        {% for im in object.image_lined.all %}
-                            {% if forloop.counter == 1 %}
-                                <img src="{{ im.photo.url }}" width="150px">
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
-                </div>
-            </div>
-
-
-            <form action="#">
+        <form action="." method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="p-a20 text-center">
                 <div class="row">
                     <div class="col-8">
-                        <p class="text-left font-weight-600">زمینه فعالیت</p>
-                        <div class="row"  style="margin-top: -17px">
+                        <h4 class="text-left"> درخواست ملاقات / بازدید معدن</h4>
+                    </div>
+                    <div class="col-4">
+                    </div>
+                </div>
+
+                <div class="row p-a20 p-t0">
+                    <div class="col-10 text-left" style="padding-top: 25px">
+                        <label>شماره بلوک</label>
+                        <input class=" bg-gray " disabled
+                               style="background-color: #e1e6ea; width: 85%;height: 25px; font-size: 14px;color: black;border: 1px solid #e1e6ea"
+                               type="text"
+                               placeholder="#245252563637367">
+                    </div>
+                    <div class="col-2 text-right">
+                        {% if is_exportal == 1 %}
+                            {% for im in object.image_exportal_logo.all %}
+                                {% if forloop.counter == 1 %}
+                                    <img src="{{ im.photo.url }}" width="150px">
+                                {% endif %}
+                            {% endfor %}
+                        {% elif is_internal == 1 %}
+                            {% for im in object.image_internal_logo.all %}
+                                {% if forloop.counter == 1 %}
+                                    <img src="{{ im.photo.url }}" width="150px">
+                                {% endif %}
+                            {% endfor %}
+                        {% elif is_lined == 1 %}
+                            {% for im in object.image_lined.all %}
+                                {% if forloop.counter == 1 %}
+                                    <img src="{{ im.photo.url }}" width="150px">
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                    <div class="row">
+                        <div class="col-8">
+                            <p class="text-left font-weight-600">زمینه فعالیت</p>
+                            <div class="row"  style="margin-top: -17px">
 
                             <div class="col-2 p-a0 m-a0" style="margin-top: -17px">
-                                <input type="radio" id="htmlr" name="fav_language" value="کارخانه سنگ بری">
-                                <label for="html" class="font-weight-400" style="font-size: 10px">کارخانه سنگ
+                                <input type="radio" id="stone_cutting_factory3" name="field" value="stone_cutting_factory">
+                                <label for="stone_cutting_factory3" class="font-weight-400" style="font-size: 10px">کارخانه سنگ
                                     بری</label>
                             </div>
                             <div class="col-1 p-a0 m-a0" style="margin-top: -17px">
-                                <input type="radio" id="cssr" name="fav_language" value="صادرات">
-                                <label for="css" class="font-weight-400" style="font-size: 10px">صادرات</label>
+                                <input id="export3" type="radio" name="field" value="export">
+                                <label for="export3" class="font-weight-400" style="font-size: 10px">صادرات</label>
                             </div>
                             <div class="col-2 p-a0 m-a0" style="margin-top: -17px">
-                                <input type="radio" id="javascriptr" name="fav_language" value="انبار بلوک">
-                                <label for="javascript" class="font-weight-400" style="font-size: 10px">انبار
+                                <input id="block_warehouse3" type="radio" name="field" value="block_warehouse">
+                                <label for="block_warehouse3" class="font-weight-400" style="font-size: 10px">انبار
                                     بلوک</label>
                             </div>
                             <div class="col-2  p-a0 m-a0" style="margin-top: -17px">
-                                <input type="radio" id="trr" name="fav_language" value="فروش داخلی بلوک">
-                                <label for="javascript" class="font-weight-400" style="font-size: 10px">فروش داخلی
+                                <input id="internal_sales_of_blocks3" type="radio" name="field" value="internal_sales_of_blocks">
+                                <label for="internal_sales_of_blocks3" class="font-weight-400" style="font-size: 10px">فروش داخلی
                                     بلوک</label>
                             </div>
 
                             <div class="col-5 form-group text-left">
-                                <input style="font-size: 12px; height: 25px; background-color: #e1e6ea" name="dzName" required=""
+                                <input style="font-size: 12px; height: 25px; background-color: #e1e6ea" name="field"
                                        class="form-control " placeholder="سایر"
                                        type="text"
                                 />
                             </div>
 
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class=" form-group text-left">
+                                <label> تعداد/ تناژ مورد نیاز مشابه</label>
+                                <input name="tonnage" style="background-color: #e1e6ea; font-size: 12px; height: 25px"  class="form-control "
+                                       placeholder="تعداد/ تناژ مورد نیاز مشابه"
+                                       type="text"
+                                />
+                            </div>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class=" form-group text-left">
-                            <label> تعداد/ تناژ مورد نیاز مشابه</label>
-                            <input name="dzName" style="background-color: #e1e6ea; font-size: 12px; height: 25px" required="" class="form-control "
-                                   placeholder="تعداد/ تناژ مورد نیاز مشابه"
-                                   type="text"
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-11 " >
-                        <p class="text-left font-weight-600">مشخصات تماس</p>
-                        <div class="row p-t30" style="margin-top: -47px">
-                            <div class="col-1 p-a0 m-a0" style="margin-top: -17px">
-                                <input type="radio" id="men" name="fav_language" value="آقا" style="margin-top: -13px">
-                                <label for="html" class="font-weight-400" style="font-size: 10px">آقا</label>
-                            </div>
-                            <div class="col-1 p-a0 m-a0" style="margin-top: -17px">
-                                <input type="radio" id="women" name="fav_language" value="خانم" style="margin-top: -13px">
-                                <label for="css" class="font-weight-400" style="font-size: 10px">خانم</label>
-                            </div>
-                            <div class="col-3 form-group text-left">
-                                <input name="dzName" style="background-color: #e1e6ea;font-size: 12px; height: 25px" required="" class="form-control "
-                                       placeholder="نام"
-                                       type="text"
-                                />
-                            </div>
-                            <div class="col-3 form-group text-left">
-                                <input name="dzName" style="background-color: #e1e6ea;font-size: 12px; height: 25px" required="" class="form-control "
-                                       placeholder="نام خانوادگی"
-                                       type="text"
-                                />
-                            </div>
-                            <div class="col-3 form-group text-left">
-                                <input name="dzName" style="background-color: #e1e6ea;font-size: 12px; height: 25px"
-                                       required="" class="form-control "
-                                       placeholder="سمت"
-                                       type="text"
-                                />
-                            </div>
+                    <div class="row">
+                        <div class="col-11 " >
+                            <p class="text-left font-weight-600">مشخصات تماس</p>
+                            <div class="row p-t30" style="margin-top: -47px">
+                                <div class="col-1 p-a0 m-a0" style="margin-top: -17px">
+                                    <input id="sex5" type="radio" name="male" value="true" style="margin-top: -13px">
+                                    <label for="sex5" class="font-weight-400" style="font-size: 10px">آقا</label>
+                                </div>
+                                <div class="col-1 p-a0 m-a0" style="margin-top: -17px">
+                                    <input id="sex6" type="radio" name="male" value="false" style="margin-top: -13px">
+                                    <label for="sex6" class="font-weight-400" style="font-size: 10px">خانم</label>
+                                </div>
+                                <div class="col-3 form-group text-left">
+                                    <input name="first_name" style="background-color: #e1e6ea;font-size: 12px; height: 25px"  class="form-control "
+                                           placeholder="نام"
+                                           type="text"
+                                    />
+                                </div>
+                                <div class="col-3 form-group text-left">
+                                    <input name="last_name" style="background-color: #e1e6ea;font-size: 12px; height: 25px"  class="form-control "
+                                           placeholder="نام خانوادگی"
+                                           type="text"
+                                    />
+                                </div>
+                                <div class="col-3 form-group text-left">
+                                    <input name="occupation" style="background-color: #e1e6ea;font-size: 12px; height: 25px"
+                                            class="form-control "
+                                           placeholder="سمت"
+                                           type="text"
+                                    />
+                                </div>
 
+                            </div>
+                            <div class="row " style="margin-top: -10px">
+                                <div class="col-5 form-group text-left">
+                                    <input name="company" style="background-color: #e1e6ea;font-size: 12px; height: 25px"  class="form-control "
+                                           placeholder="نام شرکت"
+                                           type="text"
+                                    />
+                                </div>
+                                <div class="col-3 form-group text-left">
+                                    <input name="phone" style="background-color: #e1e6ea;font-size: 12px; height: 25px"  class="form-control "
+                                           placeholder="تلفن"
+                                           type="text"
+                                    />
+                                </div>
+                                <div class="col-3 form-group text-left">
+                                    <input name="email" style="background-color: #e1e6ea;font-size: 12px; height: 25px"  class="form-control "
+                                           placeholder="ایمیل"
+                                           type="text"
+                                    />
+                                </div>
+                            </div>
+                            <div class="row " style="margin-top: -10px">
+                                <div class="col-11 form-group text-left">
+                                    <input name="address" style="background-color: #e1e6ea;font-size: 12px; height: 25px"  class="form-control "
+                                           placeholder="آدرس"
+                                           type="text"
+                                    />
+                                </div>
+                            </div>
+                            <div class="row " style="margin-top: -10px">
+
+                                <div class="col-3 form-group text-left">
+                                    <p class="text-left">تاریخ و ساعت مطلوب</p>
+                                </div>
+                                <div class="col-4 form-group text-left">
+                                    <input name="visit_date" style="background-color: #e1e6ea;font-size: 12px; height: 25px"  class="form-control "
+                                           placeholder="تاریخ"
+                                           type="text"
+                                    />
+                                </div>
+                                <div class="col-2 form-group text-left">
+                                    <input name="visit_hour" style="background-color: #e1e6ea;font-size: 12px; height: 25px"  class="form-control "
+                                           placeholder="ساعت"
+                                           type="text"
+                                    />
+                                </div>
+                                <div class="col-2 form-group text-left">
+                                    <input name="visit_minute" style="background-color: #e1e6ea;font-size: 12px; height: 25px"  class="form-control "
+                                           placeholder="دقیقه"
+                                           type="text"
+                                    />
+                                </div>
+                            </div>
                         </div>
-                        <div class="row " style="margin-top: -10px">
-                            <div class="col-5 form-group text-left">
-                                <input name="dzName" style="background-color: #e1e6ea;font-size: 12px; height: 25px" required="" class="form-control "
-                                       placeholder="نام شرکت"
-                                       type="text"
-                                />
+                    </div>
+                    <div class="row" style="margin-top: -10px">
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="col-12 form-group text-left">
+                                    <label>موضوع ملاقات / بازدید</label>
+                                    <textarea name="description" style="font-size: 12px; background-color: #e1e6ea"
+                                              class="form-control "
+                                    ></textarea>
+                                </div>
                             </div>
-                            <div class="col-3 form-group text-left">
-                                <input name="dzName" style="background-color: #e1e6ea;font-size: 12px; height: 25px" required="" class="form-control "
-                                       placeholder="تلفن"
-                                       type="text"
-                                />
-                            </div>
-                            <div class="col-3 form-group text-left">
-                                <input name="dzName" style="background-color: #e1e6ea;font-size: 12px; height: 25px" required="" class="form-control "
+                        </div>
+                        <div class="col-4">
+                            <div class=" form-group text-left">
+                                <label>آپلود فایل</label>
+                                <input name="file"  style="background-color: #e1e6ea" class="form-control "
                                        placeholder="ایمیل"
-                                       type="text"
+                                       type="file"
                                 />
                             </div>
                         </div>
-                        <div class="row " style="margin-top: -10px">
-                            <div class="col-11 form-group text-left">
-                                <input name="dzName" style="background-color: #e1e6ea;font-size: 12px; height: 25px" required="" class="form-control "
-                                       placeholder="آدرس"
-                                       type="text"
-                                />
-                            </div>
-                        </div>
-                        <div class="row " style="margin-top: -10px">
+                    </div>
+                    <div class="row p-t5">
 
-                            <div class="col-3 form-group text-left">
-                                <p class="text-left">تاریخ و ساعت مطلوب</p>
-                            </div>
-                            <div class="col-4 form-group text-left">
-                                <input name="dzName" style="background-color: #e1e6ea;font-size: 12px; height: 25px" required="" class="form-control "
-                                       placeholder="تاریخ"
-                                       type="text"
-                                />
-                            </div>
-                            <div class="col-2 form-group text-left">
-                                <input name="dzName" style="background-color: #e1e6ea;font-size: 12px; height: 25px" required="" class="form-control "
-                                       placeholder="ساعت"
-                                       type="text"
-                                />
-                            </div>
-                            <div class="col-2 form-group text-left">
-                                <input name="dzName" style="background-color: #e1e6ea;font-size: 12px; height: 25px" required="" class="form-control "
-                                       placeholder="دقیقه"
-                                       type="text"
-                                />
-                            </div>
+                        <div class="col-12 form-group text-left " style="margin-bottom: -10px">
+                            <button type="submit" name="submit" value="visit" class="site-button dz-xs-flex w-25 m-r5"
+                                    style="background-color: #cb0000; width: 100%">
+                                ارسال
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div class="row" style="margin-top: -10px">
-                    <div class="col-8">
-                        <div class="row">
-                            <div class="col-12 form-group text-left">
-                                <label for="javascript">موضوع ملاقات / بازدید</label>
-                                <textarea name="dzName" style="font-size: 12px; background-color: #e1e6ea"
-                                          class="form-control "
-                                ></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class=" form-group text-left">
-                            <label for="javascript">آپلود فایل</label>
-                            <input name="dzName" required="" style="background-color: #e1e6ea" class="form-control "
-                                   placeholder="ایمیل"
-                                   type="file"
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div class="row p-t5">
-
-                    <div class="col-12 form-group text-left " style="margin-bottom: -10px">
-                        <button class="site-button dz-xs-flex w-25 m-r5"
-                                style="background-color: #cb0000; width: 100%">
-                            ارسال
-                        </button>
-                    </div>
-                </div>
-            </form>
-
-        </div>
+        </form>
     </div>
     <!-- visit end -->
 
@@ -840,7 +841,7 @@
                         <div class="col-12 p-a20 bg-gray w-100 m-b20 border text-center contact-area border-1  align-self-stretch">
                             <div style="padding: 12px">
                                 <div class="col-md-12">
-                                    <a name="submit"ا  type="submit" value="Submit" href="{% url "blog:blog_list" %}" class="site-button "
+                                    <a name="submit"ا  type="submit" value="Submit" href="{% url 'blog:blog_list' %}" class="site-button "
                                             style="background-color: #1A74B5"><span>اطلاعات بیشتر</span>
                                     </a>
                                 </div>
@@ -852,7 +853,7 @@
                     <div class="col-lg-7">
                         <div class="row">
                             {% if is_exportal == 1 %}
-                                {% for im in object.image_exportal_logo.all %}
+                                {% for im in object.image_exportal_logo.all[:3] %}
                                     {% if forloop.counter < 2 %}
                                         <div class="col-12">
                                             <ul id="masonry1"
@@ -887,7 +888,7 @@
                                 {% for im in object.image_internal_logo.all %}
                                     {% if forloop.counter < 2 %}
                                         <div class="col-12">
-                                            <ul id="masonry1"
+                                            <ul id="masonry2"
                                                 class="row dez-gallery-listing gallery-grid-4 m-lr0 mfp-gallery">
                                                 <li class="office card-container ">
                                                     <div class="dez-box ">
@@ -919,7 +920,7 @@
                                 {% for im in object.image_lined.all %}
                                     {% if forloop.counter < 2 %}
                                         <div class="col-12">
-                                            <ul id="masonry1"
+                                            <ul id="masonry3"
                                                 class="row dez-gallery-listing gallery-grid-4 m-lr0 mfp-gallery">
                                                 <li class="office card-container ">
                                                     <div class="dez-box ">
@@ -1069,7 +1070,7 @@
 
 
                                 <div class="col-2 openbtnvisit p-a0" style="margin:auto; ">
-                                    <button name="submit" type="submit"  href="{% url "account:create_favorite" object.unique_id %}" value="Submit" class="site-button "
+                                    <button name="submit" type="submit"  href="{% url 'account:create_favorite' object.unique_id %}" value="Submit" class="site-button "
                                             style="width: 100%;border-radius: 0 35px 0 0; background-color: #ffffff; color: gray; border: 1px solid gray;">
                                         <span style="margin-right: -20px;font-size: x-small;color: black">هماهنگی بازدید انجام شود</span>
                                     </button>
@@ -1099,30 +1100,30 @@
         <!-- contact area  END -->
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="background-color: rgb(255 255 255) ;">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">اشترک گذاری</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="#">
-                    <input class="form-control"
-                           style="text-align: right; border-color: #e1e6eb ; background-color: #ffffff"
-                           placeholder="لینک را وارد کنید ..." type="url">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
-                <button type="button" class="btn btn-primary">ارسال</button>
-            </div>
-        </div>
-    </div>
-</div>
+<!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"-->
+<!--     aria-hidden="true">-->
+<!--    <div class="modal-dialog" role="document">-->
+<!--        <div class="modal-content" style="background-color: rgb(255 255 255) ;">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="exampleModalLabel">اشترک گذاری</h5>-->
+<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                    <span aria-hidden="true">&times;</span>-->
+<!--                </button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <form method="post" action="#">-->
+<!--                    <input class="form-control"-->
+<!--                           style="text-align: right; border-color: #e1e6eb ; background-color: #ffffff"-->
+<!--                           placeholder="لینک را وارد کنید ..." type="url">-->
+<!--                </form>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>-->
+<!--                <button type="button" class="btn btn-primary">ارسال</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 </div>
     {% endif %}
 

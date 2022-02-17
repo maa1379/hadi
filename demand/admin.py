@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from demand.models import Hold, Visit, Sample
+
+admin.site.register(Hold),
+admin.site.register(Visit),
+admin.site.register(Sample)
