@@ -853,8 +853,8 @@
                     <div class="col-lg-7">
                         <div class="row">
                             {% if is_exportal == 1 %}
-                                {% for im in object.image_exportal_logo.all[:3] %}
-                                    {% if forloop.counter < 2 %}
+                                {% for im in object.image_exportal_logo.all %}
+                                    {% if forloop.counter >= 3 %}
                                         <div class="col-12">
                                             <ul id="masonry1"
                                                 class="row dez-gallery-listing gallery-grid-4 m-lr0 mfp-gallery">
@@ -886,7 +886,7 @@
                                 {% endfor %}
                             {% elif is_internal == 1 %}
                                 {% for im in object.image_internal_logo.all %}
-                                    {% if forloop.counter < 2 %}
+                                    {% if forloop.counter >= 3 %}
                                         <div class="col-12">
                                             <ul id="masonry2"
                                                 class="row dez-gallery-listing gallery-grid-4 m-lr0 mfp-gallery">
@@ -918,7 +918,7 @@
                                 {% endfor %}
                             {% elif is_lined == 1 %}
                                 {% for im in object.image_lined.all %}
-                                    {% if forloop.counter < 2 %}
+                                    {% if forloop.counter >= 3 %}
                                         <div class="col-12">
                                             <ul id="masonry3"
                                                 class="row dez-gallery-listing gallery-grid-4 m-lr0 mfp-gallery">
