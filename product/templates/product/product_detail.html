@@ -260,23 +260,21 @@
                     {% if is_exportal == 1 %}
                         {% for im in object.image_exportal_logo.all %}
                             {% if forloop.counter == 1 %}
-                            <img src="{{ im.photo.url }}" width="150px">
+                                <img src="{{ im.photo.url }}" width="150px">
                             {% endif %}
-                    {% endfor %}
-                    {% endif %}
+                        {% endfor %}
                     {% elif is_internal == 1 %}
                         {% for im in object.image_internal_logo.all %}
                             {% if forloop.counter == 1 %}
-                            <img src="{{ im.photo.url }}" width="150px">
+                                <img src="{{ im.photo.url }}" width="150px">
                             {% endif %}
-                    {% endfor %}
-                    {% endif %}
+                        {% endfor %}
                     {% elif is_lined == 1 %}
                         {% for im in object.image_lined.all %}
                             {% if forloop.counter == 1 %}
-                            <img src="{{ im.photo.url }}" width="150px">
+                                <img src="{{ im.photo.url }}" width="150px">
                             {% endif %}
-                    {% endfor %}
+                        {% endfor %}
                     {% endif %}
                 </div>
             </div>
@@ -426,7 +424,25 @@
                            placeholder="#245252563637367">
                 </div>
                 <div class="col-2 text-right">
-                    <img src="images/stone3.jpg" width="150px">
+                    {% if is_exportal == 1 %}
+                        {% for im in object.image_exportal_logo.all %}
+                            {% if forloop.counter == 1 %}
+                                <img src="{{ im.photo.url }}" width="150px">
+                            {% endif %}
+                        {% endfor %}
+                    {% elif is_internal == 1 %}
+                        {% for im in object.image_internal_logo.all %}
+                            {% if forloop.counter == 1 %}
+                                <img src="{{ im.photo.url }}" width="150px">
+                            {% endif %}
+                        {% endfor %}
+                    {% elif is_lined == 1 %}
+                        {% for im in object.image_lined.all %}
+                            {% if forloop.counter == 1 %}
+                                <img src="{{ im.photo.url }}" width="150px">
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
             <form action="#">
@@ -564,7 +580,25 @@
                            placeholder="#245252563637367">
                 </div>
                 <div class="col-2 text-right">
-                    <img src="images/stone3.jpg" width="150px">
+                    {% if is_exportal == 1 %}
+                        {% for im in object.image_exportal_logo.all %}
+                            {% if forloop.counter == 1 %}
+                                <img src="{{ im.photo.url }}" width="150px">
+                            {% endif %}
+                        {% endfor %}
+                    {% elif is_internal == 1 %}
+                        {% for im in object.image_internal_logo.all %}
+                            {% if forloop.counter == 1 %}
+                                <img src="{{ im.photo.url }}" width="150px">
+                            {% endif %}
+                        {% endfor %}
+                    {% elif is_lined == 1 %}
+                        {% for im in object.image_lined.all %}
+                            {% if forloop.counter == 1 %}
+                                <img src="{{ im.photo.url }}" width="150px">
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
 
