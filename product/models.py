@@ -141,14 +141,6 @@ class ExportalLogo(models.Model):
                                 null=True, blank=True)
 
 
-#     def save(self,*args,**kwargs):
-#         pic_name = str(self.photo)
-#         ali = pic_name.split('/')[1]
-#         exportal=ExportalProduct.objects.get(serial_number_of_the_peak_in_the_mine=ali[:4])
-#         self.product=exportal
-#         return  super(ExportalLogo, self).save(*args, **kwargs)
-
-
 class ExportalFileLogo(models.Model):
     file = models.FileField(upload_to="file/")
 
@@ -327,7 +319,6 @@ class ExportalFile(models.Model):
                 self.file.delete(save=True)
 
 
-# Create your models here.
 class ProductBase(models.Model):
     mine = models.ForeignKey(Mine, on_delete=models.CASCADE)
     stone_name = models.CharField(max_length=125)
@@ -344,6 +335,12 @@ class ProductBase(models.Model):
     stair_code = models.CharField(max_length=10)
     buyer = models.CharField(max_length=255, null=True, blank=True)
     grading_code = models.CharField(max_length=10)
+    active = models.BooleanField(default=True)
+    rejected = models.BooleanField(default=True)
+    loaded = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.stone_name
 
 
 class InternalProduct(ProductBase):
@@ -419,11 +416,6 @@ class Rejected(models.Model):
     buyer = models.CharField(max_length=255)
     serial_number_of_the_peak_in_the_mine = models.CharField(max_length=125)
 
-
-# class uploder(models.Model):
-#     name = models.CharField(max_length=125)
-#     date = models.DateField(auto_now_add=True)
-#     user = models.ForeignKey("User", on_delete=models.CASCADE)
 
 class LinedProduct(ProductBase):
     pass

@@ -3,10 +3,10 @@ from .views import AllProductList, SearchView, MainPictureExportalCreateView, In
     InternalProductDetail, PartialPictureExportalCreateView, InternalProductCreateView, ExportalProductPanelList, \
     ExportalProductListView, ExportalProductDetail, ExportalProductCreateView, \
     LinedProductList, LinedProductPanelList, LinedProductDetail, LinedProductCreateView, \
-    RejectedProductList, RejectedProductCreateView, LoadedProductList, LoadedProductCreateView, \
+    RejectedProductList, LoadedProductList, LoadedProductCreateView, \
     InternalImage, ExportalImage, SpecialOfferList, ProductionReportsList, LoadedReports, DomesticInventory, \
     ExportalInventory, AllProductListComplete, SpecialOfferListComplete, ExportalProductListCompleteView, \
-    lined_product_image, PartialPictureInternalCreateView
+    lined_product_image, PartialPictureInternalCreateView, rejected_update, rejected_upload
 
 app_name = "product"
 urlpatterns = [
@@ -33,9 +33,10 @@ urlpatterns = [
     path("lined_product_detail/<str:unique_id>/", LinedProductDetail.as_view(), name="lined_product_detail"),
     path("lined_product_create/", LinedProductCreateView.as_view(), name="lined_product_create"),
     path("rejected_product/", RejectedProductList.as_view(), name="rejected_product"),
-    path("rejected_product_uploade/", RejectedProductCreateView, name="rejected_product_update"),
     path("Loaded_product/", LoadedProductList.as_view(), name="loaded_product"),
     path("Loaded_product_uploade/", LoadedProductCreateView, name="loaded_product_update"),
+    path("rejected_update/", rejected_update, name="rejected_update"),
+    path("rejected_upload/", rejected_upload, name="rejected_upload"),
     path("special_offer/", SpecialOfferList.as_view(), name="special_offer"),
     path("production_reportes/", ProductionReportsList.as_view(), name="production_reports"),
     path("loaded_reportes/", LoadedReports.as_view(), name="loaded_reports"),

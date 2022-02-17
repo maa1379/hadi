@@ -325,7 +325,7 @@
                   {%  for image in obj.image_intrnal_logo.all %}
                       {% if forloop.counter < 2 %}
                                                     {% thumbnail image.photo "300x300" as img %}
-                                               <div class="col-lg-2 "><a href="#"><img class="h-100" style="max-width: 75%; height: 100% " src="{{ img.url }}" alt=""></a></div>
+                                               <div class="col-lg-2 "><a href="{% url 'product:exportal_product_detail' obj.unique_id %}"><img class="h-100" style="max-width: 75%; height: 100% " src="{{ img.url }}" alt=""></a></div>
       
             {% endthumbnail %}
                         
@@ -368,7 +368,7 @@
                   {%  for image in item.image_exportal_logo.all %}
                       {% if forloop.counter < 2 %}
                                                                  {% thumbnail image.photo "300x300" as img %}
-                                               <div class="col-lg-2 "><a href="#"><img class="h-100" style="max-width: 75%; height: 100% " src="{{ img.url }}" alt=""></a></div>
+                                               <div class="col-lg-2 "><a href="{% url 'product:exportal_product_detail' item.unique_id %}"><img class="h-100" style="max-width: 75%; height: 100% " src="{{ img.url }}" alt=""></a></div>
       
             {% endthumbnail %}
                   {% endif %}

@@ -51,7 +51,7 @@ class Favorite(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user} likes"
+        return f"{self.user} likes {self.product}"
 
 
 class Activity(models.Model):

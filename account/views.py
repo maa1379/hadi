@@ -103,14 +103,9 @@ class SpecialUserCreateView(CreateView):
         return super(SpecialUserCreateView, self).form_invalid(form)
 
 
-# class FavoriteProduct(View):
-#     def get(self, request):
-#         item_list = Favorite.objects.filter(user=request.user)
-#         return render(request, "account/wish_list.html", context={"item_list": item_list})
-
 class FavoriteProduct(View):
     def get(self, request):
-        item_list = Favorite.objects.filter(user=request.user)
+        item_list = Favorite.objects.filter(user=User.objects.get(id=request.user.id))
         print(item_list)
         internal_favorite = []
         external_favorite = [] 
@@ -142,12 +137,12 @@ class FavoriteProduct(View):
 
 def Create_favorite(request, unique_id):
     product = get_object_or_404(ProductBase, unique_id=unique_id)
-    check=Favorite.objects.filter(user=request.user,product=product.id)
+    check=Favorite.objects.filter(user=User.objects.get(id=request.user.id), product=product.id)
     if check.exists():
-        return redirect("config:site_home")
+        return redirect("account:favorite_product")
     else:
-        favorite = Favorite.objects.create(user=request.user,product_id=product.id)
-        return redirect("config:site_home")
+        Favorite.objects.create(user=User.objects.get(id=request.user.id), product_id=product.id)
+        return redirect("account:favorite_product")
 
 
 class AdminUserList(ListView):

@@ -142,11 +142,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
-                            <!-- Map part start -->
                             <h2>موقعیت معدن</h2>
-                              <div id='map' style='width: 400px; height: 300px;'>
-                                                                    <script>
+                        <div id='map' class="col-md-12" style="height: 500px;">
+                            <!-- Map part start -->
+                              <script>
                                             mapboxgl.accessToken = 'pk.eyJ1IjoiZWx5YXNoIiwiYSI6ImNrdXh4ZHh3dDZ3d2cydW84d3J4dHluM2YifQ.3XIGhWt29jmzJsdIdWBidw';
                                             const map = new mapboxgl.Map({
                                                 container: 'map', // container ID
@@ -160,7 +159,6 @@
                                                     .setPopup(new mapboxgl.Popup().setHTML("<p>{{ object.address }}</p>"))
                                                     .addTo(map);
                                         </script>
-                              </div>
                             <!-- Map part END -->
                         </div>
                     </div>

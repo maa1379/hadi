@@ -26,16 +26,16 @@ from .forms import ExportalFileForm, ExportalFileLogoForm, InternalFileLogoForm,
 
 class SpecialOfferList(View):
     def get(self, request):
-        special_internal = InternalProduct.objects.filter(is_special=True)[:10]
-        special_exportal = ExportalProduct.objects.filter(is_special=True)[:10]
+        special_internal = InternalProduct.objects.filter(is_special=True, active=True)[:10]
+        special_exportal = ExportalProduct.objects.filter(is_special=True, active=True)[:10]
         return render(request, "product/special_offer_list.html",
                       {"exportal_list": special_exportal, "special_internal": special_internal})
 
 
 class SpecialOfferListComplete(View):
     def get(self, request):
-        special_internal = InternalProduct.objects.filter(is_special=True)[:10]
-        special_exportal = ExportalProduct.objects.filter(is_special=True)[:10]
+        special_internal = InternalProduct.objects.filter(is_special=True, active=True)[:10]
+        special_exportal = ExportalProduct.objects.filter(is_special=True, active=True)[:10]
         return render(request, "product/special_offer_complete_list.html",
                       {"exportal_list": special_exportal, "special_internal": special_internal})    
     
@@ -182,7 +182,7 @@ class InternalProductDetail(DetailView):
     def get(self,request,unique_id):
         object=get_object_or_404(InternalProduct, unique_id=unique_id)
         full_path=request.build_absolute_uri()+'?share=1'
-        return render(request,"product/exportal_detail.html",{"object":object,"full_path":full_path, 'is_internal':1})
+        return render(request,"product/product_detail.html",{"object":object,"full_path":full_path, 'is_internal':1})
 
 
 class InternalProductCreateView(View):
@@ -242,7 +242,7 @@ class ExportalProductPanelList(LoginRequiredMixin, ListView):
 
 
 class ExportalProductListView(LoginRequiredMixin, ListView):
-    queryset = ExportalProduct.objects.all()[:20]
+    queryset = ExportalProduct.objects.filter(active=True)[:20]
     template_name = "product/exportal_list.html"
 
 class ExportalProductListCompleteView(LoginRequiredMixin, ListView):
@@ -255,7 +255,7 @@ class ExportalProductDetail(View):
     def get(self,request,pk):
         object=get_object_or_404(ExportalProduct,pk=pk)
         full_path=request.build_absolute_uri()+'?share=1'
-        return render(request,"product/exportal_detail.html",{"object":object,"full_path":full_path, 'is_exportal': 1})
+        return render(request,"product/product_detail.html",{"object":object,"full_path":full_path, 'is_exportal': 1})
       
 
 
@@ -315,10 +315,9 @@ class LinedProductPanelList(ListView):
 
 class LinedProductDetail(View):
     def get(self,request,unique_id):
-        print(unique_id)
         object=get_object_or_404(LinedProduct,unique_id=unique_id)
         full_path=request.build_absolute_uri()+'?share=1'
-        return render(request,"product/exportal_detail.html",{"object":object,"full_path":full_path, 'is_lined':1})
+        return render(request,"product/product_detail.html",{"object":object,"full_path":full_path, 'is_lined':1})
 
 
 def lined_product_image(request):
@@ -349,7 +348,7 @@ class ExportalProductDetail(View):
         object=get_object_or_404(ExportalProduct, unique_id=unique_id)
         full_path=request.build_absolute_uri()+'?share=1'
         context = {"object":object,"full_path":full_path, 'is_exportal':1}
-        return render(request, "product/exportal_detail.html", context)
+        return render(request, "product/product_detail.html", context)
 
 # REJECTED
 
@@ -362,40 +361,6 @@ class RejectedProductList(View):
         return render(request, "product/rejected_list_panel.html", {'filter': queryset})
     
 
-
-def RejectedProductCreateView(request):
-
-     if request.method == 'POST':
-        rejected_resource = Rejected_Product_Resource()
-        dataset = Dataset()
-        new_lined = request.FILES['file']
-        imported_data = dataset.load(new_lined.read())
-        result = rejected_resource.import_data(dataset, dry_run=True)
-        if not result.has_errors():
-            rejected_resource.import_data(dataset, dry_run=False)
-            
-            
-#         for data in imported_data:
-#             print(data[0])
-#             print(data[1])
-#             print(data[2])
-#             print(data[3])
-#             print(data[4])
-#             print(data[5])
-#             print(data[6])
-
-            
-#             value = Rejected(
-#                 data[0],
-#                 data[1],
-#                 data[2],
-#                 data[3],
-#                 data[4],
-#                 data[5],
-#                 data[6]
-#             )
-#             value.save()
-        return redirect("config:panel_home")
 
 
 # Loaded
@@ -410,6 +375,41 @@ class LoadedProductList(ListView):
         # context_data["total"]=Loaded.objects.all().count()
         # context_data["tonajze"]=Loaded.objects.aggregate(Sum("weight_of_scales"))
         return context_data
+
+
+def rejected_update(request):
+    return render(request, 'product/rejected_update.html')
+
+
+def rejected_upload(request):
+    if request.method == 'POST':
+        rejected_resource = Rejected_Product_Resource()
+        dataset = Dataset()
+        new_rejected = request.FILES['rejectedData']
+        imported_data = dataset.load(new_rejected.read())
+        result = rejected_resource.import_data(dataset, dry_run=True)
+        if not result.has_errors():
+            rejected_resource.import_data(dataset, dry_run=False)
+            for data in imported_data:
+                try:
+                    if data[7][0] == 'E':
+                        obj = ExportalProduct.objects.get(unique_id=data[7][0])
+                        obj.active = True
+                        obj.rejected = True
+                        obj.save()
+                    elif data[7][0] == 'D':
+                        obj = InternalProduct.objects.get(unique_id=data[7][0])
+                        obj.active = True
+                        obj.rejected = True
+                        obj.save()
+                    elif data[7][0] == 'L':
+                        obj = LinedProduct.objects.get(unique_id=data[7][0])
+                        obj.active = True
+                        obj.rejected = True
+                        obj.save()
+                except:
+                    continue
+        return redirect("config:panel_home")
 
 
 def LoadedProductCreateView(request):
@@ -467,7 +467,7 @@ def SearchView(request):
     width_min = request.GET.get("width_min")
     param = False
 
-    queryset = InternalProduct.objects.all()
+    queryset = InternalProduct.objects.filter(active=True)
     if is_valid_queryparam(stone_type):
         queryset = queryset.filter(mine__stone_type=stone_type)
         param = True
@@ -505,7 +505,7 @@ def SearchView(request):
     else:
         internal_product = None
 
-    queryset = ExportalProduct.objects.all()
+    queryset = ExportalProduct.objects.filter(active=True)
     if is_valid_queryparam(stone_type):
         queryset = queryset.filter(mine__stone_type=stone_type)
         param = True

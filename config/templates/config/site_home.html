@@ -737,7 +737,7 @@
                                         {{ obj.mine.stone_type }}</p>
                                     <p class="text-uppercase font-weight-500 "
                                        style="font-size: xx-large;color: #0089df">{{obj.stone_name}}</p>
-                                    <a href="{% url "product:exportal_product_detail" obj.pk %}"
+                                    <a href="{% url 'product:exportal_product_detail' obj.unique_id %}"
                                     class="site-button m-t40 m-l10 radius-no font-weight-300"
                                     style="font-family: 'Vazir';background-color: #0089df;font-size: x-small;padding:
                                     10px

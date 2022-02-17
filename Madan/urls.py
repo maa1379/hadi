@@ -25,7 +25,7 @@ urlpatterns = [
     path('mine/', include("mine.urls",namespace="mine")),
     path('demand/', include("demand.urls",namespace="demand")),
     path('captcha/', include('captcha.urls')),
-    path('blog', include('blog.urls',namespace="blog")),
+    path('blog/', include('blog.urls',namespace="blog")),
 #     path('', include('socialShare.urls'))
 ]
 if settings.DEBUG:

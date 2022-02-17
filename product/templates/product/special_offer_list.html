@@ -111,7 +111,7 @@
                                                              
                                                                   {% thumbnail p.photo "300x300" as img %}
                                                                      <div class="dez-media"><a
-                                                href="{% url "product:exportal_product_detail" product.id %}"><img
+                                                href="{% url 'product:exportal_product_detail' product.unique_id %}"><img
                                                 src="{{ img.url }}" alt=""></a>
                                         </div>
        
@@ -162,13 +162,13 @@
                                 <div class="dez-info p-a0 bg-white row m-auto ">
 
                                     <div class="col-6"><a style="font-size: 7px"
-                                                          href="{% url "account:create_favorite" product.unique_id %}"
+                                                          href="{% url 'account:create_favorite' product.unique_id %}"
                                                           class="site-button add-to-wish-list-btn text-white"
                                     ><i
                                             class="fa fa-heart-o text-warning" style="margin-left: 5px"></i>
                                         به لیست علاقه مندی های من اضافه شود
                                     </a></div>
-                                    <div class="col-6"><a  href="{% url "product:exportal_product_detail" product.pk %}" class="site-button block-num-block-box bg-white text-secondry"
+                                    <div class="col-6"><a  href="{% url 'product:exportal_product_detail' product.unique_id %}" class="site-button block-num-block-box bg-white text-secondry"
                                                           style="font-size: 10px !important;"
                                     >بلوک
                                         : {{ product.unique_id }}</a></div>
@@ -183,7 +183,7 @@
                                     {% if forloop.counter < 2 %}
                                                              {% thumbnail o.photo "300x300" as img1 %}
                                                                      <div class="dez-media"><a
-                                                href="{% url "product:internal_product_detail" items.id %}"><img
+                                                href="{% url 'product:internal_product_detail' items.unique_id %}"><img
                                                 src="{{ img1.url }}" alt=""></a>
                                         </div>
        
@@ -232,13 +232,13 @@
                                 <div class="dez-info p-a0 bg-white row m-auto ">
 
                                     <div class="col-6"><a style="font-size: 7px"
-                                                          href="{% url "account:create_favorite" items.unique_id %}"
+                                                          href="{% url 'account:create_favorite' items.unique_id %}"
                                                           class="site-button add-to-wish-list-btn text-white"
                                     ><i
                                             class="fa fa-heart-o text-warning" style="margin-left: 5px"></i>
                                         به لیست علاقه مندی های من اضافه شود
                                     </a></div>
-                                    <div class="col-6"><a href="{% url "product:internal_product_detail" items.pk %}" class="site-button block-num-block-box bg-white text-secondry"
+                                    <div class="col-6"><a href="{% url 'product:internal_product_detail' items.unique_id %}" class="site-button block-num-block-box bg-white text-secondry"
                                                           style="font-size: 10px !important;"
                                     >بلوک
                                         : {{ items.unique_id }}</a></div>
@@ -251,7 +251,7 @@
 
                 <div class="row">
                     <div class="col-lg-12 m-b30 m-t30 text-center">
-                        <a href="{% url "product:special_product_Complete" %}" class="site-button m-t10 m-l10 radius-no more-btn-default">
+                        <a href="{% url 'product:special_product_Complete' %}" class="site-button m-t10 m-l10 radius-no more-btn-default">
                             بیشتر </a>
                     </div>
                 </div>
