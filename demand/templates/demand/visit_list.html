@@ -51,13 +51,14 @@
                                         <tbody>
                                         {% for demand in object_list %}
                                             <tr>
-                                                <td>{{ demand.user.company_name }}</td>
-                                                <td>{{ demand.user.activity_field }}</td>
+                                                <td>{{ demand.company }}</td>
+                                                <td>{{ demand.field }}</td>
                                                 <td>{{ demand.created }}</td>
-                                                <td>{{ demand.user.first_name }}</td>
-                                                <td>{{ product.user.last_name }}</td>
-                                                <td>{{ product.user.email }}</td>
-                                                <td>{{ product.user.position }}</td>
+                                                <td>{{ demand.first_name }}</td>
+                                                <td>{{ product.last_name }}</td>
+                                                <td>{{ product.phone }}</td>
+                                                <td>{{ product.email }}</td>
+                                                <td>{{ product.occupation }}</td>
                                                 <td>انتخاب</td>
 
                                             </tr>

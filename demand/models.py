@@ -1,6 +1,7 @@
 from django.db import models
 from django import forms
 from django.conf import settings
+from django.utils import timezone
 User = settings.AUTH_USER_MODEL
 
 
@@ -16,6 +17,7 @@ class Hold(models.Model):
     last_name = models.CharField(max_length=64, blank=True, null=True)
     description = models.TextField(max_length=500, blank=True, null=True)
     file = models.FileField(upload_to="demand/", blank=True, null=True)
+    created = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f"{self.user.first_name}  {self.user.last_name}"
@@ -44,6 +46,7 @@ class Visit(models.Model):
     visit_minute = models.CharField(max_length=64, blank=True, null=True)
     description = models.TextField(max_length=500, blank=True, null=True)
     file = models.FileField(upload_to="demand/", blank=True, null=True)
+    created = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f"{self.user.first_name}  {self.user.last_name}"
@@ -67,6 +70,7 @@ class Sample(models.Model):
     last_name = models.CharField(max_length=64, blank=True, null=True)
     description = models.TextField(max_length=500, blank=True, null=True)
     file = models.FileField(upload_to="demand/", blank=True, null=True)
+    created = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f"{self.user.first_name}  {self.user.last_name}"
