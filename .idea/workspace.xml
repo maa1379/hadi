@@ -1,40 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="79b69763-9a3c-4b2a-bfe1-c764ef2fd190" name="Changes" comment="">
+    <list default="true" id="c3d40b13-f103-445d-ac55-681ad5f18ea2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Madan.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Madan.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demand/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demand/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mine/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mine/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Madan/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Madan/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/templates/config/site_home.html" beforeDir="false" afterPath="$PROJECT_DIR$/config/templates/config/site_home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/migrations/0002_auto_20220215_1205.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/migrations/0003_alter_loaded_transport_date.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/migrations/0004_alter_loaded_transport_date.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/migrations/0005_auto_20220217_1040.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/product/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/templates/product/add_exportal.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/product/add_exportal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/templates/product/exportal_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/product/exportal_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/templates/product/internal_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/product/internal_detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/panel/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/panel/navbar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="256EZd12BhCe8LMKDMb8jN6VSM2" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="252v7GtRED71uSsLw0k1bjdmBq8" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -45,6 +41,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager">
     <configuration name="Madan" type="Python.DjangoServer" factoryName="Django server">
@@ -54,7 +51,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\moham\PycharmProjects\Dent\venv\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -74,12 +71,17 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="79b69763-9a3c-4b2a-bfe1-c764ef2fd190" name="Changes" comment="" />
-      <created>1644839192913</created>
+      <changelist id="c3d40b13-f103-445d-ac55-681ad5f18ea2" name="Changes" comment="" />
+      <created>1644737835196</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1644839192913</updated>
-      <workItem from="1644839213130" duration="4674000" />
+      <updated>1644737835196</updated>
+      <workItem from="1644737839554" duration="747000" />
+      <workItem from="1644773814240" duration="2986000" />
+      <workItem from="1644838143797" duration="2265000" />
+      <workItem from="1644863716125" duration="3349000" />
+      <workItem from="1644869165241" duration="1538000" />
+      <workItem from="1645103728094" duration="407000" />
     </task>
     <servers />
   </component>

@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect,get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from tablib import Dataset
-from .filters import ProductFilter, LoadedFilter, DomesticFilter, ExportalFilter,RejectedFilter
+from .filters import ProductFilter, LoadedFilter, DomesticFilter, ExportalFilter, RejectedFilter
 from django.views.generic import ListView, View, DetailView
 from .models import ExportalProduct, InternalProduct, LinedProduct, ProductBase, Rejected, Loaded, Internal_Image, \
     Exportal_Image, ExportalLogo, ExportalFileLogo, InternalFileLogo, linedFile, ImageExportalModel, ExportalFile, \
@@ -8,7 +8,7 @@ from .models import ExportalProduct, InternalProduct, LinedProduct, ProductBase,
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .resources import Internal_Product_Resource, Exportal_Product_Resource, Internal_Product_Image_Resource, \
-    Exportal_Product_Image_Resource, Lined_Product_Resource, Loaded_Product_Resource,Rejected_Product_Resource
+    Exportal_Product_Image_Resource, Lined_Product_Resource, Loaded_Product_Resource, Rejected_Product_Resource
 from django.db.models import Sum
 import random
 from django.db.models import Q
@@ -37,11 +37,11 @@ class SpecialOfferListComplete(View):
         special_internal = InternalProduct.objects.filter(is_special=True, active=True)[:10]
         special_exportal = ExportalProduct.objects.filter(is_special=True, active=True)[:10]
         return render(request, "product/special_offer_complete_list.html",
-                      {"exportal_list": special_exportal, "special_internal": special_internal})    
-    
-    
-    
-# class HomePage(LoginRequiredMixin, View):
+                      {"exportal_list": special_exportal, "special_internal": special_internal})
+
+    # class HomePage(LoginRequiredMixin, View):
+
+
 #     def get(self, request):
 #         context = {
 #             "exportal": ExportalProduct.objects.all()[:3],
@@ -60,7 +60,6 @@ def MainPictureExportalCreateView(request):
             file = ExportalFileLogo(file=form.cleaned_data["file"])
             file.save()
             return redirect("config:panel_home")
-
 
 
 def MainPictureInternalCreateView(request):
@@ -87,7 +86,6 @@ def MainPictureExportalCreateView(request):
             file = ExportalFileLogo(file=form.cleaned_data["file"])
             file.save()
             return redirect("config:panel_home")
-
 
 
 def PartialPictureInternalCreateView(request):
@@ -139,6 +137,7 @@ class AllProductList(LoginRequiredMixin, View):
         }
         return render(request, "product/all_product_complete.html", context)
 
+
 class AllProductListComplete(LoginRequiredMixin, View):
     def get(self, request):
         base_count = ProductBase.objects.all().count()
@@ -162,11 +161,11 @@ class AllProductListComplete(LoginRequiredMixin, View):
             "total_count": total_count,
             "total_ton": total_ton
         }
-        return render(request, "product/all_product_complete.html", context)    
-    
-    
+        return render(request, "product/all_product_complete.html", context)
 
-# INTERNAL PRODUCT
+    # INTERNAL PRODUCT
+
+
 class InternalProductPanelList(ListView):
     model = InternalProduct
     template_name = "product/internal_list_panel.html"
@@ -174,15 +173,17 @@ class InternalProductPanelList(ListView):
     def get_context_data(self, *args, **kwargs):
         context_data = super(InternalProductPanelList, self).get_context_data(*args, **kwargs)
         context_data["total"] = InternalProduct.objects.all().count()
-        context_data["tonajze"] = InternalProduct.objects.all().aggregate(Sum("approximate_tonnage"))['approximate_tonnage__sum']
+        context_data["tonajze"] = InternalProduct.objects.all().aggregate(Sum("approximate_tonnage"))[
+            'approximate_tonnage__sum']
         return context_data
 
 
 class InternalProductDetail(DetailView):
-    def get(self,request,unique_id):
-        object=get_object_or_404(InternalProduct, unique_id=unique_id)
-        full_path=request.build_absolute_uri()+'?share=1'
-        return render(request,"product/product_detail.html",{"object":object,"full_path":full_path, 'is_internal':1})
+    def get(self, request, unique_id):
+        object = get_object_or_404(InternalProduct, unique_id=unique_id)
+        full_path = request.build_absolute_uri() + '?share=1'
+        return render(request, "product/product_detail.html",
+                      {"object": object, "full_path": full_path, 'is_internal': 1})
 
 
 class InternalProductCreateView(View):
@@ -190,19 +191,16 @@ class InternalProductCreateView(View):
     def get(self, request):
         return render(request, "product/add_internal.html")
 
-    def post(self,request):
+    def post(self, request):
         internal_resource = Internal_Product_Resource()
         dataset = Dataset()
         new_internal = request.FILES['file']
-        imported_data = dataset.load(new_internal.read(), format='xlsx')       
+        imported_data = dataset.load(new_internal.read(), format='xlsx')
         result = internal_resource.import_data(dataset, dry_run=True)
         if not result.has_errors():
             internal_resource.import_data(dataset, dry_run=False)
-      
-        return render(request, "product/add_internal.html")
 
-    
- 
+        return render(request, "product/add_internal.html")
 
 
 # class InternalImage(View):
@@ -228,7 +226,6 @@ def InternalImage(request):
     #     return redirect("config:panel_home")
 
 
-
 # Exportal
 class ExportalProductPanelList(LoginRequiredMixin, ListView):
     model = ExportalProduct
@@ -237,7 +234,8 @@ class ExportalProductPanelList(LoginRequiredMixin, ListView):
     def get_context_data(self, *args, **kwargs):
         context_data = super(ExportalProductPanelList, self).get_context_data(*args, **kwargs)
         context_data["total"] = ExportalProduct.objects.all().count()
-        context_data["tonajze"] = ExportalProduct.objects.aggregate(Sum("approximate_tonnage"))['approximate_tonnage__sum']
+        context_data["tonajze"] = ExportalProduct.objects.aggregate(Sum("approximate_tonnage"))[
+            'approximate_tonnage__sum']
         return context_data
 
 
@@ -245,23 +243,23 @@ class ExportalProductListView(LoginRequiredMixin, ListView):
     queryset = ExportalProduct.objects.filter(active=True)[:20]
     template_name = "product/exportal_list.html"
 
+
 class ExportalProductListCompleteView(LoginRequiredMixin, ListView):
     model = ExportalProduct
-    template_name = "product/exportal_list_complete.html"    
-    
-    
+    template_name = "product/exportal_list_complete.html"
+
 
 class ExportalProductDetail(View):
-    def get(self,request,pk):
-        object=get_object_or_404(ExportalProduct,pk=pk)
-        full_path=request.build_absolute_uri()+'?share=1'
-        return render(request,"product/product_detail.html",{"object":object,"full_path":full_path, 'is_exportal': 1})
-      
+    def get(self, request, pk):
+        object = get_object_or_404(ExportalProduct, pk=pk)
+        full_path = request.build_absolute_uri() + '?share=1'
+        return render(request, "product/product_detail.html",
+                      {"object": object, "full_path": full_path, 'is_exportal': 1})
 
 
 class ExportalProductCreateView(View):
-    
-    def get(self,request):
+
+    def get(self, request):
         return render(request, "product/add_exportal.html")
 
     def post(self, request):
@@ -272,7 +270,7 @@ class ExportalProductCreateView(View):
         result = internal_resource.import_data(dataset, dry_run=True)
         if not result.has_errors():
             internal_resource.import_data(dataset, dry_run=False)
-    
+
         return render(request, "product/add_exportal.html")
 
 
@@ -314,10 +312,10 @@ class LinedProductPanelList(ListView):
 
 
 class LinedProductDetail(View):
-    def get(self,request,unique_id):
-        object=get_object_or_404(LinedProduct,unique_id=unique_id)
-        full_path=request.build_absolute_uri()+'?share=1'
-        return render(request,"product/product_detail.html",{"object":object,"full_path":full_path, 'is_lined':1})
+    def get(self, request, unique_id):
+        object = get_object_or_404(LinedProduct, unique_id=unique_id)
+        full_path = request.build_absolute_uri() + '?share=1'
+        return render(request, "product/product_detail.html", {"object": object, "full_path": full_path, 'is_lined': 1})
 
 
 def lined_product_image(request):
@@ -333,7 +331,7 @@ class LinedProductCreateView(View):
     def get(self, request):
         return render(request, "product/create_lined.html")
 
-    def post(self,request):
+    def post(self, request):
         lined_resource = Lined_Product_Resource()
         dataset = Dataset()
         new_lined = request.FILES['file']
@@ -343,12 +341,14 @@ class LinedProductCreateView(View):
             lined_resource.import_data(dataset, dry_run=False)
         return render(request, "product/create_lined.html")
 
+
 class ExportalProductDetail(View):
-    def get(self,request,unique_id):
-        object=get_object_or_404(ExportalProduct, unique_id=unique_id)
-        full_path=request.build_absolute_uri()+'?share=1'
-        context = {"object":object,"full_path":full_path, 'is_exportal':1}
+    def get(self, request, unique_id):
+        object = get_object_or_404(ExportalProduct, unique_id=unique_id)
+        full_path = request.build_absolute_uri() + '?share=1'
+        context = {"object": object, "full_path": full_path, 'is_exportal': 1}
         return render(request, "product/product_detail.html", context)
+
 
 # REJECTED
 
@@ -359,8 +359,6 @@ class RejectedProductList(View):
     def get(self, request):
         queryset = RejectedFilter(request.GET, queryset=Rejected.objects.all())
         return render(request, "product/rejected_list_panel.html", {'filter': queryset})
-    
-
 
 
 # Loaded
@@ -450,6 +448,7 @@ class ExportalInventory(View):
 
 def is_valid_queryparam(param):
     return param != '' and param is not None
+
 
 def SearchView(request):
     stone_type = request.GET.get('stone_type')
@@ -547,15 +546,15 @@ def SearchView(request):
         exportal_product = None
 
     # internal_product = InternalProduct.objects.filter(
-        # Q(mine__stone_type=request.GET.get("stone_type"))|\
-        # Q(stone_name=request.GET.get("stone_name"))|\
-        # Q(mine__name=request.GET.get("mine")) |\
-        # Q(grading_code=request.GET.get("grading_code"))|\
-        # Q(length__lt=request.GET.get("length_max"))|\
-        # Q(height__gt=request.GET.get("length_min")) |\
-        # Q(width__lt=request.GET.get("height_max")) |\
-        # Q(width__gt=request.GET.get("width_min")) |\
-        # Q(approximate_tonnage__gt=request.GET.get("ton"))
+    # Q(mine__stone_type=request.GET.get("stone_type"))|\
+    # Q(stone_name=request.GET.get("stone_name"))|\
+    # Q(mine__name=request.GET.get("mine")) |\
+    # Q(grading_code=request.GET.get("grading_code"))|\
+    # Q(length__lt=request.GET.get("length_max"))|\
+    # Q(height__gt=request.GET.get("length_min")) |\
+    # Q(width__lt=request.GET.get("height_max")) |\
+    # Q(width__gt=request.GET.get("width_min")) |\
+    # Q(approximate_tonnage__gt=request.GET.get("ton"))
     # )
 
     # exportal_product = ExportalProduct.objects.filter(

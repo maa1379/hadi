@@ -1,0 +1,1138 @@
+Index: config/templates/config/site_home.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{% extends \"site/base.html\" %}\r\n{% load static %}\r\n{% load thumbnail %}\r\n{% load social_share %}\r\n{% block search %}\r\n<!-- extra nav -->\r\n<style>\r\n    #foo {\r\n        height: 25px;\r\n        width: 40px;\r\n        color: white;\r\n        overflow: hidden;\r\n        -webkit-transition: all .25s ease-out;\r\n        -moz-transition: all .25s ease-out;\r\n        -o-transition: all .25s ease-out;\r\n        transition: all .25s ease-out;\r\n    }\r\n\r\n    #foo:hover {\r\n        width: 100%;\r\n        -webkit-transition: all .25s ease-out;\r\n        -moz-transition: all .25s ease-out;\r\n        -o-transition: all .25s ease-out;\r\n        transition: all .25s ease-out;\r\n    }\r\n\r\n    #foo i.fa {\r\n        position: relative;\r\n        height: 25px;\r\n        width: 30px;\r\n        margin: 0px;\r\n        font-size: 20px;\r\n        padding: 5px 0;\r\n        text-align: center;\r\n        box-sizing: border-box;\r\n        opacity: 1;\r\n        float: left;\r\n    }\r\n\r\n    #foo i.fa-share-square-o {\r\n        opacity: 1;\r\n        width: 45px;\r\n        -webkit-transition: all .25s ease-out;\r\n        -moz-transition: all .25s ease-out;\r\n        -o-transition: all .25s ease-out;\r\n        transition: all .25s ease-out;\r\n    }\r\n\r\n    #foo:hover .fa {\r\n        opacity: 1;\r\n        -webkit-transition: all .25s ease-out;\r\n        -moz-transition: all .25s ease-out;\r\n        -o-transition: all .25s ease-out;\r\n        transition: all .25s ease-out;\r\n    }\r\n\r\n    #foo:hover a .fa {\r\n        color: white;\r\n    }\r\n\r\n    #foo:hover a:hover .fa {\r\n        color: #EE7554;\r\n    }\r\n\r\n    #foo:hover .fa-share-square-o {\r\n        opacity: 0;\r\n        width: 0px;\r\n        -webkit-transition: all .25s ease-out;\r\n        -moz-transition: all .25s ease-out;\r\n        -o-transition: all .25s ease-out;\r\n        transition: all .25s ease-out;\r\n    }\r\n</style>\r\n<div class=\"extra-nav\" style=\"height: 65px;\">\r\n    <div class=\"extra-cell \">\r\n        <button id=\"quik-search-btn\" type=\"button\" class=\"site-button bg-white\"\r\n                style=\"color: #1A74B5;font-size: large;padding-top: 5px\"><i\r\n                class=\"fa fa-search font-weight-300\"></i><a class=\"font-weight-300\"> جستجو </a>\r\n        </button>\r\n    </div>\r\n</div>\r\n<!-- Quik search -->\r\n<div class=\"dez-quik-search \"  style=\"top: 65px\">\r\n    <form action=\"{%   url \"product:search\"  %}\" style=\"margin: auto;margin-top: 20px\">\r\n        <div class=\"row \">\r\n            <div class=\"col-4 form-group text-left\">\r\n                <input name=\"stone_type\"  class=\"form-control \" placeholder=\"نوع سنگ\"\r\n                       type=\"text\"\r\n                       style=\"background-color: #ffffffc4;height: 35px; font-size: 12px;\"/>\r\n            </div>\r\n            <div class=\"col-4 form-group text-left\">\r\n                <input name=\"stone_name\"  class=\"form-control \" placeholder=\"نام سنگ\"\r\n                       type=\"text\"\r\n                       style=\"background-color: #ffffffc4;height: 35px; font-size: 12px;\"/>\r\n            </div>\r\n            <div class=\"col-2 form-group text-left\">\r\n                <input name=\"color_code\"  class=\"form-control \" placeholder=\"رنگ\"\r\n                       type=\"text\"\r\n                       style=\"background-color: #ffffffc4;height: 35px; font-size: 12px;\"/>\r\n            </div>\r\n            <div class=\"col-2 form-group text-left\">\r\n                <span id=\"quik-search-remove\"><i class=\"fa fa-remove\"></i></span>\r\n            </div>\r\n\r\n        </div>\r\n        <div class=\"row \" style=\"margin-top: -10px\">\r\n            <div class=\"col-3 form-group text-left\">\r\n                <input name=\"dzName\"  class=\"form-control \" placeholder=\"حداقل طول\"\r\n                       type=\"text\"\r\n                       style=\"background-color: #ffffff5c;height: 35px; font-size: 12px;\"/>\r\n            </div>\r\n            <div class=\"col-3 form-group text-left\">\r\n                <input name=\"length\" class=\"form-control \" placeholder=\"حداکثر طول\"\r\n                       type=\"number\"\r\n                       style=\"background-color: #ffffff5c;height: 35px; font-size: 12px;\"/>\r\n            </div>\r\n            <div class=\"col-2 form-group text-left\">\r\n                <input name=\"height\"  class=\"form-control \" placeholder=\"حداقل ارتفاع\"\r\n                       type=\"number\"\r\n                       style=\"background-color: #ffffff5c;height: 35px; font-size: 12px;\"/>\r\n            </div>\r\n            <div class=\"col-2 form-group text-left\">\r\n                <input name=\"width\"  class=\"form-control \" placeholder=\"حداکثر ارتفاع\"\r\n                       type=\"number\"\r\n                       style=\"background-color: #ffffff5c;height: 35px; font-size: 12px;\"/>\r\n            </div>\r\n            <div class=\"col-2 form-group text-left\">\r\n                <button class=\"site-button dz-xs-flex m-r5\"\r\n                        style=\"background-color: #1A74B5; width: 100%\">\r\n                    جستجو\r\n                </button>\r\n            </div>\r\n\r\n        </div>\r\n        <div class=\"row \" style=\"margin-top: -10px\">\r\n            <div class=\"col-3 form-group text-left\">\r\n                <input name=\"mine\"  class=\"form-control \" placeholder=\"محل دپو\"\r\n                       type=\"text\"\r\n                       style=\"background-color: #ffffffc4;height: 35px; font-size: 12px;\"/>\r\n            </div>\r\n            <div class=\"col-4 form-group text-left\">\r\n                <input name=\"dzName\"  class=\"form-control \" placeholder=\"تناژ مورد نیاز\"\r\n                       type=\"text\"\r\n                       style=\"background-color: #ffffff5c;height: 35px; font-size: 12px;\"/>\r\n            </div>\r\n            <div class=\"col-3 form-group text-left\">\r\n                <input name=\"grading_code\"  class=\"form-control \" placeholder=\"درجه بندی\"\r\n                       type=\"text\"\r\n                       style=\"background-color: #ffffffc4;height: 35px; font-size: 12px;\"/>\r\n            </div>\r\n            <div class=\"col-2 form-group text-left\">\r\n                <button class=\"site-button dz-xs-flex m-r5\"\r\n                        style=\"background-color: #df0000;  width: 100%\">\r\n                    Reset\r\n                </button>\r\n            </div>\r\n        </div>\r\n        <!--                <input name=\"search\" value=\"\" type=\"text\" class=\"form-control\" placeholder=\"جستجو\">-->\r\n        <!--                            <span id=\"quik-search-remove\"><i class=\"fa fa-remove\"></i></span>-->\r\n    </form>\r\n    <div class=\"dez-quik-search-opacity w-100 h-100 bg-green\"\r\n         style=\"position: absolute;top: 0;z-index: -1\">dafsdf\r\n    </div>\r\n</div>\r\n{% endblock %}\r\n<!-- main nav -->\r\n{% block content %}\r\n<!-- header END -->\r\n<!-- Content -->\r\n<div class=\"page-content font-style-2\">\r\n    <!-- Slider -->\r\n    <div class=\"main-slider style-two default-banner rev-slider-rtl\" id=\"home\">\r\n        <div class=\"tp-banner-container\">\r\n            <div class=\"tp-banner \" style=\"height: 680px; background-color: #1D1D1F\">\r\n                <div id=\"rev_slider_1175_1_wrapper\" class=\"rev_slider_wrapper fullscreen-container\"\r\n                     data-alias=\"duotone192\" data-source=\"gallery\" {}\r\n                     style=\"background-color:transparent;padding:0px;\">\r\n\r\n                </div>\r\n                <div class=\"container\">\r\n                    <div id=\"demo\" class=\"carousel slide carousel-fade\" data-ride=\"carousel\">\r\n                        <div class=\"carousel-inner p-a25 m-auto\">\r\n                            {% for obj in sliders %}\r\n                            <div class=\"carousel-item  act-{{ forloop.counter }}\" style=\"text-align: center\">\r\n                                {% for sliderimage in obj.image_exportal_logo.all %}\r\n                                {% if forloop.counter < 2 %}\r\n\r\n                                                               <img src=\"{{ sliderimage.photo.url }}\" alt=\"Los Angeles\"\r\n                                     style=\"max-width: 75%;height: 550px;\">\r\n\r\n\r\n\r\n\r\n                                {% endif %}\r\n                                {% endfor %}\r\n                                <div class=\"carousel-caption \"\r\n                                     style=\"width: 358px; height: 358px;position: absolute;top: 17%; left: 4%\">\r\n                                    <div class=\"h-25\"></div>\r\n                                    <p class=\"text-uppercase font-weight-300 text-black\"\r\n                                       style=\"font-size: x-large; font-weight: bold\">\r\n                                        {{ obj.mine.stone_type }}</p>\r\n                                    <p class=\"text-uppercase font-weight-500 \"\r\n                                       style=\"font-size: xx-large;color: #0089df\">{{obj.stone_name}}</p>\r\n                                    <a href=\"{% url \"product:exportal_product_detail\" obj.pk %}\"\r\n                                    class=\"site-button m-t40 m-l10 radius-no font-weight-300\"\r\n                                    style=\"font-family: 'Vazir';background-color: #0089df;font-size: x-small;padding:\r\n                                    10px\r\n                                    40px 10px 40px;\">\r\n                                    مشاهده\r\n                                    جزئیات </a>\r\n                                    <div class=\"w-100 h-100 \"\r\n                                         style=\"position: absolute; top: 0%;z-index: -1;background-color: #e7e7e7; opacity: 68%;\"></div>\r\n                                    <!--                                    <img style=\"position: absolute;top: 0;left: 0\" src=\"images/lable1.png\">-->\r\n                                </div>\r\n                            </div>\r\n                            {% endfor %}\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <a class=\"carousel-control-prev\" href=\"#demo\" data-slide=\"prev\" style=\"top: 20% !important\">\r\n                    <span><i class=\"fa fa-5x fa-angle-right\"></i></span>\r\n                </a>\r\n                <a class=\"carousel-control-next\" href=\"#demo\" data-slide=\"next\" style=\"top: 20% !important\">\r\n                    <span><i class=\"fa fa-5x fa-angle-left\"></i></span>\r\n                </a>\r\n            </div>\r\n            <!--                    </div>-->\r\n        </div>\r\n    </div>\r\n</div>\r\n<!-- Slider END -->\r\n\r\n<!-- Content area -->\r\n<div class=\"section-full content-inner overlay-white-dark\"\r\n     style=\"background-image:url({% static 'images/bgprofile3.jpg' %});margin-top: -50px; background-attachment:fixed\">\r\n    <!-- special offer -->\r\n    <div class=\"container-fluid p-l90 p-r90\">\r\n        <div class=\"section-head text-left\" style=\"margin-right: 30px\">\r\n            <p class=\"text-uppercase font-weight-400 text-dark\" style=\"font-size: x-large\">پیشنهاد ویژه</p>\r\n            <div class=\"clear\"></div>\r\n        </div>\r\n        <div class=\"row\">\r\n            {% for pro in special_offer %}\r\n            <div class=\"col-md-12 col-lg-4 col-sm-12 m-b30\">\r\n                <div class=\"dez-box fly-box\" style=\"margin: -10px;\">\r\n                    {% for m in pro.image_exportal_logo.all %}\r\n                    {% if forloop.counter < 2 %}\r\n\r\n\r\n\r\n                      {% thumbnail m.photo \"600x600\" as test %}\r\n                    <div class=\"dez-media\"><a\r\n                            href=\"{% url \"product:exportal_product_detail\" pro.pk %}\"><img src=\"{{ test.url }}\" class=\"card-img-top\"></a>\r\n                    </div>\r\n                {% endthumbnail %}\r\n                    {% endif %}\r\n                    {% endfor %}\r\n                    <div class=\"dez-info p-10 row text-center m-auto\"\r\n                         style=\"background-color: #1D1D1F\">\r\n                        <div id=\"box\" class=\"col-lg-6 text-left\" style=\"margin-top: auto\">\r\n                                    </a>\r\n                                    <div id=\"foo\">\r\n                                        <i class=\"fa fa-share-alt text-white\" style=\"font-size: large\"></i>\r\n                                        <a href=\"\" data-toggle=\"modal\" data-target=\"#exampleModal\"><i class=\"fa fa-telegram\"></i></a>\r\n                                        <a href=\"\" data-toggle=\"modal\" data-target=\"#exampleModal\"><i class=\"fa fa-whatsapp\"></i></a>\r\n                                        <a href=\"\" data-toggle=\"modal\" data-target=\"#exampleModal\"><i class=\"fa fa-linkedin\"></i></a>\r\n                                        <a href=\"\" data-toggle=\"modal\" data-target=\"#exampleModal\"><i class=\"fa fa-envelope\"></i></a>\r\n                                    </div>\r\n                                </div>\r\n                        <div class=\"col-lg-6 text-right\" style=\"font-size: larger\"><a class=\"text-white\">درجه\r\n                            بندی :</a><a class=\"font-weight-600 text-white\"\r\n                                         href=\"{% url \"blog:blog_list\" %}\"> {{ pro.grading_code }}</a>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"dez-info bg-white text-center m-auto row \">\r\n                        <div class=\"col-lg-12 font-weight-bold \"><a href=\"javascript:void(0);\"\r\n                                                                    style=\"color: #333;font-size: large\">{{pro.stone_name }}\r\n                        </a></div>\r\n                    </div>\r\n\r\n                    <div class=\"dez-info p-a15 bg-white row m-auto \">\r\n\r\n                        <div class=\"col-6 \">\r\n                            <ul class=\"product-box-ul font-weight-300 p-r50\" style=\"list-style-type:none\">\r\n                                <li>نوع سنگ</li>\r\n                                <li>ابعاد</li>\r\n                                <li>معدن</li>\r\n                                <li>وزن تقریبی</li>\r\n\r\n                            </ul>\r\n                        </div>\r\n                        <div class=\"col-6 \">\r\n                            <ul class=\"product-box-ul font-weight-300 p-r60\" style=\"list-style-type:none;\">\r\n                                <li>{{ pro.mine.stone_type }}</li>\r\n                                <li>{{ pro.width }}*{{ pro.length }}*{{ pro.height }}</li>\r\n                                <li>{{ pro.mine.province }}</li>\r\n                                <li>{{ pro.approximate_tonnage }}</li>\r\n\r\n                            </ul>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"dez-info p-a0 bg-white row m-auto \">\r\n\r\n                        <div class=\"col-6\"><a style=\"font-size: 9px\"\r\n                                              href=\"{% url \"account:create_favorite\" pro.unique_id %}\"\r\n                            class=\"site-button add-to-wish-list-btn text-white\"\r\n                            ><i class=\"fa fa-heart-o text-warning\" style=\"margin-left: 5px\"></i>\r\n                            به لیست علاقه مندی های من اضافه شود\r\n                            </a></div>\r\n                        <div class=\"col-6\"><a href=\"{% url \"product:exportal_product_detail\" pro.pk %}\"\r\n                            class=\"site-button block-num-block-box bg-white text-secondry\"\r\n                            style=\"font-size: 14px !important;\"\r\n                            >بلوک\r\n                            : {{ pro.unique_id }}</a></div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            {% empty %}\r\n            <h1 class=\"text-center\">هیچ پیشنهاد ویؤه ای موجود نیست موجود نیست</h1>\r\n            {% endfor %}\r\n        </div>\r\n        <div class=\"row\">\r\n            <div class=\"col-lg-12 m-b30 m-t50 text-center\">\r\n                <a href=\"{% url \"product:special_offer\" %}\"\r\n                class=\"site-button m-t10 m-l10 radius-no more-btn-default\">\r\n                بیشتر </a>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n\r\n    <div class=\"container-fluid p-l90 p-r90\">\r\n        <div class=\"section-head text-left\" style=\"margin-right: 30px\">\r\n            <p class=\"text-uppercase font-weight-400 text-dark\" style=\"font-size: x-large\">صادراتی</p>\r\n            <div class=\"clear\"></div>\r\n        </div>\r\n        <div class=\"row\">\r\n           {% for items in exportal %}\r\n            <div class=\"col-md-12 col-lg-4 col-sm-12 m-b30\">\r\n                <div class=\"dez-box fly-box\" style=\"margin: -10px;\">\r\n                    {% for m in items.image_exportal_logo.all %}\r\n                    {% if forloop.counter < 2 %}\r\n\r\n\r\n\r\n                      {% thumbnail m.photo \"600x600\" as test %}\r\n                    <div class=\"dez-media\"><a\r\n                            href=\"{% url \"product:exportal_product_detail\" items.pk %}\"><img src=\"{{ test.url }}\" class=\"card-img-top\"></a>\r\n                    </div>\r\n                {% endthumbnail %}\r\n                    {% endif %}\r\n                    {% endfor %}\r\n                    <div class=\"dez-info p-10 row text-center m-auto\"\r\n                         style=\"background-color: #1D1D1F\">\r\n                        <div id=\"box\" class=\"col-lg-6 text-left\" style=\"margin-top: auto\">\r\n                                    </a>\r\n                                    <div id=\"foo\">\r\n                                        <i class=\"fa fa-share-alt text-white\" style=\"font-size: large\"></i>\r\n                                        <a href=\"\" data-toggle=\"modal\" data-target=\"#exampleModal\"><i class=\"fa fa-telegram\"></i></a>\r\n                                        <a href=\"#\" data-toggle=\"modal\" data-target=\"#exampleModal\"><i class=\"fa fa-whatsapp\"></i></a>\r\n                                        <a href=\"#\" data-toggle=\"modal\" data-target=\"#exampleModal\"><i class=\"fa fa-linkedin\"></i></a>\r\n                                        <a href=\"#\" data-toggle=\"modal\" data-target=\"#exampleModal\"><i class=\"fa fa-envelope\"></i></a>\r\n                                    </div>\r\n                                </div>\r\n                        <div class=\"col-lg-6 text-right\" style=\"font-size: larger\"><a class=\"text-white\">درجه\r\n                            بندی :</a><a class=\"font-weight-600 text-white\"\r\n                                         href=\"{% url \"blog:blog_list\" %}\"> {{ items.grading_code }}</a>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"dez-info bg-white text-center m-auto row \">\r\n                        <div class=\"col-lg-12 font-weight-bold \"><a href=\"javascript:void(0);\"\r\n                                                                    style=\"color: #333;font-size: large\">{{pro.stone_name }}\r\n                        </a></div>\r\n                    </div>\r\n\r\n                    <div class=\"dez-info p-a15 bg-white row m-auto \">\r\n\r\n                        <div class=\"col-6 \">\r\n                            <ul class=\"product-box-ul font-weight-300 p-r50\" style=\"list-style-type:none\">\r\n                                <li>نوع سنگ</li>\r\n                                <li>ابعاد</li>\r\n                                <li>معدن</li>\r\n                                <li>وزن تقریبی</li>\r\n\r\n                            </ul>\r\n                        </div>\r\n                        <div class=\"col-6 \">\r\n                            <ul class=\"product-box-ul font-weight-300 p-r60\" style=\"list-style-type:none;\">\r\n                                <li>{{ items.mine.stone_type }}</li>\r\n                                <li>{{ items.width }}*{{ items.length }}*{{ items.height }}</li>\r\n                                <li>{{ items.mine.province }}</li>\r\n                                <li>{{ items.approximate_tonnage }}</li>\r\n\r\n                            </ul>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"dez-info p-a0 bg-white row m-auto \">\r\n\r\n                        <div class=\"col-6\"><a style=\"font-size: 9px\"\r\n                                              href=\"{% url \"account:create_favorite\" items.unique_id %}\"\r\n                            class=\"site-button add-to-wish-list-btn text-white\"\r\n                            ><i class=\"fa fa-heart-o text-warning\" style=\"margin-left: 5px\"></i>\r\n                            به لیست علاقه مندی های من اضافه شود\r\n                            </a></div>\r\n                        <div class=\"col-6\"><a href=\"{% url \"product:exportal_product_detail\" items.pk %}\"\r\n                            class=\"site-button block-num-block-box bg-white text-secondry\"\r\n                            style=\"font-size: 14px !important;\"\r\n                            >بلوک\r\n                            : {{ items.unique_id }}</a></div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            {% empty %}\r\n            <h1 class=\"text-center\">هیچ پیشنهاد ویؤه ای موجود نیست موجود نیست</h1>\r\n            {% endfor %}\r\n        </div>\r\n        <div class=\"row\">\r\n            <div class=\"col-lg-12 m-b30 m-t50 text-center\">\r\n                <a href=\"{% url \"product:exportal_list\" %}\"\r\n                class=\"site-button m-t10 m-l10 radius-no more-btn-default\">\r\n                بیشتر </a>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n\r\n\r\n\r\n    <!-- export END-->\r\n    <!-- lined in the mine -->\r\n    <div class=\"container-fluid p-l90 p-r90\">\r\n        <div class=\"section-head text-left\" style=\"margin-right: 30px\">\r\n            <p class=\"text-uppercase font-weight-400 text-dark\" style=\"font-size: x-large\">لاین شده در معدن</p>\r\n\r\n            <div class=\"clear\"></div>\r\n        </div>\r\n        <div class=\"row\">\r\n            {% for l in lined %}\r\n            <div class=\"col-md-12 col-lg-4 col-sm-12 m-b30\">\r\n                <div class=\"dez-box fly-box\" style=\"margin: -10px;\">\r\n                    <div class=\"dez-media\"><a href=\"lined-single.html\"><img src=\"images/stone11.jpg\" alt=\"\"></a>\r\n                    </div>\r\n                    <div class=\"dez-info p-10 row text-center m-auto\"\r\n                         style=\"background-color: #1D1D1F\">\r\n                        <div class=\"col-lg-6 text-left\" style=\"margin-top: auto\"><a\r\n                                href=\"javascript:void(0);\"\r\n                                style=\"font-size: large\"\r\n                                class=\"fa fa-share-alt text-white \"></a>\r\n                        </div>\r\n                        <div class=\"col-lg-6 text-right\" style=\"font-size: larger\"><a class=\"text-white\">درجه\r\n                            بندی :</a><a class=\"font-weight-600 text-white\"\r\n                                         href=\"javascript:void(0);\"> A</a>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"dez-info bg-white text-center m-auto row \">\r\n                        <div class=\"col-lg-12 font-weight-bold \"><a href=\"javascript:void(0);\"\r\n                                                                    style=\"color: #333;font-size: large\">سیلور\r\n                            سلماس </a></div>\r\n                    </div>\r\n\r\n                    <div class=\"dez-info p-a15 bg-white row m-auto \">\r\n\r\n                        <div class=\"col-6 \">\r\n                            <ul class=\"product-box-ul font-weight-300 p-r50\" style=\"list-style-type:none\">\r\n                                <li>نوع سنگ</li>\r\n                                <li>ابعاد</li>\r\n                                <li>معدن</li>\r\n                                <li>وزن تقریبی</li>\r\n                                <li>موجود</li>\r\n                            </ul>\r\n                        </div>\r\n                        <div class=\"col-6 \">\r\n                            <ul class=\"product-box-ul font-weight-300 p-r60\" style=\"list-style-type:none;\">\r\n                                <li>تراورتن</li>\r\n                                <li>120*150*160</li>\r\n                                <li>کرج-ایران</li>\r\n                                <li>10 تن</li>\r\n                                <li>120 تن</li>\r\n                            </ul>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"dez-info p-a0 bg-white row m-auto \">\r\n\r\n                        <div class=\"col-6\"><a style=\"font-size: 9px\" href=\"\"\r\n                                              class=\"site-button add-to-wish-list-btn text-white\"\r\n                        ><i class=\"fa fa-heart-o text-warning\" style=\"margin-left: 5px\"></i>\r\n                            به لیست علاقه مندی های من اضافه شود\r\n                        </a></div>\r\n                        <div class=\"col-6\"><a class=\"site-button block-num-block-box bg-white text-secondry\"\r\n                                              style=\"font-size: 14px !important;\"\r\n                        >بلوک\r\n                            : #123456789aas</a></div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            {% empty %}\r\n            <h1 class=\"text-center\">هیچ محصول لاین شده ای موجود نیست</h1>\r\n            {% endfor %}\r\n        </div>\r\n        <div class=\"row\">\r\n            <div class=\"col-lg-12 m-b30 m-t50 text-center\">\r\n                <a href=\"{% url \"product:lined_product\" %}\"\r\n                class=\"site-button m-t10 m-l10 radius-no more-btn-default\">\r\n                بیشتر </a>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!-- lined in the mine END-->\r\n</div>\r\n<!-- Content area END-->\r\n\r\n<!-- Content END-->\r\n<!-- Footer -->\r\n<!-- Modal -->\r\n<div class=\"modal fade\" id=\"exampleModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\"\r\n     aria-hidden=\"true\">\r\n    <div class=\"modal-dialog\" role=\"document\">\r\n        <div class=\"modal-content\" style=\"background-color: rgb(255 255 255) ;\">\r\n            <div class=\"modal-header\">\r\n                <h5 class=\"modal-title\" id=\"exampleModalLabel\">اشترک گذاری</h5>\r\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n            </div>\r\n            <div class=\"modal-body\">\r\n                <form method=\"post\" action=\"#\">\r\n                    <input class=\"form-control\" style=\"text-align: right; border-color: #e1e6eb ; background-color: #ffffff\" placeholder=\"لینک را وارد کنید ...\" type=\"url\">\r\n                </form>\r\n            </div>\r\n            <div class=\"modal-footer\">\r\n                <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">بستن</button>\r\n                <button type=\"button\" class=\"btn btn-primary\">ارسال</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n{% endblock %}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/templates/config/site_home.html b/config/templates/config/site_home.html
+--- a/config/templates/config/site_home.html	(revision 796826398194de6b112699cbb066dc6fc59e3b57)
++++ b/config/templates/config/site_home.html	(date 1644865603656)
+@@ -1,3 +1,542 @@
++{#{% extends "site/base.html" %}#}
++{#{% load static %}#}
++{#{% load thumbnail %}#}
++{#{% load social_share %}#}
++{#{% block search %}#}
++{#<!-- extra nav -->#}
++{#<style>#}
++{#    #foo {#}
++{#        height: 25px;#}
++{#        width: 40px;#}
++{#        color: white;#}
++{#        overflow: hidden;#}
++{#        -webkit-transition: all .25s ease-out;#}
++{#        -moz-transition: all .25s ease-out;#}
++{#        -o-transition: all .25s ease-out;#}
++{#        transition: all .25s ease-out;#}
++{#    }#}
++{##}
++{#    #foo:hover {#}
++{#        width: 100%;#}
++{#        -webkit-transition: all .25s ease-out;#}
++{#        -moz-transition: all .25s ease-out;#}
++{#        -o-transition: all .25s ease-out;#}
++{#        transition: all .25s ease-out;#}
++{#    }#}
++{##}
++{#    #foo i.fa {#}
++{#        position: relative;#}
++{#        height: 25px;#}
++{#        width: 30px;#}
++{#        margin: 0px;#}
++{#        font-size: 20px;#}
++{#        padding: 5px 0;#}
++{#        text-align: center;#}
++{#        box-sizing: border-box;#}
++{#        opacity: 1;#}
++{#        float: left;#}
++{#    }#}
++{##}
++{#    #foo i.fa-share-square-o {#}
++{#        opacity: 1;#}
++{#        width: 45px;#}
++{#        -webkit-transition: all .25s ease-out;#}
++{#        -moz-transition: all .25s ease-out;#}
++{#        -o-transition: all .25s ease-out;#}
++{#        transition: all .25s ease-out;#}
++{#    }#}
++{##}
++{#    #foo:hover .fa {#}
++{#        opacity: 1;#}
++{#        -webkit-transition: all .25s ease-out;#}
++{#        -moz-transition: all .25s ease-out;#}
++{#        -o-transition: all .25s ease-out;#}
++{#        transition: all .25s ease-out;#}
++{#    }#}
++{##}
++{#    #foo:hover a .fa {#}
++{#        color: white;#}
++{#    }#}
++{##}
++{#    #foo:hover a:hover .fa {#}
++{#        color: #EE7554;#}
++{#    }#}
++{##}
++{#    #foo:hover .fa-share-square-o {#}
++{#        opacity: 0;#}
++{#        width: 0px;#}
++{#        -webkit-transition: all .25s ease-out;#}
++{#        -moz-transition: all .25s ease-out;#}
++{#        -o-transition: all .25s ease-out;#}
++{#        transition: all .25s ease-out;#}
++{#    }#}
++{#</style>#}
++{#<div class="extra-nav" style="height: 65px;">#}
++{#    <div class="extra-cell ">#}
++{#        <button id="quik-search-btn" type="button" class="site-button bg-white"#}
++{#                style="color: #1A74B5;font-size: large;padding-top: 5px"><i#}
++{#                class="fa fa-search font-weight-300"></i><a class="font-weight-300"> جستجو </a>#}
++{#        </button>#}
++{#    </div>#}
++{#</div>#}
++{#<!-- Quik search -->#}
++{#<div class="dez-quik-search "  style="top: 65px">#}
++{#    <form action="{%   url "product:search"  %}" style="margin: auto;margin-top: 20px">#}
++{#        <div class="row ">#}
++{#            <div class="col-4 form-group text-left">#}
++{#                <input name="stone_type"  class="form-control " placeholder="نوع سنگ"#}
++{#                       type="text"#}
++{#                       style="background-color: #ffffffc4;height: 35px; font-size: 12px;"/>#}
++{#            </div>#}
++{#            <div class="col-4 form-group text-left">#}
++{#                <input name="stone_name"  class="form-control " placeholder="نام سنگ"#}
++{#                       type="text"#}
++{#                       style="background-color: #ffffffc4;height: 35px; font-size: 12px;"/>#}
++{#            </div>#}
++{#            <div class="col-2 form-group text-left">#}
++{#                <input name="color_code"  class="form-control " placeholder="رنگ"#}
++{#                       type="text"#}
++{#                       style="background-color: #ffffffc4;height: 35px; font-size: 12px;"/>#}
++{#            </div>#}
++{#            <div class="col-2 form-group text-left">#}
++{#                <span id="quik-search-remove"><i class="fa fa-remove"></i></span>#}
++{#            </div>#}
++{##}
++{#        </div>#}
++{#        <div class="row " style="margin-top: -10px">#}
++{#            <div class="col-3 form-group text-left">#}
++{#                <input name="dzName"  class="form-control " placeholder="حداقل طول"#}
++{#                       type="text"#}
++{#                       style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>#}
++{#            </div>#}
++{#            <div class="col-3 form-group text-left">#}
++{#                <input name="length" class="form-control " placeholder="حداکثر طول"#}
++{#                       type="number"#}
++{#                       style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>#}
++{#            </div>#}
++{#            <div class="col-2 form-group text-left">#}
++{#                <input name="height"  class="form-control " placeholder="حداقل ارتفاع"#}
++{#                       type="number"#}
++{#                       style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>#}
++{#            </div>#}
++{#            <div class="col-2 form-group text-left">#}
++{#                <input name="width"  class="form-control " placeholder="حداکثر ارتفاع"#}
++{#                       type="number"#}
++{#                       style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>#}
++{#            </div>#}
++{#            <div class="col-2 form-group text-left">#}
++{#                <button class="site-button dz-xs-flex m-r5"#}
++{#                        style="background-color: #1A74B5; width: 100%">#}
++{#                    جستجو#}
++{#                </button>#}
++{#            </div>#}
++{##}
++{#        </div>#}
++{#        <div class="row " style="margin-top: -10px">#}
++{#            <div class="col-3 form-group text-left">#}
++{#                <input name="mine"  class="form-control " placeholder="محل دپو"#}
++{#                       type="text"#}
++{#                       style="background-color: #ffffffc4;height: 35px; font-size: 12px;"/>#}
++{#            </div>#}
++{#            <div class="col-4 form-group text-left">#}
++{#                <input name="dzName"  class="form-control " placeholder="تناژ مورد نیاز"#}
++{#                       type="text"#}
++{#                       style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>#}
++{#            </div>#}
++{#            <div class="col-3 form-group text-left">#}
++{#                <input name="grading_code"  class="form-control " placeholder="درجه بندی"#}
++{#                       type="text"#}
++{#                       style="background-color: #ffffffc4;height: 35px; font-size: 12px;"/>#}
++{#            </div>#}
++{#            <div class="col-2 form-group text-left">#}
++{#                <button class="site-button dz-xs-flex m-r5"#}
++{#                        style="background-color: #df0000;  width: 100%">#}
++{#                    Reset#}
++{#                </button>#}
++{#            </div>#}
++{#        </div>#}
++{#        <!--                <input name="search" value="" type="text" class="form-control" placeholder="جستجو">-->#}
++{#        <!--                            <span id="quik-search-remove"><i class="fa fa-remove"></i></span>-->#}
++{#    </form>#}
++{#    <div class="dez-quik-search-opacity w-100 h-100 bg-green"#}
++{#         style="position: absolute;top: 0;z-index: -1">dafsdf#}
++{#    </div>#}
++{#</div>#}
++{#{% endblock %}#}
++{#<!-- main nav -->#}
++{#{% block content %}#}
++{#<!-- header END -->#}
++{#<!-- Content -->#}
++{#<div class="page-content font-style-2">#}
++{#    <!-- Slider -->#}
++{#    <div class="main-slider style-two default-banner rev-slider-rtl" id="home">#}
++{#        <div class="tp-banner-container">#}
++{#            <div class="tp-banner " style="height: 680px; background-color: #1D1D1F">#}
++{#                <div id="rev_slider_1175_1_wrapper" class="rev_slider_wrapper fullscreen-container"#}
++{#                     data-alias="duotone192" data-source="gallery" {}#}
++{#                     style="background-color:transparent;padding:0px;">#}
++{##}
++{#                </div>#}
++{#                <div class="container">#}
++{#                    <div id="demo" class="carousel slide carousel-fade" data-ride="carousel">#}
++{#                        <div class="carousel-inner p-a25 m-auto">#}
++{#                            {% for obj in sliders %}#}
++{#                            <div class="carousel-item  act-{{ forloop.counter }}" style="text-align: center">#}
++{#                                {% for sliderimage in obj.image_exportal_logo.all %}#}
++{#                                {% if forloop.counter < 2 %}#}
++{##}
++{#                                                               <img src="{{ sliderimage.photo.url }}" alt="Los Angeles"#}
++{#                                     style="max-width: 75%;height: 550px;">#}
++{##}
++{##}
++{##}
++{##}
++{#                                {% endif %}#}
++{#                                {% endfor %}#}
++{#                                <div class="carousel-caption "#}
++{#                                     style="width: 358px; height: 358px;position: absolute;top: 17%; left: 4%">#}
++{#                                    <div class="h-25"></div>#}
++{#                                    <p class="text-uppercase font-weight-300 text-black"#}
++{#                                       style="font-size: x-large; font-weight: bold">#}
++{#                                        {{ obj.mine.stone_type }}</p>#}
++{#                                    <p class="text-uppercase font-weight-500 "#}
++{#                                       style="font-size: xx-large;color: #0089df">{{obj.stone_name}}</p>#}
++{#                                    <a href="{% url "product:exportal_product_detail" obj.pk %}"#}
++{#                                    class="site-button m-t40 m-l10 radius-no font-weight-300"#}
++{#                                    style="font-family: 'Vazir';background-color: #0089df;font-size: x-small;padding:#}
++{#                                    10px#}
++{#                                    40px 10px 40px;">#}
++{#                                    مشاهده#}
++{#                                    جزئیات </a>#}
++{#                                    <div class="w-100 h-100 "#}
++{#                                         style="position: absolute; top: 0%;z-index: -1;background-color: #e7e7e7; opacity: 68%;"></div>#}
++{#                                    <!--                                    <img style="position: absolute;top: 0;left: 0" src="images/lable1.png">-->#}
++{#                                </div>#}
++{#                            </div>#}
++{#                            {% endfor %}#}
++{#                        </div>#}
++{#                    </div>#}
++{#                </div>#}
++{#                <a class="carousel-control-prev" href="#demo" data-slide="prev" style="top: 20% !important">#}
++{#                    <span><i class="fa fa-5x fa-angle-right"></i></span>#}
++{#                </a>#}
++{#                <a class="carousel-control-next" href="#demo" data-slide="next" style="top: 20% !important">#}
++{#                    <span><i class="fa fa-5x fa-angle-left"></i></span>#}
++{#                </a>#}
++{#            </div>#}
++{#            <!--                    </div>-->#}
++{#        </div>#}
++{#    </div>#}
++{#</div>#}
++{#<!-- Slider END -->#}
++{##}
++{#<!-- Content area -->#}
++{#<div class="section-full content-inner overlay-white-dark"#}
++{#     style="background-image:url({% static 'images/bgprofile3.jpg' %});margin-top: -50px; background-attachment:fixed">#}
++{#    <!-- special offer -->#}
++{#    <div class="container-fluid p-l90 p-r90">#}
++{#        <div class="section-head text-left" style="margin-right: 30px">#}
++{#            <p class="text-uppercase font-weight-400 text-dark" style="font-size: x-large">پیشنهاد ویژه</p>#}
++{#            <div class="clear"></div>#}
++{#        </div>#}
++{#        <div class="row">#}
++{#            {% for pro in special_offer %}#}
++{#            <div class="col-md-12 col-lg-4 col-sm-12 m-b30">#}
++{#                <div class="dez-box fly-box" style="margin: -10px;">#}
++{#                    {% for m in pro.image_exportal_logo.all %}#}
++{#                    {% if forloop.counter < 2 %}#}
++{##}
++{##}
++{##}
++{#                      {% thumbnail m.photo "600x600" as test %}#}
++{#                    <div class="dez-media"><a#}
++{#                            href="{% url "product:exportal_product_detail" pro.pk %}"><img src="{{ test.url }}" class="card-img-top"></a>#}
++{#                    </div>#}
++{#                {% endthumbnail %}#}
++{#                    {% endif %}#}
++{#                    {% endfor %}#}
++{#                    <div class="dez-info p-10 row text-center m-auto"#}
++{#                         style="background-color: #1D1D1F">#}
++{#                        <div id="box" class="col-lg-6 text-left" style="margin-top: auto">#}
++{#                                    </a>#}
++{#                                    <div id="foo">#}
++{#                                        <i class="fa fa-share-alt text-white" style="font-size: large"></i>#}
++{#                                        <a href="" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-telegram"></i></a>#}
++{#                                        <a href="" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-whatsapp"></i></a>#}
++{#                                        <a href="" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-linkedin"></i></a>#}
++{#                                        <a href="" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-envelope"></i></a>#}
++{#                                    </div>#}
++{#                                </div>#}
++{#                        <div class="col-lg-6 text-right" style="font-size: larger"><a class="text-white">درجه#}
++{#                            بندی :</a><a class="font-weight-600 text-white"#}
++{#                                         href="{% url "blog:blog_list" %}"> {{ pro.grading_code }}</a>#}
++{#                        </div>#}
++{#                    </div>#}
++{#                    <div class="dez-info bg-white text-center m-auto row ">#}
++{#                        <div class="col-lg-12 font-weight-bold "><a href="javascript:void(0);"#}
++{#                                                                    style="color: #333;font-size: large">{{pro.stone_name }}#}
++{#                        </a></div>#}
++{#                    </div>#}
++{##}
++{#                    <div class="dez-info p-a15 bg-white row m-auto ">#}
++{##}
++{#                        <div class="col-6 ">#}
++{#                            <ul class="product-box-ul font-weight-300 p-r50" style="list-style-type:none">#}
++{#                                <li>نوع سنگ</li>#}
++{#                                <li>ابعاد</li>#}
++{#                                <li>معدن</li>#}
++{#                                <li>وزن تقریبی</li>#}
++{##}
++{#                            </ul>#}
++{#                        </div>#}
++{#                        <div class="col-6 ">#}
++{#                            <ul class="product-box-ul font-weight-300 p-r60" style="list-style-type:none;">#}
++{#                                <li>{{ pro.mine.stone_type }}</li>#}
++{#                                <li>{{ pro.width }}*{{ pro.length }}*{{ pro.height }}</li>#}
++{#                                <li>{{ pro.mine.province }}</li>#}
++{#                                <li>{{ pro.approximate_tonnage }}</li>#}
++{##}
++{#                            </ul>#}
++{#                        </div>#}
++{#                    </div>#}
++{#                    <div class="dez-info p-a0 bg-white row m-auto ">#}
++{##}
++{#                        <div class="col-6"><a style="font-size: 9px"#}
++{#                                              href="{% url "account:create_favorite" pro.unique_id %}"#}
++{#                            class="site-button add-to-wish-list-btn text-white"#}
++{#                            ><i class="fa fa-heart-o text-warning" style="margin-left: 5px"></i>#}
++{#                            به لیست علاقه مندی های من اضافه شود#}
++{#                            </a></div>#}
++{#                        <div class="col-6"><a href="{% url "product:exportal_product_detail" pro.pk %}"#}
++{#                            class="site-button block-num-block-box bg-white text-secondry"#}
++{#                            style="font-size: 14px !important;"#}
++{#                            >بلوک#}
++{#                            : {{ pro.unique_id }}</a></div>#}
++{#                    </div>#}
++{#                </div>#}
++{#            </div>#}
++{#            {% empty %}#}
++{#            <h1 class="text-center">هیچ پیشنهاد ویؤه ای موجود نیست موجود نیست</h1>#}
++{#            {% endfor %}#}
++{#        </div>#}
++{#        <div class="row">#}
++{#            <div class="col-lg-12 m-b30 m-t50 text-center">#}
++{#                <a href="{% url "product:special_offer" %}"#}
++{#                class="site-button m-t10 m-l10 radius-no more-btn-default">#}
++{#                بیشتر </a>#}
++{#            </div>#}
++{#        </div>#}
++{#    </div>#}
++{##}
++{##}
++{#    <div class="container-fluid p-l90 p-r90">#}
++{#        <div class="section-head text-left" style="margin-right: 30px">#}
++{#            <p class="text-uppercase font-weight-400 text-dark" style="font-size: x-large">صادراتی</p>#}
++{#            <div class="clear"></div>#}
++{#        </div>#}
++{#        <div class="row">#}
++{#           {% for items in exportal %}#}
++{#            <div class="col-md-12 col-lg-4 col-sm-12 m-b30">#}
++{#                <div class="dez-box fly-box" style="margin: -10px;">#}
++{#                    {% for m in items.image_exportal_logo.all %}#}
++{#                    {% if forloop.counter < 2 %}#}
++{##}
++{##}
++{##}
++{#                      {% thumbnail m.photo "600x600" as test %}#}
++{#                    <div class="dez-media"><a#}
++{#                            href="{% url "product:exportal_product_detail" items.pk %}"><img src="{{ test.url }}" class="card-img-top"></a>#}
++{#                    </div>#}
++{#                {% endthumbnail %}#}
++{#                    {% endif %}#}
++{#                    {% endfor %}#}
++{#                    <div class="dez-info p-10 row text-center m-auto"#}
++{#                         style="background-color: #1D1D1F">#}
++{#                        <div id="box" class="col-lg-6 text-left" style="margin-top: auto">#}
++{#                                    </a>#}
++{#                                    <div id="foo">#}
++{#                                        <i class="fa fa-share-alt text-white" style="font-size: large"></i>#}
++{#                                        <a href="" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-telegram"></i></a>#}
++{#                                        <a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-whatsapp"></i></a>#}
++{#                                        <a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-linkedin"></i></a>#}
++{#                                        <a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-envelope"></i></a>#}
++{#                                    </div>#}
++{#                                </div>#}
++{#                        <div class="col-lg-6 text-right" style="font-size: larger"><a class="text-white">درجه#}
++{#                            بندی :</a><a class="font-weight-600 text-white"#}
++{#                                         href="{% url "blog:blog_list" %}"> {{ items.grading_code }}</a>#}
++{#                        </div>#}
++{#                    </div>#}
++{#                    <div class="dez-info bg-white text-center m-auto row ">#}
++{#                        <div class="col-lg-12 font-weight-bold "><a href="javascript:void(0);"#}
++{#                                                                    style="color: #333;font-size: large">{{pro.stone_name }}#}
++{#                        </a></div>#}
++{#                    </div>#}
++{##}
++{#                    <div class="dez-info p-a15 bg-white row m-auto ">#}
++{##}
++{#                        <div class="col-6 ">#}
++{#                            <ul class="product-box-ul font-weight-300 p-r50" style="list-style-type:none">#}
++{#                                <li>نوع سنگ</li>#}
++{#                                <li>ابعاد</li>#}
++{#                                <li>معدن</li>#}
++{#                                <li>وزن تقریبی</li>#}
++{##}
++{#                            </ul>#}
++{#                        </div>#}
++{#                        <div class="col-6 ">#}
++{#                            <ul class="product-box-ul font-weight-300 p-r60" style="list-style-type:none;">#}
++{#                                <li>{{ items.mine.stone_type }}</li>#}
++{#                                <li>{{ items.width }}*{{ items.length }}*{{ items.height }}</li>#}
++{#                                <li>{{ items.mine.province }}</li>#}
++{#                                <li>{{ items.approximate_tonnage }}</li>#}
++{##}
++{#                            </ul>#}
++{#                        </div>#}
++{#                    </div>#}
++{#                    <div class="dez-info p-a0 bg-white row m-auto ">#}
++{##}
++{#                        <div class="col-6"><a style="font-size: 9px"#}
++{#                                              href="{% url "account:create_favorite" items.unique_id %}"#}
++{#                            class="site-button add-to-wish-list-btn text-white"#}
++{#                            ><i class="fa fa-heart-o text-warning" style="margin-left: 5px"></i>#}
++{#                            به لیست علاقه مندی های من اضافه شود#}
++{#                            </a></div>#}
++{#                        <div class="col-6"><a href="{% url "product:exportal_product_detail" items.pk %}"#}
++{#                            class="site-button block-num-block-box bg-white text-secondry"#}
++{#                            style="font-size: 14px !important;"#}
++{#                            >بلوک#}
++{#                            : {{ items.unique_id }}</a></div>#}
++{#                    </div>#}
++{#                </div>#}
++{#            </div>#}
++{#            {% empty %}#}
++{#            <h1 class="text-center">هیچ پیشنهاد ویؤه ای موجود نیست موجود نیست</h1>#}
++{#            {% endfor %}#}
++{#        </div>#}
++{#        <div class="row">#}
++{#            <div class="col-lg-12 m-b30 m-t50 text-center">#}
++{#                <a href="{% url "product:exportal_list" %}"#}
++{#                class="site-button m-t10 m-l10 radius-no more-btn-default">#}
++{#                بیشتر </a>#}
++{#            </div>#}
++{#        </div>#}
++{#    </div>#}
++{##}
++{##}
++{##}
++{##}
++{#    <!-- export END-->#}
++{#    <!-- lined in the mine -->#}
++{#    <div class="container-fluid p-l90 p-r90">#}
++{#        <div class="section-head text-left" style="margin-right: 30px">#}
++{#            <p class="text-uppercase font-weight-400 text-dark" style="font-size: x-large">لاین شده در معدن</p>#}
++{##}
++{#            <div class="clear"></div>#}
++{#        </div>#}
++{#        <div class="row">#}
++{#            {% for l in lined %}#}
++{#            <div class="col-md-12 col-lg-4 col-sm-12 m-b30">#}
++{#                <div class="dez-box fly-box" style="margin: -10px;">#}
++{#                    <div class="dez-media"><a href="lined-single.html"><img src="images/stone11.jpg" alt=""></a>#}
++{#                    </div>#}
++{#                    <div class="dez-info p-10 row text-center m-auto"#}
++{#                         style="background-color: #1D1D1F">#}
++{#                        <div class="col-lg-6 text-left" style="margin-top: auto"><a#}
++{#                                href="javascript:void(0);"#}
++{#                                style="font-size: large"#}
++{#                                class="fa fa-share-alt text-white "></a>#}
++{#                        </div>#}
++{#                        <div class="col-lg-6 text-right" style="font-size: larger"><a class="text-white">درجه#}
++{#                            بندی :</a><a class="font-weight-600 text-white"#}
++{#                                         href="javascript:void(0);"> A</a>#}
++{#                        </div>#}
++{#                    </div>#}
++{#                    <div class="dez-info bg-white text-center m-auto row ">#}
++{#                        <div class="col-lg-12 font-weight-bold "><a href="javascript:void(0);"#}
++{#                                                                    style="color: #333;font-size: large">سیلور#}
++{#                            سلماس </a></div>#}
++{#                    </div>#}
++{##}
++{#                    <div class="dez-info p-a15 bg-white row m-auto ">#}
++{##}
++{#                        <div class="col-6 ">#}
++{#                            <ul class="product-box-ul font-weight-300 p-r50" style="list-style-type:none">#}
++{#                                <li>نوع سنگ</li>#}
++{#                                <li>ابعاد</li>#}
++{#                                <li>معدن</li>#}
++{#                                <li>وزن تقریبی</li>#}
++{#                                <li>موجود</li>#}
++{#                            </ul>#}
++{#                        </div>#}
++{#                        <div class="col-6 ">#}
++{#                            <ul class="product-box-ul font-weight-300 p-r60" style="list-style-type:none;">#}
++{#                                <li>تراورتن</li>#}
++{#                                <li>120*150*160</li>#}
++{#                                <li>کرج-ایران</li>#}
++{#                                <li>10 تن</li>#}
++{#                                <li>120 تن</li>#}
++{#                            </ul>#}
++{#                        </div>#}
++{#                    </div>#}
++{#                    <div class="dez-info p-a0 bg-white row m-auto ">#}
++{##}
++{#                        <div class="col-6"><a style="font-size: 9px" href=""#}
++{#                                              class="site-button add-to-wish-list-btn text-white"#}
++{#                        ><i class="fa fa-heart-o text-warning" style="margin-left: 5px"></i>#}
++{#                            به لیست علاقه مندی های من اضافه شود#}
++{#                        </a></div>#}
++{#                        <div class="col-6"><a class="site-button block-num-block-box bg-white text-secondry"#}
++{#                                              style="font-size: 14px !important;"#}
++{#                        >بلوک#}
++{#                            : #123456789aas</a></div>#}
++{#                    </div>#}
++{#                </div>#}
++{#            </div>#}
++{#            {% empty %}#}
++{#            <h1 class="text-center">هیچ محصول لاین شده ای موجود نیست</h1>#}
++{#            {% endfor %}#}
++{#        </div>#}
++{#        <div class="row">#}
++{#            <div class="col-lg-12 m-b30 m-t50 text-center">#}
++{#                <a href="{% url "product:lined_product" %}"#}
++{#                class="site-button m-t10 m-l10 radius-no more-btn-default">#}
++{#                بیشتر </a>#}
++{#            </div>#}
++{#        </div>#}
++{#    </div>#}
++{#    <!-- lined in the mine END-->#}
++{#</div>#}
++{#<!-- Content area END-->#}
++{##}
++{#<!-- Content END-->#}
++{#<!-- Footer -->#}
++{#<!-- Modal -->#}
++{#<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"#}
++{#     aria-hidden="true">#}
++{#    <div class="modal-dialog" role="document">#}
++{#        <div class="modal-content" style="background-color: rgb(255 255 255) ;">#}
++{#            <div class="modal-header">#}
++{#                <h5 class="modal-title" id="exampleModalLabel">اشترک گذاری</h5>#}
++{#                <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
++{#                    <span aria-hidden="true">&times;</span>#}
++{#                </button>#}
++{#            </div>#}
++{#            <div class="modal-body">#}
++{#                <form method="post" action="#">#}
++{#                    <input class="form-control" style="text-align: right; border-color: #e1e6eb ; background-color: #ffffff" placeholder="لینک را وارد کنید ..." type="url">#}
++{#                </form>#}
++{#            </div>#}
++{#            <div class="modal-footer">#}
++{#                <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>#}
++{#                <button type="button" class="btn btn-primary">ارسال</button>#}
++{#            </div>#}
++{#        </div>#}
++{#    </div>#}
++{#</div>#}
++{#{% endblock %}#}
++
++
+ {% extends "site/base.html" %}
+ {% load static %}
+ {% load thumbnail %}
+@@ -105,22 +644,22 @@
+         </div>
+         <div class="row " style="margin-top: -10px">
+             <div class="col-3 form-group text-left">
+-                <input name="dzName"  class="form-control " placeholder="حداقل طول"
+-                       type="text"
++                <input name="lenght_min"  class="form-control " placeholder="حداقل طول"
++                       type="number"
+                        style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>
+             </div>
+             <div class="col-3 form-group text-left">
+-                <input name="length" class="form-control " placeholder="حداکثر طول"
++                <input name="length_max" class="form-control " placeholder="حداکثر طول"
+                        type="number"
+                        style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>
+             </div>
+             <div class="col-2 form-group text-left">
+-                <input name="height"  class="form-control " placeholder="حداقل ارتفاع"
++                <input name="height_min"  class="form-control " placeholder="حداقل ارتفاع"
+                        type="number"
+                        style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>
+             </div>
+             <div class="col-2 form-group text-left">
+-                <input name="width"  class="form-control " placeholder="حداکثر ارتفاع"
++                <input name="width_max"  class="form-control " placeholder="حداکثر ارتفاع"
+                        type="number"
+                        style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>
+             </div>
+@@ -139,8 +678,8 @@
+                        style="background-color: #ffffffc4;height: 35px; font-size: 12px;"/>
+             </div>
+             <div class="col-4 form-group text-left">
+-                <input name="dzName"  class="form-control " placeholder="تناژ مورد نیاز"
+-                       type="text"
++                <input name="ton"  class="form-control " placeholder="تناژ مورد نیاز"
++                       type="number"
+                        style="background-color: #ffffff5c;height: 35px; font-size: 12px;"/>
+             </div>
+             <div class="col-3 form-group text-left">
+@@ -171,7 +710,7 @@
+     <!-- Slider -->
+     <div class="main-slider style-two default-banner rev-slider-rtl" id="home">
+         <div class="tp-banner-container">
+-            <div class="tp-banner " style="height: 680px; background-color: #1D1D1F">
++            <div class="tp-banner " style="height: 600px; background-color: #1D1D1F">
+                 <div id="rev_slider_1175_1_wrapper" class="rev_slider_wrapper fullscreen-container"
+                      data-alias="duotone192" data-source="gallery" {}
+                      style="background-color:transparent;padding:0px;">
+@@ -369,7 +908,7 @@
+                     </div>
+                     <div class="dez-info bg-white text-center m-auto row ">
+                         <div class="col-lg-12 font-weight-bold "><a href="javascript:void(0);"
+-                                                                    style="color: #333;font-size: large">{{pro.stone_name }}
++                                                                    style="color: #333;font-size: large">{{items.stone_name }}
+                         </a></div>
+                     </div>
+ 
+@@ -402,7 +941,7 @@
+                             ><i class="fa fa-heart-o text-warning" style="margin-left: 5px"></i>
+                             به لیست علاقه مندی های من اضافه شود
+                             </a></div>
+-                        <div class="col-6"><a href="{% url "product:exportal_product_detail" items.pk %}"
++                        <div class="col-6"><a href="{% url "product:internal_product_detail" items.pk %}"
+                             class="site-button block-num-block-box bg-white text-secondry"
+                             style="font-size: 14px !important;"
+                             >بلوک
+@@ -424,38 +963,48 @@
+     </div>
+ 
+ 
+-
+-
+-    <!-- export END-->
+-    <!-- lined in the mine -->
+-    <div class="container-fluid p-l90 p-r90">
++        <div class="container-fluid p-l90 p-r90">
+         <div class="section-head text-left" style="margin-right: 30px">
+             <p class="text-uppercase font-weight-400 text-dark" style="font-size: x-large">لاین شده در معدن</p>
+-
+             <div class="clear"></div>
+         </div>
+         <div class="row">
+-            {% for l in lined %}
++           {% for items in exportal %}
+             <div class="col-md-12 col-lg-4 col-sm-12 m-b30">
+                 <div class="dez-box fly-box" style="margin: -10px;">
+-                    <div class="dez-media"><a href="lined-single.html"><img src="images/stone11.jpg" alt=""></a>
++                    {% for m in items.image_exportal_logo.all %}
++                    {% if forloop.counter < 2 %}
++
++
++
++                      {% thumbnail m.photo "600x600" as test %}
++                    <div class="dez-media"><a
++                            href="{% url "product:exportal_product_detail" items.pk %}"><img src="{{ test.url }}" class="card-img-top"></a>
+                     </div>
++                {% endthumbnail %}
++                    {% endif %}
++                    {% endfor %}
+                     <div class="dez-info p-10 row text-center m-auto"
+                          style="background-color: #1D1D1F">
+-                        <div class="col-lg-6 text-left" style="margin-top: auto"><a
+-                                href="javascript:void(0);"
+-                                style="font-size: large"
+-                                class="fa fa-share-alt text-white "></a>
+-                        </div>
++                        <div id="box" class="col-lg-6 text-left" style="margin-top: auto">
++                                    </a>
++                                    <div id="foo">
++                                        <i class="fa fa-share-alt text-white" style="font-size: large"></i>
++                                        <a href="" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-telegram"></i></a>
++                                        <a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-whatsapp"></i></a>
++                                        <a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-linkedin"></i></a>
++                                        <a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-envelope"></i></a>
++                                    </div>
++                                </div>
+                         <div class="col-lg-6 text-right" style="font-size: larger"><a class="text-white">درجه
+                             بندی :</a><a class="font-weight-600 text-white"
+-                                         href="javascript:void(0);"> A</a>
++                                         href="{% url "blog:blog_list" %}"> {{ items.grading_code }}</a>
+                         </div>
+                     </div>
+                     <div class="dez-info bg-white text-center m-auto row ">
+                         <div class="col-lg-12 font-weight-bold "><a href="javascript:void(0);"
+-                                                                    style="color: #333;font-size: large">سیلور
+-                            سلماس </a></div>
++                                                                    style="color: #333;font-size: large">{{items.stone_name }}
++                        </a></div>
+                     </div>
+ 
+                     <div class="dez-info p-a15 bg-white row m-auto ">
+@@ -466,30 +1015,32 @@
+                                 <li>ابعاد</li>
+                                 <li>معدن</li>
+                                 <li>وزن تقریبی</li>
+-                                <li>موجود</li>
++
+                             </ul>
+                         </div>
+                         <div class="col-6 ">
+                             <ul class="product-box-ul font-weight-300 p-r60" style="list-style-type:none;">
+-                                <li>تراورتن</li>
+-                                <li>120*150*160</li>
+-                                <li>کرج-ایران</li>
+-                                <li>10 تن</li>
+-                                <li>120 تن</li>
++                                <li>{{ items.mine.stone_type }}</li>
++                                <li>{{ items.width }}*{{ items.length }}*{{ items.height }}</li>
++                                <li>{{ items.mine.province }}</li>
++                                <li>{{ items.approximate_tonnage }}</li>
++
+                             </ul>
+                         </div>
+                     </div>
+                     <div class="dez-info p-a0 bg-white row m-auto ">
+ 
+-                        <div class="col-6"><a style="font-size: 9px" href=""
+-                                              class="site-button add-to-wish-list-btn text-white"
+-                        ><i class="fa fa-heart-o text-warning" style="margin-left: 5px"></i>
++                        <div class="col-6"><a style="font-size: 9px"
++                                              href="{% url "account:create_favorite" items.unique_id %}"
++                            class="site-button add-to-wish-list-btn text-white"
++                            ><i class="fa fa-heart-o text-warning" style="margin-left: 5px"></i>
+                             به لیست علاقه مندی های من اضافه شود
+-                        </a></div>
+-                        <div class="col-6"><a class="site-button block-num-block-box bg-white text-secondry"
+-                                              style="font-size: 14px !important;"
+-                        >بلوک
+-                            : #123456789aas</a></div>
++                            </a></div>
++                        <div class="col-6"><a href="{% url "product:exportal_product_detail" items.pk %}"
++                            class="site-button block-num-block-box bg-white text-secondry"
++                            style="font-size: 14px !important;"
++                            >بلوک
++                            : {{ items.unique_id }}</a></div>
+                     </div>
+                 </div>
+             </div>
+@@ -499,12 +1050,265 @@
+         </div>
+         <div class="row">
+             <div class="col-lg-12 m-b30 m-t50 text-center">
+-                <a href="{% url "product:lined_product" %}"
++                <a href="{% url "product:exportal_list" %}"
+                 class="site-button m-t10 m-l10 radius-no more-btn-default">
+                 بیشتر </a>
+             </div>
+         </div>
+     </div>
++
++
++{#    <div class="container-fluid p-l90 p-r90">#}
++{#        <div class="section-head text-left" style="margin-right: 30px">#}
++{#            <p class="text-uppercase font-weight-400 text-dark" style="font-size: x-large">لاین شده در معدن</p>#}
++{#            <div class="clear"></div>#}
++{#        </div>#}
++{#        <div class="row">#}
++{#           {% for l in lined %}#}
++{#            <div class="col-md-12 col-lg-4 col-sm-12 m-b30">#}
++{#                <div class="dez-box fly-box" style="margin: -10px;">#}
++{#                    {% for m in items.image_exportal_logo.all %}#}
++{#                    {% if forloop.counter < 2 %}#}
++{##}
++{##}
++{##}
++{#                      {% thumbnail m.photo "600x600" as test %}#}
++{#                    <div class="dez-media"><a#}
++{#                            href="{% url "product:lined_product_detail" l.pk %}"><img src="{{ test.url }}" class="card-img-top"></a>#}
++{#                    </div>#}
++{#                {% endthumbnail %}#}
++{#                    {% endif %}#}
++{#                    {% endfor %}#}
++{#                    <div class="dez-info p-10 row text-center m-auto"#}
++{#                         style="background-color: #1D1D1F">#}
++{#                        <div id="box" class="col-lg-6 text-left" style="margin-top: auto">#}
++{#                                    </a>#}
++{#                                    <div id="foo">#}
++{#                                        <i class="fa fa-share-alt text-white" style="font-size: large"></i>#}
++{#                                        <a href="" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-telegram"></i></a>#}
++{#                                        <a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-whatsapp"></i></a>#}
++{#                                        <a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-linkedin"></i></a>#}
++{#                                        <a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-envelope"></i></a>#}
++{#                                    </div>#}
++{#                                </div>#}
++{#                        <div class="col-lg-6 text-right" style="font-size: larger"><a class="text-white">درجه#}
++{#                            بندی :</a><a class="font-weight-600 text-white"#}
++{#                                         href="{% url "blog:blog_list" %}"> {{ l.grading_code }}</a>#}
++{#                        </div>#}
++{#                    </div>#}
++{#                    <div class="dez-info bg-white text-center m-auto row ">#}
++{#                        <div class="col-lg-12 font-weight-bold "><a href="javascript:void(0);"#}
++{#                                                                    style="color: #333;font-size: large">{{l.stone_name }}#}
++{#                        </a></div>#}
++{#                    </div>#}
++{##}
++{#                    <div class="dez-info p-a15 bg-white row m-auto ">#}
++{##}
++{#                        <div class="col-6 ">#}
++{#                            <ul class="product-box-ul font-weight-300 p-r50" style="list-style-type:none">#}
++{#                                <li>نوع سنگ</li>#}
++{#                                <li>ابعاد</li>#}
++{#                                <li>معدن</li>#}
++{#                                <li>وزن تقریبی</li>#}
++{##}
++{#                            </ul>#}
++{#                        </div>#}
++{#                        <div class="col-6 ">#}
++{#                            <ul class="product-box-ul font-weight-300 p-r60" style="list-style-type:none;">#}
++{#                                <li>{{ l.mine.stone_type }}</li>#}
++{#                                <li>{{ l.width }}*{{ l.length }}*{{ l.height }}</li>#}
++{#                                <li>{{ l.mine.province }}</li>#}
++{#                                <li>{{ l.approximate_tonnage }}</li>#}
++{##}
++{#                            </ul>#}
++{#                        </div>#}
++{#                    </div>#}
++{#                    <div class="dez-info p-a0 bg-white row m-auto ">#}
++{##}
++{#                        <div class="col-6"><a style="font-size: 9px"#}
++{#                                              href="{% url "account:create_favorite" l.unique_id %}"#}
++{#                            class="site-button add-to-wish-list-btn text-white"#}
++{#                            ><i class="fa fa-heart-o text-warning" style="margin-left: 5px"></i>#}
++{#                            به لیست علاقه مندی های من اضافه شود#}
++{#                            </a></div>#}
++{#                        <div class="col-6"><a href="{% url "product:lined_product_detail" l.pk %}"#}
++{#                            class="site-button block-num-block-box bg-white text-secondry"#}
++{#                            style="font-size: 14px !important;"#}
++{#                            >بلوک#}
++{#                            : {{ l.unique_id }}</a></div>#}
++{#                    </div>#}
++{#                </div>#}
++{#            </div>#}
++{#            {% empty %}#}
++{#            <h1 class="text-center">هیچ پیشنهاد ویؤه ای موجود نیست موجود نیست</h1>#}
++{#            {% endfor %}#}
++{#        </div>#}
++{#        <div class="row">#}
++{#            <div class="col-lg-12 m-b30 m-t50 text-center">#}
++{#                <a href="{% url "product:lined_product" %}"#}
++{#                class="site-button m-t10 m-l10 radius-no more-btn-default">#}
++{#                بیشتر </a>#}
++{#            </div>#}
++{#        </div>#}
++{#    </div>#}
++{#    <div class="container-fluid p-l90 p-r90">#}
++{#        <div class="section-head text-left" style="margin-right: 30px">#}
++{#            <p class="text-uppercase font-weight-400 text-dark" style="font-size: x-large">لاین شده در معدن</p>#}
++{#            <div class="clear"></div>#}
++{#        </div>#}
++{#        <div class="row">#}
++{#              {% for l in lined %}#}
++{#            <div class="col-md-12 col-lg-4 col-sm-12 m-b30">#}
++{#                <div class="dez-box fly-box" style="margin: -10px;">#}
++{#                    <div class="dez-media"><a href="lined-single.html"><img src="images/stone11.jpg" alt=""></a>#}
++{#                    </div>#}
++{#                    <div class="dez-info p-10 row text-center m-auto"#}
++{#                         style="background-color: #1D1D1F">#}
++{#                        <div class="col-lg-6 text-left" style="margin-top: auto"><a#}
++{#                                href="javascript:void(0);"#}
++{#                                style="font-size: large"#}
++{#                                class="fa fa-share-alt text-white "></a>#}
++{#                        </div>#}
++{#                        <div class="col-lg-6 text-right" style="font-size: larger"><a class="text-white">درجه#}
++{#                            بندی :</a><a class="font-weight-600 text-white"#}
++{#                                         href="javascript:void(0);"> {{l.grading_code}}</a>#}
++{#                        </div>#}
++{#                    </div>#}
++{#                    <div class="dez-info bg-white text-center m-auto row ">#}
++{#                        <div class="col-lg-12 font-weight-bold "><a href="javascript:void(0);"#}
++{#                                                                    style="color: #333;font-size: large">{{ l.stone_name }}#}
++{#                             </a></div>#}
++{#                    </div>#}
++{##}
++{#                    <div class="dez-info p-a15 bg-white row m-auto ">#}
++{##}
++{#                        <div class="col-6 ">#}
++{#                            <ul class="product-box-ul font-weight-300 p-r50" style="list-style-type:none">#}
++{#                                <li>نوع سنگ</li>#}
++{#                                <li>ابعاد</li>#}
++{#                                <li>معدن</li>#}
++{#                                <li>وزن تقریبی</li>#}
++{##}
++{#                            </ul>#}
++{#                        </div>#}
++{#                        <div class="col-6 ">#}
++{#                            <ul class="product-box-ul font-weight-300 p-r60" style="list-style-type:none;">#}
++{#                            <li>{{ l.mine.stone_type }}</li>#}
++{#                                <li>{{ l.width }}*{{ l.length }}*{{ l.height }}</li>#}
++{#                                <li>{{ l.mine.province }}</li>#}
++{#                                <li>{{ l.approximate_tonnage }}</li>#}
++{#                            </ul>#}
++{#                        </div>#}
++{#                    </div>#}
++{#                    <div class="dez-info p-a0 bg-white row m-auto ">#}
++{##}
++{#                        <div class="col-6"><a style="font-size: 9px" href=""#}
++{#                                              class="site-button add-to-wish-list-btn text-white"#}
++{#                        ><i class="fa fa-heart-o text-warning" style="margin-left: 5px"></i>#}
++{#                            به لیست علاقه مندی های من اضافه شود#}
++{#                        </a></div>#}
++{#                        <div class="col-6"><a class="site-button block-num-block-box bg-white text-secondry"#}
++{#                                              style="font-size: 14px !important;"#}
++{#                        >بلوک#}
++{#                            : {{  lo.unique_id}}</a></div>#}
++{#                    </div>#}
++{#                </div>#}
++{#            </div>#}
++{#            {% empty %}#}
++{#            <h1 class="text-center">هیچ محصول لاین شده ای موجود نیست</h1>#}
++{#            {% endfor %}#}
++{#        </div>#}
++{#        <div class="row">#}
++{#            <div class="col-lg-12 m-b30 m-t50 text-center">#}
++{#                <a href="{% url "product:exportal_list" %}"#}
++{#                class="site-button m-t10 m-l10 radius-no more-btn-default">#}
++{#                بیشتر </a>#}
++{#            </div>#}
++{#        </div>#}
++{#    </div>#}
++    <!-- export END-->
++    <!-- lined in the mine -->
++
++{#*****************************************************************#}
++{#*****************************************************************#}
++{#    <div class="container-fluid p-l90 p-r90">#}
++{#        <div class="section-head text-left" style="margin-right: 30px">#}
++{#            <p class="text-uppercase font-weight-400 text-dark" style="font-size: x-large">لاین شده در معدن</p>#}
++{##}
++{#            <div class="clear"></div>#}
++{#        </div>#}
++{#        <div class="row">#}
++{#            {% for l in lined %}#}
++{#            <div class="col-md-12 col-lg-4 col-sm-12 m-b30">#}
++{#                <div class="dez-box fly-box" style="margin: -10px;">#}
++{#                    <div class="dez-media"><a href="lined-single.html"><img src="images/stone11.jpg" alt=""></a>#}
++{#                    </div>#}
++{#                    <div class="dez-info p-10 row text-center m-auto"#}
++{#                         style="background-color: #1D1D1F">#}
++{#                        <div class="col-lg-6 text-left" style="margin-top: auto"><a#}
++{#                                href="javascript:void(0);"#}
++{#                                style="font-size: large"#}
++{#                                class="fa fa-share-alt text-white "></a>#}
++{#                        </div>#}
++{#                        <div class="col-lg-6 text-right" style="font-size: larger"><a class="text-white">درجه#}
++{#                            بندی :</a><a class="font-weight-600 text-white"#}
++{#                                         href="javascript:void(0);"> {{l.grading_code}}</a>#}
++{#                        </div>#}
++{#                    </div>#}
++{#                    <div class="dez-info bg-white text-center m-auto row ">#}
++{#                        <div class="col-lg-12 font-weight-bold "><a href="javascript:void(0);"#}
++{#                                                                    style="color: #333;font-size: large">{{ l.stone_name }}#}
++{#                             </a></div>#}
++{#                    </div>#}
++{##}
++{#                    <div class="dez-info p-a15 bg-white row m-auto ">#}
++{##}
++{#                        <div class="col-6 ">#}
++{#                            <ul class="product-box-ul font-weight-300 p-r50" style="list-style-type:none">#}
++{#                                <li>نوع سنگ</li>#}
++{#                                <li>ابعاد</li>#}
++{#                                <li>معدن</li>#}
++{#                                <li>وزن تقریبی</li>#}
++{#                                #}
++{#                            </ul>#}
++{#                        </div>#}
++{#                        <div class="col-6 ">#}
++{#                            <ul class="product-box-ul font-weight-300 p-r60" style="list-style-type:none;">#}
++{#                            <li>{{ l.mine.stone_type }}</li>#}
++{#                                <li>{{ l.width }}*{{ l.length }}*{{ l.height }}</li>#}
++{#                                <li>{{ l.mine.province }}</li>#}
++{#                                <li>{{ l.approximate_tonnage }}</li>#}
++{#                            </ul>#}
++{#                        </div>#}
++{#                    </div>#}
++{#                    <div class="dez-info p-a0 bg-white row m-auto ">#}
++{##}
++{#                        <div class="col-6"><a style="font-size: 9px" href=""#}
++{#                                              class="site-button add-to-wish-list-btn text-white"#}
++{#                        ><i class="fa fa-heart-o text-warning" style="margin-left: 5px"></i>#}
++{#                            به لیست علاقه مندی های من اضافه شود#}
++{#                        </a></div>#}
++{#                        <div class="col-6"><a class="site-button block-num-block-box bg-white text-secondry"#}
++{#                                              style="font-size: 14px !important;"#}
++{#                        >بلوک#}
++{#                            : {{  lo.unique_id}}/a></div>#}
++{#                    </div>#}
++{#                </div>#}
++{#            </div>#}
++{#            {% empty %}#}
++{#            <h1 class="text-center">هیچ محصول لاین شده ای موجود نیست</h1>#}
++{#            {% endfor %}#}
++{#        </div>#}
++{#        <div class="row">#}
++{#            <div class="col-lg-12 m-b30 m-t50 text-center">#}
++{#                <a href="{% url "product:lined_product" %}"#}
++{#                class="site-button m-t10 m-l10 radius-no more-btn-default">#}
++{#                بیشتر </a>#}
++{#            </div>#}
++{#        </div>#}
++{#    </div>#}
++
++{#*****************************************************************#}
+     <!-- lined in the mine END-->
+ </div>
+ <!-- Content area END-->
+Index: config/views.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.shortcuts import render\r\nfrom django.views.generic import ListView, View\r\nfrom product.models import ProductBase, ExportalProduct, InternalProduct, LinedProduct, Loaded\r\nfrom django.contrib.auth.mixins import LoginRequiredMixin\r\nfrom django.db.models import Sum\r\n\r\n\r\n# Create your views here.\r\n\r\nclass HomePage(LoginRequiredMixin, View):\r\n    def get(self, request):\r\n        context = {\r\n            \"exportal\": ExportalProduct.objects.all()[:3],\r\n            \"lined\": LinedProduct.objects.all()[:3],\r\n            \"special_offer\": ExportalProduct.objects.filter(is_special=True)[:3],\r\n            \"sliders\": ExportalProduct.objects.filter(is_special=True)[:5],\r\n        }\r\n        return render(request, \"config/site_home.html\", context)\r\n\r\n\r\nclass PanelHome(View):\r\n    def get(self, request):\r\n        context = {\r\n            \"tolid_kol_kharegi\": ExportalProduct.objects.all().count(),\r\n            \"tolid_kol_dakheli\": InternalProduct.objects.all().count(),\r\n            \"bargiri_salmas\": Loaded.objects.filter(mine__name=\"سلماس\").aggregate(Sum(\"weight_of_scales\")),\r\n            \"bargiri_tekab\": Loaded.objects.filter(mine__name=\"تکاب\").aggregate(Sum(\"weight_of_scales\")),\r\n            \"bargiri_atashkoh\": Loaded.objects.filter(mine__name=\"آتشکوه\").aggregate(Sum(\"weight_of_scales\")),\r\n            \"bargiri_mahabad\": Loaded.objects.filter(mine__name=\"مهاباد\").aggregate(Sum(\"weight_of_scales\")),\r\n        }\r\n        return render(request, \"panel/panel.html\", context)\r\n\r\n\r\nclass BlockInfo(View):\r\n    def get(self, request):\r\n        return render(request, \"config/info.html\")\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/views.py b/config/views.py
+--- a/config/views.py	(revision 796826398194de6b112699cbb066dc6fc59e3b57)
++++ b/config/views.py	(date 1644865603640)
+@@ -10,7 +10,7 @@
+ class HomePage(LoginRequiredMixin, View):
+     def get(self, request):
+         context = {
+-            "exportal": ExportalProduct.objects.all()[:3],
++            "exportal": InternalProduct.objects.all()[:3],
+             "lined": LinedProduct.objects.all()[:3],
+             "special_offer": ExportalProduct.objects.filter(is_special=True)[:3],
+             "sliders": ExportalProduct.objects.filter(is_special=True)[:5],
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"79b69763-9a3c-4b2a-bfe1-c764ef2fd190\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/account/migrations/0001_initial.py\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/account/migrations/__init__.py\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/blog/migrations/0001_initial.py\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/blog/migrations/__init__.py\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/config/migrations/0001_initial.py\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/config/migrations/__init__.py\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/demand/migrations/0001_initial.py\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/demand/migrations/__init__.py\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/mine/migrations/0001_initial.py\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/mine/migrations/__init__.py\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/product/migrations/0001_initial.py\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/product/migrations/__init__.py\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/product/models.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/product/models.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/product/templates/product/add_exportal.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/product/templates/product/add_exportal.html\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/product/templates/product/exportal_detail.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/product/templates/product/exportal_detail.html\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/product/templates/product/internal_detail.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/product/templates/product/internal_detail.html\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/product/views.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/product/views.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/templates/panel/navbar.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/templates/panel/navbar.html\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"256EZd12BhCe8LMKDMb8jN6VSM2\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"node.js.detected.package.eslint\" value=\"true\" />\r\n    <property name=\"node.js.selected.package.eslint\" value=\"(autodetect)\" />\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Madan\" type=\"Python.DjangoServer\" factoryName=\"Django server\">\r\n      <module name=\"Madan\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"launchJavascriptDebuger\" value=\"false\" />\r\n      <option name=\"port\" value=\"8000\" />\r\n      <option name=\"host\" value=\"\" />\r\n      <option name=\"additionalOptions\" value=\"\" />\r\n      <option name=\"browserUrl\" value=\"\" />\r\n      <option name=\"runTestServer\" value=\"false\" />\r\n      <option name=\"runNoReload\" value=\"false\" />\r\n      <option name=\"useCustomRunCommand\" value=\"false\" />\r\n      <option name=\"customRunCommand\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"79b69763-9a3c-4b2a-bfe1-c764ef2fd190\" name=\"Changes\" comment=\"\" />\r\n      <created>1644839192913</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1644839192913</updated>\r\n      <workItem from=\"1644839213130\" duration=\"4674000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 796826398194de6b112699cbb066dc6fc59e3b57)
++++ b/.idea/workspace.xml	(date 1644882439554)
+@@ -1,40 +1,27 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="79b69763-9a3c-4b2a-bfe1-c764ef2fd190" name="Changes" comment="">
++    <list default="true" id="c3d40b13-f103-445d-ac55-681ad5f18ea2" name="Changes" comment="">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/account/migrations/0001_initial.py" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/account/migrations/__init__.py" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/blog/migrations/0001_initial.py" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/blog/migrations/__init__.py" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/config/migrations/0001_initial.py" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/config/migrations/__init__.py" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/demand/migrations/0001_initial.py" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/demand/migrations/__init__.py" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/mine/migrations/0001_initial.py" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/mine/migrations/__init__.py" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/product/migrations/0001_initial.py" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/product/migrations/__init__.py" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/product/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/models.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/product/templates/product/add_exportal.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/product/add_exportal.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/product/templates/product/exportal_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/product/exportal_detail.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/product/templates/product/internal_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/product/templates/product/internal_detail.html" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/config/templates/config/site_home.html" beforeDir="false" afterPath="$PROJECT_DIR$/config/templates/config/site_home.html" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/config/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/views.py" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/product/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/product/views.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/templates/panel/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/panel/navbar.html" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+     <option name="LAST_RESOLUTION" value="IGNORE" />
+   </component>
++  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
++    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
++  </component>
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+   <component name="MarkdownSettingsMigration">
+     <option name="stateVersion" value="1" />
+   </component>
+-  <component name="ProjectId" id="256EZd12BhCe8LMKDMb8jN6VSM2" />
+-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
++  <component name="ProjectId" id="252v7GtRED71uSsLw0k1bjdmBq8" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+@@ -45,6 +32,7 @@
+     <property name="WebServerToolWindowFactoryState" value="false" />
+     <property name="node.js.detected.package.eslint" value="true" />
+     <property name="node.js.selected.package.eslint" value="(autodetect)" />
++    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+   </component>
+   <component name="RunManager">
+     <configuration name="Madan" type="Python.DjangoServer" factoryName="Django server">
+@@ -54,7 +42,7 @@
+       <envs>
+         <env name="PYTHONUNBUFFERED" value="1" />
+       </envs>
+-      <option name="SDK_HOME" value="" />
++      <option name="SDK_HOME" value="C:\Users\moham\PycharmProjects\Dent\venv\Scripts\python.exe" />
+       <option name="WORKING_DIRECTORY" value="" />
+       <option name="IS_MODULE_SDK" value="false" />
+       <option name="ADD_CONTENT_ROOTS" value="true" />
+@@ -74,12 +62,16 @@
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+-      <changelist id="79b69763-9a3c-4b2a-bfe1-c764ef2fd190" name="Changes" comment="" />
+-      <created>1644839192913</created>
++      <changelist id="c3d40b13-f103-445d-ac55-681ad5f18ea2" name="Changes" comment="" />
++      <created>1644737835196</created>
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+-      <updated>1644839192913</updated>
+-      <workItem from="1644839213130" duration="4674000" />
++      <updated>1644737835196</updated>
++      <workItem from="1644737839554" duration="747000" />
++      <workItem from="1644773814240" duration="2986000" />
++      <workItem from="1644838143797" duration="2265000" />
++      <workItem from="1644863716125" duration="3349000" />
++      <workItem from="1644869165241" duration="1538000" />
+     </task>
+     <servers />
+   </component>
+Index: product/views.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.shortcuts import render, redirect,get_object_or_404\r\nfrom tablib import Dataset\r\nfrom .filters import ProductFilter, LoadedFilter, DomesticFilter, ExportalFilter\r\nfrom django.views.generic import ListView, View, DetailView\r\nfrom .models import ExportalProduct, InternalProduct, LinedProduct, ProductBase, Rejected, Loaded, Internal_Image, \\\r\n    Exportal_Image ,ExportalLogo,ExportalFileLogo\r\n\r\nfrom django.contrib.auth.mixins import LoginRequiredMixin\r\nfrom .resources import Internal_Product_Resource, Exportal_Product_Resource, Internal_Product_Image_Resource, \\\r\n    Exportal_Product_Image_Resource, Lined_Product_Resource, Loaded_Product_Resource,Rejected_Product_Resource\r\nfrom django.db.models import Sum\r\nimport random\r\nfrom django.db.models import Q\r\nfrom django.shortcuts import render, redirect\r\nfrom django.http import HttpResponse\r\nfrom zipfile import ZipFile\r\nimport os\r\nfrom pathlib import Path\r\nfrom django.core.files.base import ContentFile\r\nfrom django.core.files.images import ImageFile\r\nfrom .forms import ExportalFileForm,ExportalFileLogoForm\r\n# Create your views here.\r\n\r\nclass SpecialOfferList(View):\r\n    def get(self, request):\r\n        special_internal = InternalProduct.objects.filter(is_special=True)[:10]\r\n        special_exportal = ExportalProduct.objects.filter(is_special=True)[:10]\r\n        return render(request, \"product/special_offer_list.html\",\r\n                      {\"exportal_list\": special_exportal, \"special_internal\": special_internal})\r\n\r\n\r\nclass SpecialOfferListComplete(View):\r\n    def get(self, request):\r\n        special_internal = InternalProduct.objects.filter(is_special=True)[:10]\r\n        special_exportal = ExportalProduct.objects.filter(is_special=True)[:10]\r\n        return render(request, \"product/special_offer_complete_list.html\",\r\n                      {\"exportal_list\": special_exportal, \"special_internal\": special_internal})    \r\n    \r\n    \r\n    \r\n# class HomePage(LoginRequiredMixin, View):\r\n#     def get(self, request):\r\n#         context = {\r\n#             \"exportal\": ExportalProduct.objects.all()[:3],\r\n#             \"lined\": LinedProduct.objects.all()[:3],\r\n#             \"special_offer\": ProductBase.objects.filter(is_special=True)[:3]\r\n#         }\r\n#         return render(request, \"product/\", context)\r\n\r\n\r\ndef MainPictureExportalCreateView(request):\r\n    if request.method == \"POST\":\r\n        BASE_DIR = Path(__file__).resolve(strict=True).parent.parent\r\n        print(os.path.join(BASE_DIR, 'ali/file_dir'))\r\n        form = ExportalFileLogoForm(request.POST, request.FILES)\r\n        if form.is_valid():\r\n            file = ExportalFileLogo(file=form.cleaned_data[\"file\"])\r\n            file.save()\r\n            return redirect(\"config:panel_home\")\r\n\r\n\r\n\r\ndef MainPictureInternalCreateView(request):\r\n    BASE_DIR = Path(__file__).resolve(strict=True).parent.parent\r\n    print(os.path.join(BASE_DIR, 'ali/file_dir'))\r\n    if request.method == \"POST\":\r\n        form = Y(request.POST, request.FILES)\r\n        if form.is_valid():\r\n            file = FileModel(file=form.cleaned_data[\"file\"])\r\n            file.save()\r\n\r\n            return redirect(\"ali:test1\")\r\n    else:\r\n        form = Y()\r\n    return render(request, \"test.html\", {\"form\": form})\r\n\r\n\r\ndef MainPictureExportalCreateView(request):\r\n    if request.method == \"POST\":\r\n        BASE_DIR = Path(__file__).resolve(strict=True).parent.parent\r\n        print(os.path.join(BASE_DIR, 'ali/file_dir'))\r\n        form = ExportalFileLogoForm(request.POST, request.FILES)\r\n        if form.is_valid():\r\n            file = ExportalFileLogo(file=form.cleaned_data[\"file\"])\r\n            file.save()\r\n            return redirect(\"config:panel_home\")\r\n\r\n\r\n\r\ndef PartialPictureInternalCreateView(request):\r\n    BASE_DIR = Path(__file__).resolve(strict=True).parent.parent\r\n    print(os.path.join(BASE_DIR, 'ali/file_dir'))\r\n    if request.method == \"POST\":\r\n        form = ExportalFileForm(request.POST, request.FILES)\r\n        if form.is_valid():\r\n            file = FileModel(file=form.cleaned_data[\"file\"])\r\n            file.save()\r\n\r\n            return redirect(\"ali:test1\")\r\n    else:\r\n        form = ExportalFileForm()\r\n    return render(request, \"test.html\", {\"form\": form})\r\n\r\n\r\ndef PartialPictureExportalCreateView(request):\r\n    BASE_DIR = Path(__file__).resolve(strict=True).parent.parent\r\n    print(os.path.join(BASE_DIR, 'ali/file_dir'))\r\n    if request.method == \"POST\":\r\n        form = ExportalFileForm(request.POST, request.FILES)\r\n        if form.is_valid():\r\n            file = FileModel(file=form.cleaned_data[\"file\"])\r\n            file.save()\r\n\r\n            return redirect(\"config:home_site\")\r\n    else:\r\n        form = ExportalFileForm()\r\n    return render(request, \"test.html\", {\"form\": form})\r\n\r\n\r\n\r\n\r\nclass AllProductList(LoginRequiredMixin, View):\r\n    def get(self, request):\r\n        base_count = ProductBase.objects.all().count()\r\n        lined_count = LinedProduct.objects.all().count()\r\n        total_count = base_count + lined_count\r\n        total_ton = ProductBase.objects.aggregate(Sum(\"approximate_tonnage\"))['approximate_tonnage__sum']\r\n        # stone_name = request.GET.get(\"stone_name\")\r\n        # stone_type = request.GET.get(\"stone_type\")\r\n        # color = request.GET.get(\"color\")\r\n        # mine = request.GET.get(\"mine\")\r\n        # grade = request.GET.get(\"grade\")\r\n        # if stone_name or stone_type or color or mine or grade:\r\n        #     internal = InternalProduct.objects.filter(mine__stone_type=stone_type, stone_name=stone_name,\r\n        #                                               mine__name=mine, grading_code=grade)\r\n        #     exportal = ExportalProduct.objects.filter(mine__stone_type=stone_type, stone_name=stone_name,\r\n        #                                               mine__name=mine, grading_code=grade, color_code=color)\r\n        context = {\r\n            \"internal\": InternalProduct.objects.all()[:10],\r\n            \"exportal\": ExportalProduct.objects.all()[:10],\r\n            \"lined\": LinedProduct.objects.all(),\r\n            \"total_count\": total_count,\r\n            \"total_ton\": total_ton\r\n        }\r\n        return render(request, \"product/all_product_complete.html\", context)\r\n\r\nclass AllProductListComplete(LoginRequiredMixin, View):\r\n    def get(self, request):\r\n        base_count = ProductBase.objects.all().count()\r\n        lined_count = LinedProduct.objects.all().count()\r\n        total_count = base_count + lined_count\r\n        total_ton = ProductBase.objects.aggregate(Sum(\"approximate_tonnage\"))['approximate_tonnage__sum']\r\n        # stone_name = request.GET.get(\"stone_name\")\r\n        # stone_type = request.GET.get(\"stone_type\")\r\n        # color = request.GET.get(\"color\")\r\n        # mine = request.GET.get(\"mine\")\r\n        # grade = request.GET.get(\"grade\")\r\n        # if stone_name or stone_type or color or mine or grade:\r\n        #     internal = InternalProduct.objects.filter(mine__stone_type=stone_type, stone_name=stone_name,\r\n        #                                               mine__name=mine, grading_code=grade)\r\n        #     exportal = ExportalProduct.objects.filter(mine__stone_type=stone_type, stone_name=stone_name,\r\n        #                                               mine__name=mine, grading_code=grade, color_code=color)\r\n        context = {\r\n            \"internal\": InternalProduct.objects.all(),\r\n            \"exportal\": ExportalProduct.objects.all(),\r\n            \"lined\": LinedProduct.objects.all(),\r\n            \"total_count\": total_count,\r\n            \"total_ton\": total_ton\r\n        }\r\n        return render(request, \"product/all_product_complete.html\", context)    \r\n    \r\n    \r\n\r\n# INTERNAL PRODUCT\r\nclass InternalProductPanelList(ListView):\r\n    model = InternalProduct\r\n    template_name = \"product/internal_list_panel.html\"\r\n\r\n    def get_context_data(self, *args, **kwargs):\r\n        context_data = super(InternalProductPanelList, self).get_context_data(*args, **kwargs)\r\n        context_data[\"total\"] = InternalProduct.objects.all().count()\r\n        context_data[\"tonajze\"] = InternalProduct.objects.all().aggregate(Sum(\"approximate_tonnage\"))['approximate_tonnage__sum']\r\n        return context_data\r\n\r\n\r\nclass InternalProductDetail(DetailView):\r\n#     model = InternalProduct\r\n#     slug_field = \"pk\"\r\n#     slug_url_kwarg = \"pk\"\r\n#     template_name = \"product/internal_detail.html\"\r\n    def get(self,request,pk):\r\n        object=get_object_or_404(InternalProduct,pk=pk)\r\n        full_path=request.build_absolute_uri()\r\n        return render(request,\"product/exportal_detail.html\",{\"object\":object,\"full_path\":full_path})\r\n\r\n\r\nclass InternalProductCreateView(View):\r\n\r\n    def get(self, request):\r\n        return render(request, \"product/add_internal.html\")\r\n\r\n    def post(self,request):\r\n        internal_resource = Internal_Product_Resource()\r\n        dataset = Dataset()\r\n        new_internal = request.FILES['file']\r\n        imported_data = dataset.load(new_internal.read(), format='xlsx')       \r\n        result = internal_resource.import_data(dataset, dry_run=True)\r\n        if not result.has_errors():\r\n            internal_resource.import_data(dataset, dry_run=False)\r\n      \r\n        return render(request, \"product/add_internal.html\")\r\n\r\n    \r\n \r\n\r\n\r\nclass InternalImage(View):\r\n\r\n    def post(request):\r\n        internal_image_resource = Internal_Product_Image_Resource()\r\n        dataset = Dataset()\r\n        new_internal_image = request.FILES['file']\r\n        imported_data = dataset.load(new_internal_image.read(), format='xlsx')\r\n        for data in imported_data:\r\n            print(data[1])\r\n            value = Internal_Image(\r\n                data[0],\r\n                data[1],\r\n            )\r\n            value.save()\r\n        return redirect(\"config:panel_home\")\r\n\r\n\r\n# Exportal\r\nclass ExportalProductPanelList(LoginRequiredMixin, ListView):\r\n    model = ExportalProduct\r\n    template_name = \"product/exportal_list_panel.html\"\r\n\r\n    def get_context_data(self, *args, **kwargs):\r\n        context_data = super(ExportalProductPanelList, self).get_context_data(*args, **kwargs)\r\n        context_data[\"total\"] = ExportalProduct.objects.all().count()\r\n        context_data[\"tonajze\"] = ExportalProduct.objects.aggregate(Sum(\"approximate_tonnage\"))['approximate_tonnage__sum']\r\n        return context_data\r\n\r\n\r\nclass ExportalProductListView(LoginRequiredMixin, ListView):\r\n    queryset = ExportalProduct.objects.all()[:20]\r\n    template_name = \"product/exportal_list.html\"\r\n\r\nclass ExportalProductListCompleteView(LoginRequiredMixin, ListView):\r\n    model = ExportalProduct\r\n    template_name = \"product/exportal_list_complete.html\"    \r\n    \r\n    \r\n\r\nclass ExportalProductDetail(View):\r\n#     model = ExportalProduct\r\n#     slug_field = \"pk\"\r\n#     slug_url_kwarg = \"pk\"\r\n#     template_name = \"product/exportal_detail.html\"\r\n#     def get_context_data(self, **kwargs):\r\n#         context = super().get_context_data(**kwargs)\r\n#         context = {'full_path': self.request.build_absolute_uri()}\r\n#         return context\r\n    def get(self,request,pk):\r\n        object=get_object_or_404(ExportalProduct,pk=pk)\r\n        full_path=request.build_absolute_uri()\r\n        return render(request,\"product/exportal_detail.html\",{\"object\":object,\"full_path\":full_path})\r\n      \r\n\r\n\r\nclass ExportalProductCreateView(View):\r\n    \r\n    def get(self,request):\r\n        return render(request, \"product/add_exportal.html\")\r\n\r\n    def post(self, request):\r\n        internal_resource = Exportal_Product_Resource()\r\n        dataset = Dataset()\r\n        new_exportal = request.FILES['file']\r\n        imported_data = dataset.load(new_exportal.read(), format='xlsx')\r\n        result = internal_resource.import_data(dataset, dry_run=True)\r\n        if not result.has_errors():\r\n            internal_resource.import_data(dataset, dry_run=False)\r\n    \r\n        return render(request, \"product/add_exportal.html\")\r\n\r\n\r\nclass ExportalImage(View):\r\n\r\n    def post(self, request):\r\n        exportal_resource = Exportal_Product_Image_Resource()\r\n        dataset = Dataset()\r\n        new_exportal_image = request.FILES['file']\r\n        imported_data = dataset.load(new_exportal_image.read(), format='xlsx')\r\n        for data in imported_data:\r\n            print(data[1])\r\n            value = Exportal_Image(\r\n                data[0],\r\n                data[1],\r\n            )\r\n            value.save()\r\n        return redirect(\"config:panel_home\")\r\n\r\n\r\n# Lined\r\nclass LinedProductList(ListView):\r\n    model = LinedProduct\r\n    template_name = \"product/line_list.html\"\r\n\r\n\r\nclass LinedProductPanelList(ListView):\r\n    model = LinedProduct\r\n    template_name = \"product/line_list.html\"\r\n\r\n\r\nclass LinedProductDetail(DetailView):\r\n    model = InternalProduct\r\n    slug_field = \"uniqe_id\"\r\n    slug_url_kwarg = \"uniqe_id\"\r\n    template_name = \"product/line_list.html\"\r\n\r\n\r\nclass LinedProductCreateView(View):\r\n\r\n    def get(self, request):\r\n        return render(request, \"product/create_lined.html\")\r\n\r\n    def post(request):\r\n        lined_resource = Lined_Product_Resource()\r\n        dataset = Dataset()\r\n        new_lined = request.FILES['file']\r\n        imported_data = dataset.load(new_lined.read(), format='xlsx')\r\n        result = lined_resource.import_data(dataset, dry_run=True)\r\n        if not result.has_errors():\r\n            lined_resource.import_data(dataset, dry_run=False)\r\n        return render(request, \"product/create_lined.html\")\r\n\r\n\r\n# REJECTED\r\n\r\nclass RejectedProductList(ListView):\r\n    model = Rejected\r\n    template_name = \"product/rejected_list.html\"\r\n\r\n\r\ndef RejectedProductCreateView(request):\r\n\r\n     if request.method == 'POST':\r\n        rejected_resource = Rejected_Product_Resource()\r\n        dataset = Dataset()\r\n        new_lined = request.FILES['file']\r\n        imported_data = dataset.load(new_lined.read())\r\n        result = rejected_resource.import_data(dataset, dry_run=True)\r\n        if not result.has_errors():\r\n            rejected_resource.import_data(dataset, dry_run=False)\r\n            \r\n            \r\n#         for data in imported_data:\r\n#             print(data[0])\r\n#             print(data[1])\r\n#             print(data[2])\r\n#             print(data[3])\r\n#             print(data[4])\r\n#             print(data[5])\r\n#             print(data[6])\r\n\r\n            \r\n#             value = Rejected(\r\n#                 data[0],\r\n#                 data[1],\r\n#                 data[2],\r\n#                 data[3],\r\n#                 data[4],\r\n#                 data[5],\r\n#                 data[6]\r\n#             )\r\n#             value.save()\r\n        return redirect(\"config:panel_home\")\r\n\r\n\r\n# Loaded\r\n\r\n\r\nclass LoadedProductList(ListView):\r\n    model = Loaded\r\n    template_name = \"product/loaded_list.html\"\r\n\r\n    def get_context_data(self, *args, **kwargs):\r\n        context_data = super(LoadedProductList, self).get_context_data(*args, **kwargs)\r\n        # context_data[\"total\"]=Loaded.objects.all().count()\r\n        # context_data[\"tonajze\"]=Loaded.objects.aggregate(Sum(\"weight_of_scales\"))\r\n        return context_data\r\n\r\n\r\nclass LoadedProductCreateView(View):\r\n\r\n    def post(self, request):\r\n        loaded_resource = Loaded_Product_Resource()\r\n        dataset = Dataset()\r\n        new_loaded = request.FILES['myfile']\r\n        imported_data = dataset.load(new_loaded.read(), format='xlsx')\r\n        result = loaded_resource.import_data(dataset, dry_run=True)\r\n        if not result.has_errors():\r\n            loaded_resource.import_data(dataset, dry_run=False)\r\n      \r\n        return redirect(\"config:panel_home\")\r\n\r\n\r\nclass ProductionReportsList(View):\r\n    def get(self, request):\r\n        queryset = ProductFilter(request.GET, queryset=ProductBase.objects.all())\r\n        return render(request, 'product/production_reports.html', {'filter': queryset})\r\n\r\n\r\nclass LoadedReports(View):\r\n    def get(self, request):\r\n        queryset = LoadedFilter(request.GET, queryset=Loaded.objects.all())\r\n        return render(request, 'product/loaded_reports.html', {'filter': queryset})\r\n\r\n\r\nclass DomesticInventory(View):\r\n    def get(self, request):\r\n        queryset = DomesticFilter(request.GET, queryset=InternalProduct.objects.all())\r\n        return render(request, 'product/internal_reports.html', {'filter': queryset})\r\n\r\n\r\nclass ExportalInventory(View):\r\n    def get(self, request):\r\n        queryset = ExportalFilter(request.GET, queryset=ExportalProduct.objects.all())\r\n        return render(request, 'product/exportal_reports.html', {'filter': queryset})\r\n\r\nclass SearchView(View):\r\n    def get(self, request):\r\n        internal_product = InternalProduct.objects.filter(\r\n            Q(mine__stone_type=request.GET.get(\"stone_type\")) | Q(stone_name=request.GET.get(\"stone_name\")),\r\n            Q(mine__name=request.GET.get(\"mine\")) | Q(grading_code=request.GET.get(\"grading_code\"))| Q(length__lt=request.GET.get(\"length\")),\r\n            Q(height__lt=request.GET.get(\"height\")) | Q(width__lt=request.GET.get(\"width\")) )\r\n        exportal_product = ExportalProduct.objects.filter(\r\n            Q(mine__stone_type=request.GET.get(\"stone_type\")) | Q(stone_name=request.GET.get(\"stone_name\")),\r\n            Q(mine__name=request.GET.get(\"mine\")) | Q(grading_code=request.GET.get(\"grading_code\")),\r\n            Q(color_code=request.GET.get(\"color_code\")) | Q(length__lt=request.GET.get(\"length\")),\r\n            Q(height__lt=request.GET.get(\"height\")) | Q(width__lt=request.GET.get(\"width\"))\r\n        )\r\n        return render(request, \"product/search.html\", {\"internal\": internal_product, \"exportal\": exportal_product})    \r\n    \r\n    \r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/product/views.py b/product/views.py
+--- a/product/views.py	(revision 796826398194de6b112699cbb066dc6fc59e3b57)
++++ b/product/views.py	(date 1644865603636)
+@@ -262,10 +262,10 @@
+ #         context = super().get_context_data(**kwargs)
+ #         context = {'full_path': self.request.build_absolute_uri()}
+ #         return context
+-    def get(self,request,pk):
+-        object=get_object_or_404(ExportalProduct,pk=pk)
+-        full_path=request.build_absolute_uri()
+-        return render(request,"product/exportal_detail.html",{"object":object,"full_path":full_path})
++    def get(self, request, pk):
++        object = get_object_or_404(InternalProduct, pk=pk)
++        full_path = request.build_absolute_uri()
++        return render(request, "product/exportal_detail.html", {"object": object, "full_path": full_path})
+       
+ 
+ 
