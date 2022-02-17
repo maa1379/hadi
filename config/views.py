@@ -10,10 +10,10 @@ from django.db.models import Sum
 class HomePage(LoginRequiredMixin, View):
     def get(self, request):
         context = {
-            "exportal": ExportalProduct.objects.all()[:3],
-            "lined": LinedProduct.objects.all()[:3],
-            "special_offer": ExportalProduct.objects.filter(is_special=True)[:3],
-            "sliders": ExportalProduct.objects.filter(is_special=True)[:5],
+            "exportal": ExportalProduct.objects.filter(active=True)[:3],
+            "lined": LinedProduct.objects.filter(active=True)[:3],
+            "special_offer": ExportalProduct.objects.filter(is_special=True, active=True)[:3],
+            "sliders": ExportalProduct.objects.filter(is_special=True, active=True)[:5],
         }
         return render(request, "config/site_home.html", context)
 
