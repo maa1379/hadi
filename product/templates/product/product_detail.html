@@ -223,9 +223,33 @@
             transition: all .25s ease-out;
         }
     </style>
-    <div id="loading-area"></div>
-    <div class="page-wraper">
         <!-- Side Nav -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: rgb(255 255 255) ;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">اشترک گذاری</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="#">
+                        <input class="form-control"
+                               style="text-align: right; border-color: #e1e6eb ; background-color: #ffffff"
+                               placeholder="لینک را وارد کنید ..." type="url">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                    <button type="button" class="btn btn-primary">ارسال</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- hold -->
     <div id="mySidenavHold" class="sidenav coming-side-bar content "><a href="javascript:void(0)"
@@ -774,10 +798,10 @@
 
         <!-- contact area -->
         <div class="section-full content-inner-3 bg-single contact-style-1">
-            <div class="container-fluid" style="padding-right: 10%;margin: auto">
+            <div class="container-fluid " style="padding-right: 10%;margin: auto">
                 <div class="row" style="height: 445px;margin: inherit;">
                     <!-- right part start -->
-                    <div class="col-lg-4  d-lg-flex row">
+                        <!--desc-->
                         <div class="col-lg-4 col-md-12 p-l0">
                             <div class="bg-gray" style="width: 100%;height: 425px;margin: auto">
                                 <div style=" padding:0 6% 0 6%; height: 402px" class="col-12 bg-gray w-100 p-b0 text-center contact-area align-self-stretch">
@@ -838,213 +862,178 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 p-a20 bg-gray w-100 m-b20 border text-center contact-area border-1  align-self-stretch">
-                            <div style="padding: 12px">
-                                <div class="col-md-12">
-                                    <a name="submit"ا  type="submit" value="Submit" href="{% url 'blog:blog_list' %}" class="site-button "
-                                            style="background-color: #1A74B5"><span>اطلاعات بیشتر</span>
-                                    </a>
+                        <!--desc-->
+
+                        <!--main pic-->
+                        <div class="col-lg-7 col-md-12 p-r0">
+                            <div style="width: 96%;height: 100%;margin: auto">
+                                <ul id="masonry0" class="row dez-gallery-listing gallery-grid-4 m-lr0 mfp-gallery">
+                                    <li class="office card-container ">
+                                        <div class="dez-box ">
+                                            <div class="dez-thum dez-img-overlay1 dez-img-effect zoom-slow">
+                                                {% if is_exportal == 1 %}
+                                                    {% for im in object.image_exportal_logo.all|slice:"0:1" %}
+                                                        <a href="javascript:void(0);">
+                                                            {% thumbnail im.photo "300x300" as img %}
+                                                            <img style="width: 100%; height: 425px" src="{{ img.url }}">
+                                                            {% endthumbnail %}
+                                                        </a>
+                                                        <div class="overlay-bx">
+                                                            <div class="overlay-icon">
+                                                                <a href="{{ im.photo.url }}" class="mfp-link" title="عنوان" title="{{ object.stone_name }}">
+                                                                    <i class="fa icon-bx-xs" style="width: 700px; height: 400px"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                {% elif is_internal == 1 %}
+                                                    {% for im in object.image_internal_logo.all|slice:"0:1" %}
+                                                        <a href="javascript:void(0);">
+                                                            {% thumbnail im.photo "300x300" as img %}
+                                                            <img style="width: 100%; height: 425px" src="{{ img.url }}">
+                                                            {% endthumbnail %}
+                                                        </a>
+                                                        <div class="overlay-bx">
+                                                            <div class="overlay-icon">
+                                                                <a href="{{ im.photo.url }}" class="mfp-link" title="عنوان" title="{{ object.stone_name }}">
+                                                                    <i class="fa icon-bx-xs" style="width: 700px; height: 400px"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                {% elif is_lined == 1 %}
+                                                    {% for im in object.image_lined.all|slice:"0:1" %}
+                                                        <a href="javascript:void(0);">
+                                                            {% thumbnail im.photo "300x300" as img %}
+                                                            <img style="width: 100%; height: 425px" src="{{ img.url }}">
+                                                            {% endthumbnail %}
+                                                        </a>
+                                                        <div class="overlay-bx">
+                                                            <div class="overlay-icon">
+                                                                <a href="{{ im.photo.url }}" class="mfp-link" title="عنوان" title="{{ object.stone_name }}">
+                                                                    <i class="fa icon-bx-xs" style="width: 700px; height: 400px"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--main pic-->
+                </div>
+                <div class="row" style="height: 120px;margin: inherit;">
+                    <!--more detail-->
+                    <div class="col-lg-4 p-l0">
+                        <div class="bg-gray" style="width: 100%;height: 100%;margin: auto">
+                            <div style="margin-bottom: 5%; padding: 5% 6% 0 6%; width: 100%;height: 100%"
+                                 class="col-12 bg-gray border text-center contact-area border-1  align-self-stretch">
+                                <div style="padding: 12px">
+                                    <div class="col-md-12">
+                                        <a href="{% url 'blog:blog_list' %}" class="site-button" style="background-color: #1A74B5"><span>اطلاعات بیشتر</span></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- right part END -->
-                    <!-- Left part start -->
-                    <div class="col-lg-7">
-                        <div class="row">
+                    <!--more detail-->
+
+                    <!--pics-->
+                    <div class="col-lg-7 p-r0">
+                        <div class="row" style="width: 100%;height: 100%;margin: auto">
                             {% if is_exportal == 1 %}
-                                {% for im in object.image_exportal_logo.all %}
-                                    {% if forloop.counter < 2 %}
-                                        <div class="col-12">
-                                            <ul id="masonry1"
-                                                class="row dez-gallery-listing gallery-grid-4 m-lr0 mfp-gallery">
-                                                <li class="office card-container ">
-                                                    <div class="dez-box ">
-                                                        <div class="dez-thum dez-img-overlay1 dez-img-effect zoom-slow"><a
-                                                                href="javascript:void(0);">
-
-                                                               {% thumbnail im.photo "300x300" as img %}
-                                                                    <img style="width: 100%; height: 436px;" src="{{ img.url }}"> </a>
-                                                                {% endthumbnail %}
-
-
-                                                            <div class="overlay-bx">
-                                                                <div class="overlay-icon">
-                                                                    <a href="{{ im.photo.url }}" class="mfp-link"
-
-                                                                       title="{{ object.stone_name }}">
-                                                                        <i class="fa fa-picture-o icon-bx-xs"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
+                                {% for item in object.image_exportal.all|slice:"0:4" %}
+                                <div class="col-3">
+                                    <ul class="row dez-gallery-listing gallery-grid-4 m-lr0 mfp-gallery"
+                                        style=" margin-bottom: 0px;">
+                                        <li class="office card-container ">
+                                            <div class="dez-box ">
+                                                <div class="dez-thum dez-img-overlay1 dez-img-effect zoom-slow"><a
+                                                        href="javascript:void(0);">
+                                                    <img style="width: 100%; height: 95px" title="{{ object.stone_name }}" src="{{ item.photo.url }}"> </a>
+                                                    <div class="overlay-bx">
+                                                        <div class="overlay-icon">
+                                                            <a href="{{ item.photo.url }}" title="{{ object.stone_name }}" class="mfp-link" title="عنوان">
+                                                                <i class="fa icon-bx-xs" style="width: 700px; height: 400px"></i>
+                                                            </a>
                                                         </div>
                                                     </div>
-                                                </li>
-                                            </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="dez-info p-10 row" style="background-color: #1A74B5;margin: auto; text-align: center;padding: 4px">
+                                        <div class="col-lg-12">
+                                            <a href="javascript:void(0);" style="color: white">{{ object.unique_id }}</a>
                                         </div>
-                                   {% endif %}
+                                    </div>
+                                </div>
                                 {% endfor %}
                             {% elif is_internal == 1 %}
-                                {% for im in object.image_internal_logo.all %}
-                                    {% if forloop.counter < 2 %}
-                                        <div class="col-12">
-                                            <ul id="masonry2"
-                                                class="row dez-gallery-listing gallery-grid-4 m-lr0 mfp-gallery">
-                                                <li class="office card-container ">
-                                                    <div class="dez-box ">
-                                                        <div class="dez-thum dez-img-overlay1 dez-img-effect zoom-slow"><a
-                                                                href="javascript:void(0);">
-
-                                                               {% thumbnail im.photo "300x300" as img %}
-                                                                    <img style="width: 100%; height: 436px;" src="{{ img.url }}"> </a>
-                                                                {% endthumbnail %}
-
-
-                                                            <div class="overlay-bx">
-                                                                <div class="overlay-icon">
-                                                                    <a href="{{ im.photo.url }}" class="mfp-link"
-
-                                                                       title="{{ object.stone_name }}">
-                                                                        <i class="fa fa-picture-o icon-bx-xs"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
+                                {% for item in object.image_internal.all|slice:"0:4" %}
+                                <div class="col-3">
+                                    <ul class="row dez-gallery-listing gallery-grid-4 m-lr0 mfp-gallery"
+                                        style=" margin-bottom: 0px;">
+                                        <li class="office card-container ">
+                                            <div class="dez-box ">
+                                                <div class="dez-thum dez-img-overlay1 dez-img-effect zoom-slow"><a
+                                                        href="javascript:void(0);">
+                                                    <img style="width: 100%; height: 95px" title="{{ object.stone_name }}" src="{{ item.photo.url }}"> </a>
+                                                    <div class="overlay-bx">
+                                                        <div class="overlay-icon">
+                                                            <a href="{{ item.photo.url }}" title="{{ object.stone_name }}" class="mfp-link" title="عنوان">
+                                                                <i class="fa icon-bx-xs" style="width: 700px; height: 400px"></i>
+                                                            </a>
                                                         </div>
                                                     </div>
-                                                </li>
-                                            </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="dez-info p-10 row" style="background-color: #1A74B5;margin: auto; text-align: center;padding: 4px">
+                                        <div class="col-lg-12">
+                                            <a href="javascript:void(0);" style="color: white">{{ object.unique_id }}</a>
                                         </div>
-                                   {% endif %}
+                                    </div>
+                                </div>
                                 {% endfor %}
                             {% elif is_lined == 1 %}
-                                {% for im in object.image_lined.all %}
-                                    {% if forloop.counter < 2 %}
-                                        <div class="col-12">
-                                            <ul id="masonry3"
-                                                class="row dez-gallery-listing gallery-grid-4 m-lr0 mfp-gallery">
-                                                <li class="office card-container ">
-                                                    <div class="dez-box ">
-                                                        <div class="dez-thum dez-img-overlay1 dez-img-effect zoom-slow"><a
-                                                                href="javascript:void(0);">
-
-                                                               {% thumbnail im.photo "300x300" as img %}
-                                                                    <img style="width: 100%; height: 436px;" src="{{ img.url }}"> </a>
-                                                                {% endthumbnail %}
-
-
-                                                            <div class="overlay-bx">
-                                                                <div class="overlay-icon">
-                                                                    <a href="{{ im.photo.url }}" class="mfp-link"
-
-                                                                       title="{{ object.stone_name }}">
-                                                                        <i class="fa fa-picture-o icon-bx-xs"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
+                                {% for item in object.image_lined.all|slice:"0:4" %}
+                                <div class="col-3">
+                                    <ul class="row dez-gallery-listing gallery-grid-4 m-lr0 mfp-gallery"
+                                        style=" margin-bottom: 0px;">
+                                        <li class="office card-container ">
+                                            <div class="dez-box ">
+                                                <div class="dez-thum dez-img-overlay1 dez-img-effect zoom-slow"><a
+                                                        href="javascript:void(0);">
+                                                    <img style="width: 100%; height: 95px" title="{{ object.stone_name }}" src="{{ item.photo.url }}"> </a>
+                                                    <div class="overlay-bx">
+                                                        <div class="overlay-icon">
+                                                            <a href="{{ item.photo.url }}" title="{{ object.stone_name }}" class="mfp-link" title="عنوان">
+                                                                <i class="fa icon-bx-xs" style="width: 700px; height: 400px"></i>
+                                                            </a>
                                                         </div>
                                                     </div>
-                                                </li>
-                                            </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="dez-info p-10 row" style="background-color: #1A74B5;margin: auto; text-align: center;padding: 4px">
+                                        <div class="col-lg-12">
+                                            <a href="javascript:void(0);" style="color: white">{{ object.unique_id }}</a>
                                         </div>
-                                   {% endif %}
+                                    </div>
+                                </div>
                                 {% endfor %}
                             {% endif %}
-
-                            <div class="col-12">
-                                <div class="row " style="margin-top: -5px">
-                                    {% if is_exportal == 1 %}
-                                        {% for item in object.image_exportal.all|slice:"0:4" %}
-                                        <div class="col-3">
-                                            <ul class="row dez-gallery-listing gallery-grid-4 m-lr0 mfp-gallery"
-                                                style=" margin-bottom: 0px;">
-                                                <li class="office card-container ">
-                                                    <div class="dez-box ">
-                                                        <div class="dez-thum dez-img-overlay1 dez-img-effect zoom-slow"><a
-                                                                href="javascript:void(0);">
-                                                            <img style="width: 100%; height: 95px" title="{{ object.stone_name }}" src="{{ item.photo.url }}"> </a>
-                                                            <div class="overlay-bx">
-                                                                <div class="overlay-icon">
-                                                                    <a href="{{ item.photo.url }}" title="{{ object.stone_name }}" class="mfp-link" title="عنوان">
-                                                                        <i class="fa icon-bx-xs" style="width: 700px; height: 400px"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                            <div class="dez-info p-10 row" style="background-color: #1A74B5;margin: auto; text-align: center;padding: 4px">
-                                                <div class="col-lg-12">
-                                                    <a href="javascript:void(0);" style="color: white">{{ object.unique_id }}</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {% endfor %}
-                                    {% elif is_internal == 1 %}
-                                        {% for item in object.image_internal.all|slice:"0:4" %}
-                                        <div class="col-3">
-                                            <ul class="row dez-gallery-listing gallery-grid-4 m-lr0 mfp-gallery"
-                                                style=" margin-bottom: 0px;">
-                                                <li class="office card-container ">
-                                                    <div class="dez-box ">
-                                                        <div class="dez-thum dez-img-overlay1 dez-img-effect zoom-slow"><a
-                                                                href="javascript:void(0);">
-                                                            <img style="width: 100%; height: 95px" title="{{ object.stone_name }}" src="{{ item.photo.url }}"> </a>
-                                                            <div class="overlay-bx">
-                                                                <div class="overlay-icon">
-                                                                    <a href="{{ item.photo.url }}" title="{{ object.stone_name }}" class="mfp-link" title="عنوان">
-                                                                        <i class="fa icon-bx-xs" style="width: 700px; height: 400px"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                            <div class="dez-info p-10 row" style="background-color: #1A74B5;margin: auto; text-align: center;padding: 4px">
-                                                <div class="col-lg-12">
-                                                    <a href="javascript:void(0);" style="color: white">{{ object.unique_id }}</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {% endfor %}
-                                    {% elif is_lined == 1 %}
-                                        {% for item in object.image_lined.all|slice:"0:4" %}
-                                        <div class="col-3">
-                                            <ul class="row dez-gallery-listing gallery-grid-4 m-lr0 mfp-gallery"
-                                                style=" margin-bottom: 0px;">
-                                                <li class="office card-container ">
-                                                    <div class="dez-box ">
-                                                        <div class="dez-thum dez-img-overlay1 dez-img-effect zoom-slow"><a
-                                                                href="javascript:void(0);">
-                                                            <img style="width: 100%; height: 95px" title="{{ object.stone_name }}" src="{{ item.photo.url }}"> </a>
-                                                            <div class="overlay-bx">
-                                                                <div class="overlay-icon">
-                                                                    <a href="{{ item.photo.url }}" title="{{ object.stone_name }}" class="mfp-link" title="عنوان">
-                                                                        <i class="fa icon-bx-xs" style="width: 700px; height: 400px"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                            <div class="dez-info p-10 row" style="background-color: #1A74B5;margin: auto; text-align: center;padding: 4px">
-                                                <div class="col-lg-12">
-                                                    <a href="javascript:void(0);" style="color: white">{{ object.unique_id }}</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {% endfor %}
-                                    {% endif %}
-                                </div>
-
-                            </div>
                         </div>
                     </div>
-                    <!-- Left part END -->
-                    <!-- Left part start -->
-                    <div class="col-lg-11" style="padding-right: inherit; padding-left: 3%;">
+                    <!--pics-->
+                </div>
+                <div class="col-lg-11" style="padding-right: inherit; padding-left: 3%;">
                         <div class=" bg-gray clearfix " style="padding:5px;">
                             <div class="row">
                                 <!--                            <div class="col-1"></div>-->
@@ -1123,38 +1112,10 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Left part END -->
-                </div>
             </div>
         </div>
-        <!-- contact area  END -->
+        <!-- contact area END -->
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="background-color: rgb(255 255 255) ;">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">اشترک گذاری</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="#">
-                    <input class="form-control"
-                           style="text-align: right; border-color: #e1e6eb ; background-color: #ffffff"
-                           placeholder="لینک را وارد کنید ..." type="url">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
-                <button type="button" class="btn btn-primary">ارسال</button>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
     {% endif %}
 
 {% endblock %}
