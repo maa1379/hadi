@@ -342,6 +342,9 @@ class ProductBase(models.Model):
     def __str__(self):
         return self.stone_name
 
+    def supply(self):
+        return ProductBase.objects.filter(grading_code=self.grading_code, mine=self.mine).count()
+
 
 class InternalProduct(ProductBase):
     pass

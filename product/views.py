@@ -565,6 +565,7 @@ def is_valid_queryparam(param):
 
 
 def SearchView(request):
+    context = {}
     stone_type = request.GET.get('stone_type')
     stone_name = request.GET.get('stone_name')
     mine = request.GET.get('mine')
@@ -614,9 +615,10 @@ def SearchView(request):
 
     if param:
         internal_product = queryset
-        print('here == ', internal_product)
     else:
         internal_product = None
+    context.update({"internal": internal_product})
+    param = False
 
     queryset = ExportalProduct.objects.filter(active=True)
     if is_valid_queryparam(stone_type):
@@ -655,34 +657,50 @@ def SearchView(request):
 
     if param:
         exportal_product = queryset
-        print('here2 ==', exportal_product)
     else:
         exportal_product = None
+    context.update({"exportal": exportal_product})
+    param = False
 
-    # internal_product = InternalProduct.objects.filter(
-    # Q(mine__stone_type=request.GET.get("stone_type"))|\
-    # Q(stone_name=request.GET.get("stone_name"))|\
-    # Q(mine__name=request.GET.get("mine")) |\
-    # Q(grading_code=request.GET.get("grading_code"))|\
-    # Q(length__lt=request.GET.get("length_max"))|\
-    # Q(height__gt=request.GET.get("length_min")) |\
-    # Q(width__lt=request.GET.get("height_max")) |\
-    # Q(width__gt=request.GET.get("width_min")) |\
-    # Q(approximate_tonnage__gt=request.GET.get("ton"))
-    # )
+    queryset = LinedProduct.objects.filter(active=True)
+    if is_valid_queryparam(stone_type):
+        queryset = queryset.filter(mine__stone_type=stone_type)
+        param = True
+    if is_valid_queryparam(stone_name):
+        queryset = queryset.filter(stone_name=stone_name)
+        param = True
+    if is_valid_queryparam(mine):
+        queryset = queryset.filter(mine__name=mine)
+        param = True
+    if is_valid_queryparam(grading_code):
+        queryset = queryset.filter(grading_code=grading_code)
+        param = True
+    if is_valid_queryparam(length_max):
+        queryset = queryset.filter(length__lte=length_max)
+        param = True
+    if is_valid_queryparam(length_min):
+        queryset = queryset.filter(height__gte=length_min)
+        param = True
+    if is_valid_queryparam(height_max):
+        queryset = queryset.filter(height__lte=height_max)
+        param = True
+    if is_valid_queryparam(height_min):
+        queryset = queryset.filter(height__gte=height_min)
+        param = True
+    if is_valid_queryparam(width_min):
+        queryset = queryset.filter(width__gt=width_min)
+        param = True
+    if is_valid_queryparam(ton):
+        queryset = queryset.filter(approximate_tonnage__gt=ton)
+        param = True
+    if is_valid_queryparam(color_code):
+        queryset = queryset.filter(color_code=color_code)
+        param = True
 
-    # exportal_product = ExportalProduct.objects.filter(
-    #     Q(mine__stone_type=request.GET.get("stone_type"))) |\
-    #                    Q(stone_name=request.GET.get("stone_name"))|\
-    #                    Q(mine__name=request.GET.get("mine")) |\
-    #                    Q(grading_code=request.GET.get("grading_code"))|\
-    #                    Q(length__lt=request.GET.get("length_max"))|\
-    #                    Q(height__gt=request.GET.get("length_min")) |\
-    #                    Q(width__lt=request.GET.get("height_max")) |\
-    #                    Q(width__gt=request.GET.get("width_min")) |\
-    #                    Q(approximate_tonnage__gt=request.GET.get("ton") |
-    #                  Q(color_code=request.GET.get("color_code")))
-
-    context = {"internal": internal_product, "exportal": exportal_product}
+    if param:
+        lined_product = queryset
+    else:
+        lined_product = None
+    context.update({"lined": lined_product})
 
     return render(request, "product/search.html", context)
