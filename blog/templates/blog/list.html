@@ -112,15 +112,31 @@
                                         <div class="dez-post-text">
                                             <p>{{ block.description }}</p>
                                             <div class="row m-b30">
+
+                                                {% if forloop.counter|divisibleby:2 %}
+                                                <div class="col-md-6 info-box align-self-center">
+                                                    <h5 class="text-black fw5 m-b10">{{ block.bold }}</h5>
+                                                    <p class="m-b0">{{ block.summary }}</p>
+                                                </div>
+
                                                 <div class="col-md-6">
                                                     <div class="p-a30 port-info-box bg-gray radius-sm">
                                                         <img class="alignleft w-75" src="{{ block.image.url }}" alt="">
                                                     </div>
                                                 </div>
+                                                {% else %}
+                                                <div class="col-md-6">
+                                                    <div class="p-a30 port-info-box bg-gray radius-sm">
+                                                        <img class="alignleft w-75" src="{{ block.image.url }}" alt="">
+                                                    </div>
+                                                </div>
+
                                                 <div class="col-md-6 info-box align-self-center">
                                                     <h5 class="text-black fw5 m-b10">{{ block.bold }}</h5>
                                                     <p class="m-b0">{{ block.summary }}</p>
                                                 </div>
+                                                {% endif %}
+
                                             </div>
                                         </div>
 
