@@ -131,8 +131,6 @@ class AllProductListComplete(LoginRequiredMixin, View):
         }
         return render(request, "product/all_product_complete.html", context)
 
-    # INTERNAL PRODUCT
-
 
 class InternalProductPanelList(ListView):
     model = InternalProduct
@@ -152,8 +150,6 @@ def product_detail(request, unique_id):
         context.update({'object': get_object_or_404(InternalProduct, unique_id=unique_id), 'is_internal': 1})
     elif request.resolver_match.url_name == 'exportal_product_detail':
         context.update({'object': get_object_or_404(ExportalProduct, unique_id=unique_id), 'is_exportal': 1})
-    elif request.resolver_match.url_name == 'lined_product_detail':
-        context.update({'object': get_object_or_404(LinedProducts, unique_id=unique_id), 'is_lined': 1})
     if request.method == 'POST':
         if request.POST.get('submit') == 'hold':
             form = HoldForm(request.POST, request.FILES)
@@ -289,7 +285,140 @@ def product_detail(request, unique_id):
 
 
 def product_detail_lined(request, unique_id):
-    return render(request, "product/product_detail_lined.html")
+    context = {"full_path": request.build_absolute_uri() + '?share=1'}
+    context.update({'object': get_object_or_404(LinedProducts, unique_id=unique_id)})
+    if request.method == 'POST':
+        if request.POST.get('submit') == 'hold':
+            form = HoldForm(request.POST, request.FILES)
+            context.update({'form': form})
+            if form.is_valid():
+                obj = Hold()
+                obj.user = User.objects.get(id=request.user.id)
+                if form.cleaned_data['pin']:
+                    obj.pin = form.cleaned_data['pin']
+                if len(request.POST.getlist('field')) > 0:
+                    if len(request.POST.getlist('field')[1]) <= 0:
+                        if request.POST.getlist('field')[0] == 'stone_cutting_factory':
+                            obj.field = 'کارخانه سنگ بری'
+                        if request.POST.getlist('field')[0] == 'export':
+                            obj.field = 'صادرات'
+                        if request.POST.getlist('field')[0] == 'block_warehouse':
+                            obj.field = 'انبار بلوک'
+                        if request.POST.getlist('field')[0] == 'internal_sales_of_blocks':
+                            obj.field = 'فروش داخلی بلوک'
+                    else:
+                        obj.field = request.POST.getlist('field')[1]
+                if form.cleaned_data['tonnage']:
+                    obj.tonnage = form.cleaned_data['tonnage']
+                if form.cleaned_data['phone']:
+                    obj.phone = form.cleaned_data['phone']
+                if form.cleaned_data['email']:
+                    obj.email = form.cleaned_data['email']
+                if form.cleaned_data['male']:
+                    if form.cleaned_data['male'] == 'true':
+                        obj.male = True
+                    else:
+                        obj.male = False
+                if form.cleaned_data['first_name']:
+                    obj.first_name = form.cleaned_data['first_name']
+                if form.cleaned_data['last_name']:
+                    obj.last_name = form.cleaned_data['last_name']
+                if form.cleaned_data['description']:
+                    obj.description = form.cleaned_data['description']
+                if form.cleaned_data['file']:
+                    obj.file = form.cleaned_data['file']
+                obj.save()
+        if request.POST.get('submit') == 'visit':
+            form = VisitForm(request.POST, request.FILES)
+            context.update({'form': form})
+            if form.is_valid():
+                obj = Visit()
+                obj.user = User.objects.get(id=request.user.id)
+                if len(request.POST.getlist('field')) > 0:
+                    if len(request.POST.getlist('field')[1]) <= 0:
+                        if request.POST.getlist('field')[0] == 'stone_cutting_factory':
+                            obj.field = 'کارخانه سنگ بری'
+                        if request.POST.getlist('field')[0] == 'export':
+                            obj.field = 'صادرات'
+                        if request.POST.getlist('field')[0] == 'block_warehouse':
+                            obj.field = 'انبار بلوک'
+                        if request.POST.getlist('field')[0] == 'internal_sales_of_blocks':
+                            obj.field = 'فروش داخلی بلوک'
+                    else:
+                        obj.field = request.POST.getlist('field')[1]
+                if form.cleaned_data['tonnage']:
+                    obj.tonnage = form.cleaned_data['tonnage']
+                if form.cleaned_data['male']:
+                    if form.cleaned_data['male'] == 'true':
+                        obj.male = True
+                    else:
+                        obj.male = False
+                if form.cleaned_data['first_name']:
+                    obj.first_name = form.cleaned_data['first_name']
+                if form.cleaned_data['last_name']:
+                    obj.last_name = form.cleaned_data['last_name']
+                if form.cleaned_data['occupation']:
+                    obj.occupation = form.cleaned_data['occupation']
+                if form.cleaned_data['company']:
+                    obj.company = form.cleaned_data['company']
+                if form.cleaned_data['phone']:
+                    obj.phone = form.cleaned_data['phone']
+                if form.cleaned_data['email']:
+                    obj.email = form.cleaned_data['email']
+                if form.cleaned_data['address']:
+                    obj.address = form.cleaned_data['address']
+                if form.cleaned_data['visit_date']:
+                    obj.visit_date = form.cleaned_data['visit_date']
+                if form.cleaned_data['visit_hour']:
+                    obj.visit_hour = form.cleaned_data['visit_hour']
+                if form.cleaned_data['visit_minute']:
+                    obj.visit_minute = form.cleaned_data['visit_minute']
+                if form.cleaned_data['description']:
+                    obj.description = form.cleaned_data['description']
+                if form.cleaned_data['file']:
+                    obj.file = form.cleaned_data['file']
+                obj.save()
+        if request.POST.get('submit') == 'sample':
+            form = SampleForm(request.POST, request.FILES)
+            context.update({'form': form})
+            if form.is_valid():
+                obj = Sample()
+                obj.user = User.objects.get(id=request.user.id)
+                if form.cleaned_data['pin']:
+                    obj.pin = form.cleaned_data['pin']
+                if len(request.POST.getlist('field')) > 0:
+                    if len(request.POST.getlist('field')[1]) <= 0:
+                        if request.POST.getlist('field')[0] == 'stone_cutting_factory':
+                            obj.field = 'کارخانه سنگ بری'
+                        if request.POST.getlist('field')[0] == 'export':
+                            obj.field = 'صادرات'
+                        if request.POST.getlist('field')[0] == 'block_warehouse':
+                            obj.field = 'انبار بلوک'
+                        if request.POST.getlist('field')[0] == 'internal_sales_of_blocks':
+                            obj.field = 'فروش داخلی بلوک'
+                    else:
+                        obj.field = request.POST.getlist('field')[1]
+                if form.cleaned_data['tonnage']:
+                    obj.tonnage = form.cleaned_data['tonnage']
+                if form.cleaned_data['phone']:
+                    obj.phone = form.cleaned_data['phone']
+                if form.cleaned_data['email']:
+                    obj.email = form.cleaned_data['email']
+                if form.cleaned_data['male']:
+                    if form.cleaned_data['male'] == 'true':
+                        obj.male = True
+                    else:
+                        obj.male = False
+                if form.cleaned_data['first_name']:
+                    obj.first_name = form.cleaned_data['first_name']
+                if form.cleaned_data['last_name']:
+                    obj.last_name = form.cleaned_data['last_name']
+                if form.cleaned_data['description']:
+                    obj.description = form.cleaned_data['description']
+                if form.cleaned_data['file']:
+                    obj.file = form.cleaned_data['file']
+                obj.save()
+    return render(request, "product/product_detail_lined.html", context)
 
 
 class InternalProductCreateView(View):
@@ -309,7 +438,6 @@ class InternalProductCreateView(View):
         return render(request, "product/add_internal.html")
 
 
-# class InternalImage(View):
 def InternalImage(request):
     if request.method == "POST":
         form = InternalFileLogoForm(request.POST, request.FILES)

@@ -295,12 +295,6 @@
                                     <img src="{{ im.photo.url }}" width="150px">
                                 {% endif %}
                             {% endfor %}
-                        {% elif is_lined == 1 %}
-                            {% for im in object.image_lined.all %}
-                                {% if forloop.counter == 1 %}
-                                    <img src="{{ im.photo.url }}" width="150px">
-                                {% endif %}
-                            {% endfor %}
                         {% endif %}
                     </div>
                 </div>
@@ -462,12 +456,6 @@
                                     <img src="{{ im.photo.url }}" width="150px">
                                 {% endif %}
                             {% endfor %}
-                        {% elif is_lined == 1 %}
-                            {% for im in object.image_lined.all %}
-                                {% if forloop.counter == 1 %}
-                                    <img src="{{ im.photo.url }}" width="150px">
-                                {% endif %}
-                            {% endfor %}
                         {% endif %}
                     </div>
                 </div>
@@ -616,12 +604,6 @@
                             {% endfor %}
                         {% elif is_internal == 1 %}
                             {% for im in object.image_internal_logo.all %}
-                                {% if forloop.counter == 1 %}
-                                    <img src="{{ im.photo.url }}" width="150px">
-                                {% endif %}
-                            {% endfor %}
-                        {% elif is_lined == 1 %}
-                            {% for im in object.image_lined.all %}
                                 {% if forloop.counter == 1 %}
                                     <img src="{{ im.photo.url }}" width="150px">
                                 {% endif %}
@@ -901,21 +883,6 @@
                                                             </div>
                                                         </div>
                                                     {% endfor %}
-                                                {% elif is_lined == 1 %}
-                                                    {% for im in object.image_lined.all|slice:"0:1" %}
-                                                        <a href="javascript:void(0);">
-                                                            {% thumbnail im.photo "300x300" as img %}
-                                                            <img style="width: 100%; height: 425px" src="{{ img.url }}">
-                                                            {% endthumbnail %}
-                                                        </a>
-                                                        <div class="overlay-bx">
-                                                            <div class="overlay-icon">
-                                                                <a href="{{ im.photo.url }}" class="mfp-link" title="عنوان" title="{{ object.stone_name }}">
-                                                                    <i class="fa icon-bx-xs" style="width: 700px; height: 400px"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    {% endfor %}
                                                 {% endif %}
                                             </div>
                                         </div>
@@ -974,34 +941,6 @@
                                 {% endfor %}
                             {% elif is_internal == 1 %}
                                 {% for item in object.image_internal.all|slice:"0:4" %}
-                                <div class="col-3">
-                                    <ul class="row dez-gallery-listing gallery-grid-4 m-lr0 mfp-gallery"
-                                        style=" margin-bottom: 0px;">
-                                        <li class="office card-container ">
-                                            <div class="dez-box ">
-                                                <div class="dez-thum dez-img-overlay1 dez-img-effect zoom-slow"><a
-                                                        href="javascript:void(0);">
-                                                    <img style="width: 100%; height: 95px" title="{{ object.stone_name }}" src="{{ item.photo.url }}"> </a>
-                                                    <div class="overlay-bx">
-                                                        <div class="overlay-icon">
-                                                            <a href="{{ item.photo.url }}" title="{{ object.stone_name }}" class="mfp-link" title="عنوان">
-                                                                <i class="fa icon-bx-xs" style="width: 700px; height: 400px"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <div class="dez-info p-10 row" style="background-color: #1A74B5;margin: auto; text-align: center;padding: 4px">
-                                        <div class="col-lg-12">
-                                            <a href="javascript:void(0);" style="color: white">{{ object.unique_id }}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                            {% elif is_lined == 1 %}
-                                {% for item in object.image_lined.all|slice:"0:4" %}
                                 <div class="col-3">
                                     <ul class="row dez-gallery-listing gallery-grid-4 m-lr0 mfp-gallery"
                                         style=" margin-bottom: 0px;">
