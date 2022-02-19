@@ -598,7 +598,7 @@ def SearchView(request):
     context.update({"exportal": exportal_product})
     param = False
 
-    queryset = LinedProducts.objects.filter(active=True)
+    queryset = LinedProducts.objects.all()
     if is_valid_queryparam(stone_type):
         queryset = queryset.filter(mine__stone_type=stone_type)
         param = True

@@ -11,7 +11,7 @@ class HomePage(LoginRequiredMixin, View):
     def get(self, request):
         context = {
             "exportal": ExportalProduct.objects.filter(active=True)[:3],
-            "lined": LinedProducts.objects.filter(active=True)[:3],
+            "lined": LinedProducts.objects.all()[:3],
             "special_offer": ExportalProduct.objects.filter(is_special=True, active=True)[:3],
             "sliders": ExportalProduct.objects.filter(is_special=True, active=True)[:5],
         }
