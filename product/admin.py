@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import ExportalProduct, InternalProduct, ProductBase, Internal_Image, Exportal_Image, Loaded, LinedProduct, \
-    LinedProduct, Rejected, InternalLogo, ExportalLogo, ImageExportalModel, ImageInternalModel, ImageLinedModel, \
-    linedFile, InternalFileLogo
+from .models import ExportalProduct, InternalProduct, ProductBase, Exportal_Image, Loaded, \
+    LinedProducts, Rejected, InternalMainPic, ExportalMainPic, ExportalGalleries, InternalGalleries, \
+    InternalMainPicFile
 
 from import_export.admin import ImportExportModelAdmin
 # Register your models here.
@@ -24,17 +24,14 @@ class PersonAdmin(ImportExportModelAdmin):
     pass
 
 
-admin.site.register(LinedProduct),
-admin.site.register(InternalLogo),
-admin.site.register(ExportalLogo),
-admin.site.register(InternalFileLogo),
+admin.site.register(LinedProducts),
+admin.site.register(InternalMainPic),
+admin.site.register(ExportalMainPic),
+admin.site.register(InternalMainPicFile),
 admin.site.register(ProductBase),
-admin.site.register(Internal_Image),
 admin.site.register(Exportal_Image),
 # admin.site.register(Loaded),
 
-admin.site.register(ImageExportalModel),
-admin.site.register(ImageLinedModel),
-admin.site.register(linedFile),
-admin.site.register(ImageInternalModel)
+admin.site.register(ExportalGalleries),
+admin.site.register(InternalGalleries)
 # admin.site.register(Rejected),

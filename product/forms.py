@@ -1,28 +1,23 @@
 from django import forms
-from .models import ExportalFile, ExportalFileLogo, InternalFileLogo, linedFile, InternalFile
+from .models import ExportalGalleriesFile, ExportalMainPicFile, InternalMainPicFile, InternalGalleriesFile
 
 
 class ExportalFileForm(forms.ModelForm):
     class Meta:
-        model=ExportalFile
+        model=ExportalGalleriesFile
         fields="__all__"
 
 class InternalFileForm(forms.ModelForm):
     class Meta:
-        model=InternalFile
+        model=InternalGalleriesFile
         fields="__all__"
 
 class ExportalFileLogoForm(forms.ModelForm):
     class Meta:
-        model=ExportalFileLogo
+        model=ExportalMainPicFile
         fields="__all__"
 
 class InternalFileLogoForm(forms.ModelForm):
     class Meta:
-        model=InternalFileLogo
-        fields="__all__"
-
-class linedFileForm(forms.ModelForm):
-    class Meta:
-        model=linedFile
+        model=InternalMainPicFile
         fields="__all__"

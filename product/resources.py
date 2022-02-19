@@ -1,5 +1,4 @@
-from .models import InternalProduct, ExportalProduct, Internal_Image, Exportal_Image, \
-    LinedProduct, Loaded, Rejected
+from .models import *
 
 from import_export import resources
 
@@ -7,11 +6,6 @@ from import_export import resources
 class Internal_Product_Resource(resources.ModelResource):
     class Meta:
         model = InternalProduct
-
-
-class Internal_Product_Image_Resource(resources.ModelResource):
-    class Meta:
-        model = Internal_Image
 
 
 class Exportal_Product_Resource(resources.ModelResource):
@@ -24,9 +18,9 @@ class Exportal_Product_Image_Resource(resources.ModelResource):
         model = Exportal_Image
 
 
-class Lined_Product_Resource(resources.ModelResource):
+class LinedProductMemberResource(resources.ModelResource):
     class Meta:
-        model = LinedProduct
+        model = LinedProductMember
 
 
 class Loaded_Product_Resource(resources.ModelResource):

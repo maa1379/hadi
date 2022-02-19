@@ -1,31 +1,41 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from tablib import Dataset
-
 from account.models import User
 from demand.models import HoldForm, SampleForm, VisitForm, Hold, Visit, Sample
 from .filters import ProductFilter, LoadedFilter, DomesticFilter, ExportalFilter, RejectedFilter
-from django.views.generic import ListView, View, DetailView
-from .models import ExportalProduct, InternalProduct, LinedProduct, ProductBase, Rejected, Loaded, Internal_Image, \
-    Exportal_Image, ExportalLogo, ExportalFileLogo, InternalFileLogo, linedFile, ImageExportalModel, ExportalFile, \
-    InternalFile
-
+from django.views.generic import ListView, View
+from .models import *
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .resources import Internal_Product_Resource, Exportal_Product_Resource, Internal_Product_Image_Resource, \
-    Exportal_Product_Image_Resource, Lined_Product_Resource, Loaded_Product_Resource, Rejected_Product_Resource
+from .resources import *
 from django.db.models import Sum
-import random
-from django.db.models import Q
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from zipfile import ZipFile
 import os
 from pathlib import Path
-from django.core.files.base import ContentFile
-from django.core.files.images import ImageFile
-from .forms import ExportalFileForm, ExportalFileLogoForm, InternalFileLogoForm, linedFileForm, InternalFileForm
+from .forms import ExportalFileForm, ExportalFileLogoForm, InternalFileLogoForm, InternalFileForm
 
 
-# Create your views here.
+class LinedProductCreateView(View):
+    def get(self, request):
+        return render(request, "product/create_lined.html")
+
+    def post(self, request):
+        lined_resource = LinedProductMemberResource()
+        dataset = Dataset()
+        new_lined = request.FILES['file']
+        imported_data = dataset.load(new_lined.read(), format='xlsx')
+        result = lined_resource.import_data(dataset, dry_run=True)
+        if not result.has_errors():
+            lined_product = LinedProducts.objects.create()
+            for data in imported_data:
+                try:
+                    internal_product = InternalProduct.objects.get(serial_number_of_the_peak_in_the_mine=data[2][0])
+                    obj = LinedProductMember()
+                    obj.approximate_tonnage = internal_product.approximate_tonnage
+                    obj.unique_id = internal_product.unique_id
+                    obj.lined_product = lined_product
+                except:
+                    continue
+        return render(request, "product/create_lined.html")
+
 
 class SpecialOfferList(View):
     def get(self, request):
@@ -42,16 +52,16 @@ class SpecialOfferListComplete(View):
         return render(request, "product/special_offer_complete_list.html",
                       {"exportal_list": special_exportal, "special_internal": special_internal})
 
-    # class HomePage(LoginRequiredMixin, View):
 
-
-#     def get(self, request):
-#         context = {
-#             "exportal": ExportalProduct.objects.all()[:3],
-#             "lined": LinedProduct.objects.all()[:3],
-#             "special_offer": ProductBase.objects.filter(is_special=True)[:3]
-#         }
-#         return render(request, "product/", context)
+def MainPictureExportalCreateView(request):
+    if request.method == "POST":
+        BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+        print(os.path.join(BASE_DIR, 'ali/file_dir'))
+        form = ExportalFileLogoForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = ExportalMainPicFile(file=form.cleaned_data["file"])
+            file.save()
+            return redirect("config:panel_home")
 
 
 def MainPictureExportalCreateView(request):
@@ -60,57 +70,16 @@ def MainPictureExportalCreateView(request):
         print(os.path.join(BASE_DIR, 'ali/file_dir'))
         form = ExportalFileLogoForm(request.POST, request.FILES)
         if form.is_valid():
-            file = ExportalFileLogo(file=form.cleaned_data["file"])
+            file = ExportalMainPicFile(file=form.cleaned_data["file"])
             file.save()
             return redirect("config:panel_home")
-
-
-def MainPictureInternalCreateView(request):
-    BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
-    print(os.path.join(BASE_DIR, 'ali/file_dir'))
-    if request.method == "POST":
-        form = Y(request.POST, request.FILES)
-        if form.is_valid():
-            file = FileModel(file=form.cleaned_data["file"])
-            file.save()
-
-            return redirect("ali:test1")
-    else:
-        form = Y()
-    return render(request, "test.html", {"form": form})
-
-
-def MainPictureExportalCreateView(request):
-    if request.method == "POST":
-        BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
-        print(os.path.join(BASE_DIR, 'ali/file_dir'))
-        form = ExportalFileLogoForm(request.POST, request.FILES)
-        if form.is_valid():
-            file = ExportalFileLogo(file=form.cleaned_data["file"])
-            file.save()
-            return redirect("config:panel_home")
-
-
-def PartialPictureInternalCreateView(request):
-    BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
-    print(os.path.join(BASE_DIR, 'ali/file_dir'))
-    if request.method == "POST":
-        form = ExportalFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            file = FileModel(file=form.cleaned_data["file"])
-            file.save()
-
-            return redirect("ali:test1")
-    else:
-        form = ExportalFileForm()
-    return render(request, "test.html", {"form": form})
 
 
 def PartialPictureExportalCreateView(request):
     if request.method == "POST":
         form = ExportalFileForm(request.POST, request.FILES)
         if form.is_valid():
-            file = ExportalFile(file=form.cleaned_data["file"])
+            file = ExportalGalleriesFile(file=form.cleaned_data["file"])
             file.save()
             return redirect("config:panel_home")
 
@@ -118,7 +87,7 @@ def PartialPictureExportalCreateView(request):
 class AllProductList(LoginRequiredMixin, View):
     def get(self, request):
         base_count = ProductBase.objects.all().count()
-        lined_count = LinedProduct.objects.all().count()
+        lined_count = LinedProducts.objects.all().count()
         total_count = base_count + lined_count
         total_ton = ProductBase.objects.aggregate(Sum("approximate_tonnage"))['approximate_tonnage__sum']
         # stone_name = request.GET.get("stone_name")
@@ -134,7 +103,7 @@ class AllProductList(LoginRequiredMixin, View):
         context = {
             "internal": InternalProduct.objects.all(),
             "exportal": ExportalProduct.objects.all(),
-            "lined": LinedProduct.objects.all(),
+            "lined": LinedProducts.objects.all(),
             "total_count": total_count,
             "total_ton": total_ton
         }
@@ -144,7 +113,7 @@ class AllProductList(LoginRequiredMixin, View):
 class AllProductListComplete(LoginRequiredMixin, View):
     def get(self, request):
         base_count = ProductBase.objects.all().count()
-        lined_count = LinedProduct.objects.all().count()
+        lined_count = LinedProducts.objects.all().count()
         total_count = base_count + lined_count
         total_ton = ProductBase.objects.aggregate(Sum("approximate_tonnage"))['approximate_tonnage__sum']
         # stone_name = request.GET.get("stone_name")
@@ -160,7 +129,7 @@ class AllProductListComplete(LoginRequiredMixin, View):
         context = {
             "internal": InternalProduct.objects.all(),
             "exportal": ExportalProduct.objects.all(),
-            "lined": LinedProduct.objects.all(),
+            "lined": LinedProducts.objects.all(),
             "total_count": total_count,
             "total_ton": total_ton
         }
@@ -188,7 +157,7 @@ def product_detail(request, unique_id):
     elif request.resolver_match.url_name == 'exportal_product_detail':
         context.update({'object': get_object_or_404(ExportalProduct, unique_id=unique_id), 'is_exportal': 1})
     elif request.resolver_match.url_name == 'lined_product_detail':
-        context.update({'object': get_object_or_404(LinedProduct, unique_id=unique_id), 'is_lined': 1})
+        context.update({'object': get_object_or_404(LinedProducts, unique_id=unique_id), 'is_lined': 1})
     if request.method == 'POST':
         if request.POST.get('submit') == 'hold':
             form = HoldForm(request.POST, request.FILES)
@@ -322,8 +291,10 @@ def product_detail(request, unique_id):
                 obj.save()
     return render(request, "product/product_detail.html", context)
 
+
 def product_detail_lined(request, unique_id):
     return render(request, "product/product_detail_lined.html")
+
 
 class InternalProductCreateView(View):
 
@@ -347,22 +318,9 @@ def InternalImage(request):
     if request.method == "POST":
         form = InternalFileLogoForm(request.POST, request.FILES)
         if form.is_valid():
-            file = InternalFileLogo(file=form.cleaned_data["file"])
+            file = InternalMainPicFile(file=form.cleaned_data["file"])
             file.save()
             return redirect("config:panel_home")
-    # def post(self, request):
-    #     internal_image_resource = Internal_Product_Image_Resource()
-    #     dataset = Dataset()
-    #     new_internal_image = request.FILES['file']
-    #     imported_data = dataset.load(new_internal_image.read(), format='zip')
-    #     for data in imported_data:
-    #         print(data[1])
-    #         value = Internal_Image(
-    #             data[0],
-    #             data[1],
-    #         )
-    #         value.save()
-    #     return redirect("config:panel_home")
 
 
 # Exportal
@@ -426,44 +384,20 @@ def PartialPictureInternalCreateView(request):
     if request.method == "POST":
         form = InternalFileForm(request.POST, request.FILES)
         if form.is_valid():
-            file = InternalFile(file=form.cleaned_data["file"])
+            file = InternalGalleriesFile(file=form.cleaned_data["file"])
             file.save()
             return redirect("config:panel_home")
 
 
 # Lined
 class LinedProductList(ListView):
-    model = LinedProduct
+    model = LinedProducts
     template_name = "product/line_list.html"
 
 
 class LinedProductPanelList(ListView):
-    model = LinedProduct
+    model = LinedProducts
     template_name = "product/line_list.html"
-
-
-def lined_product_image(request):
-    if request.method == "POST":
-        form = linedFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            file = linedFile(file=form.cleaned_data["file"])
-            file.save()
-            return redirect("config:panel_home")
-
-
-class LinedProductCreateView(View):
-    def get(self, request):
-        return render(request, "product/create_lined.html")
-
-    def post(self, request):
-        lined_resource = Lined_Product_Resource()
-        dataset = Dataset()
-        new_lined = request.FILES['file']
-        imported_data = dataset.load(new_lined.read(), format='xlsx')
-        result = lined_resource.import_data(dataset, dry_run=True)
-        if not result.has_errors():
-            lined_resource.import_data(dataset, dry_run=False)
-        return render(request, "product/create_lined.html")
 
 
 # REJECTED
@@ -517,7 +451,7 @@ def rejected_upload(request):
                         obj.rejected = True
                         obj.save()
                     elif data[7][0] == 'L':
-                        obj = LinedProduct.objects.get(unique_id=data[7][0])
+                        obj = LinedProducts.objects.get(unique_id=data[7][0])
                         obj.active = True
                         obj.rejected = True
                         obj.save()
@@ -664,7 +598,7 @@ def SearchView(request):
     context.update({"exportal": exportal_product})
     param = False
 
-    queryset = LinedProduct.objects.filter(active=True)
+    queryset = LinedProducts.objects.filter(active=True)
     if is_valid_queryparam(stone_type):
         queryset = queryset.filter(mine__stone_type=stone_type)
         param = True

@@ -19,21 +19,6 @@
                         </form>
                     </div>
                 </div>
-                <div class="row">
-                    <h1 class="text-center">به روز رسانی عکس های اصلی</h1>
-                    <div class="col-xl-2 col-6">
-                        <form action="{% url 'product:lined_product_image' %}" method="post" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            <div class="form-group mb-4 mt-3">
-                                <label for="exampleFormControlFile1">Excel file ONLY !</label>
-                                <input type="file" title="Upload excel file" name="file"
-                                       class="form-control" id="exampleFormControlFile1" required="required">
-                            </div>
-                            <input type="submit" value="Update" name="time" class="mt-4 mb-4 btn btn-primary">
-                        </form>
-                    </div>
-                </div>
-           
             </section>
         </div>
     </div>

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
-from product.models import InternalProduct, ExportalProduct, LinedProduct, ProductBase
+from product.models import InternalProduct, ExportalProduct, ProductBase
 from .managers import MyUserManager
 
 

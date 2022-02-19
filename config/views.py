@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, View
-from product.models import ProductBase, ExportalProduct, InternalProduct, LinedProduct, Loaded
+from product.models import ProductBase, ExportalProduct, InternalProduct, LinedProducts, Loaded
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Sum
 
@@ -11,7 +11,7 @@ class HomePage(LoginRequiredMixin, View):
     def get(self, request):
         context = {
             "exportal": ExportalProduct.objects.filter(active=True)[:3],
-            "lined": LinedProduct.objects.filter(active=True)[:3],
+            "lined": LinedProducts.objects.filter(active=True)[:3],
             "special_offer": ExportalProduct.objects.filter(is_special=True, active=True)[:3],
             "sliders": ExportalProduct.objects.filter(is_special=True, active=True)[:5],
         }
