@@ -322,6 +322,8 @@ def product_detail(request, unique_id):
                 obj.save()
     return render(request, "product/product_detail.html", context)
 
+def product_detail_lined(request, unique_id):
+    return render(request, "product/product_detail_lined.html")
 
 class InternalProductCreateView(View):
 

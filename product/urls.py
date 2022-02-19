@@ -7,7 +7,7 @@ from .views import AllProductList, SearchView, MainPictureExportalCreateView, In
     InternalImage, ExportalImage, SpecialOfferList, ProductionReportsList, LoadedReports, DomesticInventory, \
     ExportalInventory, AllProductListComplete, SpecialOfferListComplete, ExportalProductListCompleteView, \
     lined_product_image, PartialPictureInternalCreateView, rejected_update, rejected_upload, \
-    product_detail
+    product_detail, product_detail_lined
 
 app_name = "product"
 urlpatterns = [
@@ -22,7 +22,7 @@ urlpatterns = [
     path("Interna_list/", InternalProductPanelList.as_view(), name="internal_list_panel"),
     path("internal_product_detail/<str:unique_id>/", product_detail, name="internal_product_detail"),
     path("exportal_product_detail/<str:unique_id>/", product_detail, name="exportal_product_detail"),
-    path("lined_product_detail/<str:unique_id>/", product_detail, name="lined_product_detail"),
+    path("lined_product_detail/<str:unique_id>/", product_detail_lined, name="lined_product_detail"),
     path("internal_image/", InternalImage, name="internal_image"),
     path("exportal_list/", ExportalProductListView.as_view(), name="exportal_list"),
     path("exportal_list_panel/", ExportalProductPanelList.as_view(), name="exportal_list_panel"),
