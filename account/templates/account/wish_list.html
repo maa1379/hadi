@@ -322,36 +322,36 @@
                   
                       
                     <div class="blog-post blog-md date-style-2 row fly-box">
-                  {%  for image in obj.image_intrnal_logo.all %}
-                      {% if forloop.counter < 2 %}
-                                                    {% thumbnail image.photo "300x300" as img %}
-                                               <div class="col-lg-2 "><a href="{% url 'product:exportal_product_detail' obj.unique_id %}"><img class="h-100" style="max-width: 75%; height: 100% " src="{{ img.url }}" alt=""></a></div>
-      
-            {% endthumbnail %}
-                        
-                  {% endif %}
-                  {% endfor %}
+                          {% for image in obj.image_intrnal_logo.all|slice:"0:1" %}
+                                {% thumbnail image.photo "300x300" as img %}
+                                   <div class="col-lg-2 ">
+                                       <a href="{% url 'product:exportal_product_detail' obj.unique_id %}">
+                                        <img class="h-100" style="max-width: 75%; height: 100% " src="{{ img.url }}" alt="">
+                                       </a>
+                                   </div>
+                                {% endthumbnail %}
+                          {% endfor %}
                         <div class="col-lg-9 " style="margin-top: 3%">
                             <p href="#" title="اطلاعات بیشتر" rel="bookmark" class="site-button-link">شماره : </p>
-                            <p class="site-button-link text-info">{{ obj.product.unique_id }}</p>
+                            <p class="site-button-link text-info">{{ obj.unique_id }}</p>
                             <p href="#" title="اطلاعات بیشتر" rel="bookmark" class="site-button-link">نام سنگ : </p>
-                            <p class="site-button-link text-info">{{ obj.product.stone_name }}</p>
+                            <p class="site-button-link text-info">{{ obj.stone_name }}</p>
                             <p href="#" title="اطلاعات بیشتر" rel="bookmark" class="site-button-link">نام معدن
                                 : </p>
-                            <p class="site-button-link text-info">{{ obj.product.mine.name }}</p>
+                            <p class="site-button-link text-info">{{ obj.mine.name }}</p>
                             <p href="#" title="اطلاعات بیشتر" rel="bookmark" class="site-button-link">درجه بندی
                                 : </p>
-                            <p class="site-button-link text-info">{{ obj.product.grading_code }}</p>
+                            <p class="site-button-link text-info">{{ obj.grading_code }}</p>
                             <p href="#" title="اطلاعات بیشتر" rel="bookmark" class="site-button-link">ابعاد : </p>
-                            <p class="site-button-link text-info">{{ obj.product.length }}*{{ pro.product.width }}*{{ pro.product.height }}</p>
+                            <p class="site-button-link text-info">{{ obj.length }}*{{ pro.product.width }}*{{ pro.product.height }}</p>
                             <p href="#" title="اطلاعات بیشتر" rel="bookmark" class="site-button-link">وزن تقریبی
                                 : </p>
-                            <p class="site-button-link text-info">{{ obj.product.approximate_tonnage }}تن</p>
+                            <p class="site-button-link text-info">{{ obj.approximate_tonnage }}تن</p>
                         </div>
                         <div class="col-lg-1 " style="margin-top: 2%">
                             <form action="/index-11.html">
                                 <input type="checkbox" id="{{ obj.unique_id }}" name="vehicle1" value="Bike">
-                                <label for="test2"></label><br>
+                                <label for="{{ obj.unique_id }}"></label><br>
 
                             </form>
                         </div>
@@ -365,13 +365,11 @@
                   
                       
                     <div class="blog-post blog-md date-style-2 row fly-box">
-                  {%  for image in item.image_exportal_logo.all %}
-                      {% if forloop.counter < 2 %}
+                  {%  for image in item.image_exportal_logo.all|slice:"0:1" %}
                                                                  {% thumbnail image.photo "300x300" as img %}
                                                <div class="col-lg-2 "><a href="{% url 'product:exportal_product_detail' item.unique_id %}"><img class="h-100" style="max-width: 75%; height: 100% " src="{{ img.url }}" alt=""></a></div>
       
             {% endthumbnail %}
-                  {% endif %}
                   {% endfor %}
                         <div class="col-lg-9 " style="margin-top: 3%">
                             <p href="#" title="اطلاعات بیشتر" rel="bookmark" class="site-button-link">شماره : </p>

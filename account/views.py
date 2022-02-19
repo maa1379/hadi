@@ -106,7 +106,6 @@ class SpecialUserCreateView(CreateView):
 class FavoriteProduct(View):
     def get(self, request):
         item_list = Favorite.objects.filter(user=User.objects.get(id=request.user.id))
-        print(item_list)
         internal_favorite = []
         external_favorite = [] 
         for internal_p in item_list:
@@ -117,21 +116,7 @@ class FavoriteProduct(View):
             iy = ExportalProduct.objects.filter(unique_id=exportal_p.product.unique_id)
             if iy.exists():
                 external_favorite.append(iy)
-        print(internal_favorite)
-        print(external_favorite)
-        for item in external_favorite:
-            print(item)
-            print(item)
-#             print(item.slate_code)
-#             print(item.lenght)
-#             print(ite.width)
-            for items in item:
-#                  print(items.slate_code)
-#                print(items.lenght)
-               print(items.width)
-
-        return render(request, "account/wish_list.html",
-                      context={"internal_favorite": internal_favorite, "exportal_favorite": external_favorite})
+        return render(request, "account/wish_list.html", context={"internal_favorite": internal_favorite, "exportal_favorite": external_favorite})
 
 
 
