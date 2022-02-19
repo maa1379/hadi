@@ -322,7 +322,7 @@
                   
                       
                     <div class="blog-post blog-md date-style-2 row fly-box">
-                          {% for image in obj.image_intrnal_logo.all|slice:"0:1" %}
+                          {% for image in obj.image_internal_logo.all|slice:"0:1" %}
                                 {% thumbnail image.photo "300x300" as img %}
                                    <div class="col-lg-2 ">
                                        <a href="{% url 'product:exportal_product_detail' obj.unique_id %}">
