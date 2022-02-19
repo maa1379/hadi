@@ -13,7 +13,7 @@ from pathlib import Path
 from .forms import ExportalFileForm, ExportalFileLogoForm, InternalFileLogoForm, InternalFileForm
 
 
-class LinedProductCreateView(View):
+class LinedProductCreateView(View, LoginRequiredMixin):
     def get(self, request):
         return render(request, "product/create_lined.html")
 
