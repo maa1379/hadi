@@ -22,7 +22,6 @@ urlpatterns = [
     path("exportal_list_panel/", ExportalProductPanelList.as_view(), name="exportal_list_panel"),
     path("internal_product_create/", InternalProductCreateView.as_view(), name="internal_product_create"),
     path("exportal_product_create/", ExportalProductCreateView.as_view(), name="exportal_product_create"),
-    path("exportal_image/", ExportalImage.as_view(), name="exportal_image"),
     path("internal_image_gallery/", PartialPictureInternalCreateView, name="internal_image_gallery"),
     path("lined_product/", LinedProductList.as_view(), name="lined_product"),
     path("lined_product_panel/", LinedProductPanelList.as_view(), name="lined_product_panel"),

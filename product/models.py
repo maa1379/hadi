@@ -349,9 +349,3 @@ class Rejected(models.Model):
     mine = models.ForeignKey(Mine, on_delete=models.CASCADE)
     buyer = models.CharField(max_length=255)
     serial_number_of_the_peak_in_the_mine = models.CharField(max_length=125)
-
-
-
-class Exportal_Image(models.Model):
-    photo = models.ImageField(upload_to="image/product/")
-    product_name = models.ForeignKey(ExportalProduct, on_delete=models.CASCADE, related_name="image")

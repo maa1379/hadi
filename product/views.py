@@ -18,22 +18,18 @@ class LinedProductCreateView(View, LoginRequiredMixin):
         return render(request, "product/create_lined.html")
 
     def post(self, request):
-        lined_resource = LinedProductMemberResource()
-        dataset = Dataset()
-        new_lined = request.FILES['file']
-        imported_data = dataset.load(new_lined.read(), format='xlsx')
-        result = lined_resource.import_data(dataset, dry_run=True)
-        if not result.has_errors():
-            lined_product = LinedProducts.objects.create()
-            for data in imported_data:
-                try:
-                    internal_product = InternalProduct.objects.get(serial_number_of_the_peak_in_the_mine=data[2][0])
-                    obj = LinedProductMember()
-                    obj.approximate_tonnage = internal_product.approximate_tonnage
-                    obj.unique_id = internal_product.unique_id
-                    obj.lined_product = lined_product
-                except:
-                    continue
+        imported_data = Dataset().load(request.FILES['file'].read(), format='xlsx')
+        lined_product = LinedProducts.objects.create()
+        for data in imported_data:
+            try:
+                internal_product = InternalProduct.objects.get(serial_number_of_the_peak_in_the_mine=data[2])
+                obj = LinedProductMember()
+                obj.approximate_tonnage = internal_product.approximate_tonnage
+                obj.unique_id = internal_product.unique_id
+                obj.lined_product = lined_product
+            except:
+                print('err')
+                continue
         return render(request, "product/create_lined.html")
 
 
@@ -363,23 +359,6 @@ class ExportalProductCreateView(View):
         return render(request, "product/add_exportal.html")
 
 
-class ExportalImage(View):
-
-    def post(self, request):
-        exportal_resource = Exportal_Product_Image_Resource()
-        dataset = Dataset()
-        new_exportal_image = request.FILES['file']
-        imported_data = dataset.load(new_exportal_image.read(), format='xlsx')
-        for data in imported_data:
-            print(data[1])
-            value = Exportal_Image(
-                data[0],
-                data[1],
-            )
-            value.save()
-        return redirect("config:panel_home")
-
-
 def PartialPictureInternalCreateView(request):
     if request.method == "POST":
         form = InternalFileForm(request.POST, request.FILES)
@@ -441,17 +420,17 @@ def rejected_upload(request):
             for data in imported_data:
                 try:
                     if data[7][0] == 'E':
-                        obj = ExportalProduct.objects.get(unique_id=data[7][0])
+                        obj = ExportalProduct.objects.get(serial_number_of_the_peak_in_the_mine=data[7][0])
                         obj.active = True
                         obj.rejected = True
                         obj.save()
                     elif data[7][0] == 'D':
-                        obj = InternalProduct.objects.get(unique_id=data[7][0])
+                        obj = InternalProduct.objects.get(serial_number_of_the_peak_in_the_mine=data[7][0])
                         obj.active = True
                         obj.rejected = True
                         obj.save()
                     elif data[7][0] == 'L':
-                        obj = LinedProducts.objects.get(unique_id=data[7][0])
+                        obj = LinedProducts.objects.get(serial_number_of_the_peak_in_the_mine=data[7][0])
                         obj.active = True
                         obj.rejected = True
                         obj.save()
@@ -469,6 +448,25 @@ def LoadedProductCreateView(request):
         result = loaded_resource.import_data(dataset, dry_run=True)  # Test the data import
         if not result.has_errors():
             loaded_resource.import_data(dataset, dry_run=False)  # Actually import now
+            for data in imported_data:
+                try:
+                    if data[7][0] == 'E':
+                        obj = ExportalProduct.objects.get(serial_number_of_the_peak_in_the_mine=data[7][0])
+                        obj.active = False
+                        obj.loaded = True
+                        obj.save()
+                    elif data[7][0] == 'D':
+                        obj = InternalProduct.objects.get(serial_number_of_the_peak_in_the_mine=data[7][0])
+                        obj.active = False
+                        obj.loaded = True
+                        obj.save()
+                    elif data[7][0] == 'L':
+                        obj = LinedProducts.objects.get(serial_number_of_the_peak_in_the_mine=data[7][0])
+                        obj.active = False
+                        obj.loaded = True
+                        obj.save()
+                except:
+                    continue
         return redirect("config:panel_home")
 
 
